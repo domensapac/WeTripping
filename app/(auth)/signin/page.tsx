@@ -1,19 +1,8 @@
-import { Architects_Daughter } from "next/font/google";
+import Link from 'next/link'
 
-const architectsDaughter = Architects_Daughter({
-  weight: '400',
-  subsets: ['latin'],
-  variable: '--font-architects',
-});
-
-export default function Login() {
+export default function SignIn() {
   return (
-    <div className="tracking-[1px] flex min-h-screen w-full text-gray-400">
-        <div className="hidden md:flex md:w-1/3 lg:w-1/2 bg-cover bg-[url('/cat_back.png')] ...">    
-        </div>
-        <div className="bg-cover bg-[url('/cat_back.png')] md:bg-none w-full md:w-2/3 lg:w-1/2 flex justify-center items-center">
-            <div className="bg-white md:bg-none w-full flex-1 m-6 md:m-12 border-1 border-white rounded-lg flex-col">
-                <span className={`flex text-xl w-full justify-center text-gray-400 ${architectsDaughter.className}`}> Welcome back! </span>
+        <div>
                 <span className="flex text-3xl p-3 mb-8 w-full justify-center text-gray-600"> Sign In </span>
                 <div className="flex justify-center items-center ">
                     <span className="hover:bg-[#F9EFE1] hover:border-gray-300 border-1 flex rounded-sm p-1 hover:cursor-pointer items-center me-1"> 
@@ -49,10 +38,8 @@ export default function Login() {
                     <button className="text-gray-600 bg-[#F9EFE1] border-gray-300 hover:cursor-pointer mt-4 px-2 py-1 border-1 rounded-sm" type="submit">
                         Sign In
                     </button>
-                    <span className="my-4">Don't have an account? <span className="hover:cursor-pointer text-gray-600">Sign up</span></span>
+                    <span className="my-4">Don't have an account? <Link href="/signup"> <span className="hover:cursor-pointer text-gray-600">Sign up</span> </Link> </span>
                 </div>
             </div>
-        </div>
-    </div>
       );
 }
