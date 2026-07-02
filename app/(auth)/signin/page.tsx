@@ -1,8 +1,18 @@
 import Link from 'next/link'
+import { login } from '../actions'
 
-export default function SignIn() {
+export default async function SignIn({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>
+}) {
+  const params = await searchParams
+  const error = params.error
+
   return (
         <div>
+            <p>{error}</p>
+            <form action={login}>
                 <span className="flex text-3xl p-3 mb-8 w-full justify-center text-gray-600"> Sign In </span>
                 <div className="flex justify-center items-center ">
                     <span className="hover:bg-[#F9EFE1] hover:border-gray-300 border-1 flex rounded-sm p-1 hover:cursor-pointer items-center me-1"> 
@@ -29,17 +39,18 @@ export default function SignIn() {
                 <div className="flex flex-col justify-center items-center m-7">
                     <div className="w-2/3 md:w-1/2 flex flex-col mb-1">
                         <label>Email</label>
-                        <input className="border-1 rounded-md p-1 text-gray-600" id="email" name="email" type="text"/>
+                        <input className="border-1 rounded-md p-1 text-gray-600" id="email" name="email" type="text" required/>
                     </div>
                     <div className="w-2/3 md:w-1/2 flex flex-col mt-1">
                         <label>Password</label>
-                        <input className="border-1 rounded-md p-1 text-gray-600" id="password" name="password" type="password"/>
+                        <input className="border-1 rounded-md p-1 text-gray-600" id="password" name="password" type="password" required/>
                     </div>
                     <button className="text-gray-600 bg-[#F9EFE1] border-gray-300 hover:cursor-pointer mt-4 px-2 py-1 border-1 rounded-sm" type="submit">
                         Sign In
                     </button>
                     <span className="my-4">Don't have an account? <Link href="/signup"> <span className="hover:cursor-pointer text-gray-700 font-semibold">Sign up</span> </Link> </span>
                 </div>
-            </div>
+            </form>
+        </div>
       );
 }

@@ -1,8 +1,17 @@
 import Link from 'next/link'
+import { signup } from '../actions'
 
-export default function SignUp() {
+export default async function SignUp({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>
+}) {
+  const params = await searchParams
+  const error = params.error
+
     return (
         <div>
+            <form action={signup}>
                 <span className="flex text-3xl p-3 mb-8 w-full justify-center text-gray-600"> Sign Up </span>
                 <div className="flex justify-center items-center ">
                     <span className="hover:bg-[#F9EFE1] hover:border-gray-300 border-1 flex rounded-sm p-1 hover:cursor-pointer items-center me-1"> 
@@ -29,21 +38,23 @@ export default function SignUp() {
                 <div className="flex flex-col justify-center items-center m-7">
                     <div className="w-2/3 md:w-1/2 flex flex-col mb-1">
                         <label>Email</label>
-                        <input className="border-1 rounded-md p-1 text-gray-600" id="email" name="email" type="text"/>
+                        <input className="border-1 rounded-md p-1 text-gray-600" id="email" name="email" type="text" required/>
                     </div>
                     <div className="w-2/3 md:w-1/2 flex flex-col mt-1">
                         <label>Password</label>
-                        <input className="border-1 rounded-md p-1 text-gray-600" id="password" name="password" type="password"/>
+                        <input className="border-1 rounded-md p-1 text-gray-600" id="password" name="password" type="password" required/>
                     </div>
                     <div className="w-2/3 md:w-1/2 flex flex-col mb-1">
                         <label>Confirm Password</label>
-                        <input className="border-1 rounded-md p-1 text-gray-600" id="conf_password" name="conf_password" type="text"/>
+                        <input className="border-1 rounded-md p-1 text-gray-600" id="conf_password" name="conf_password" type="password" required/>
                     </div>
                     <button className="text-gray-600 bg-[#F9EFE1] border-gray-300 hover:cursor-pointer mt-4 px-2 py-1 border-1 rounded-sm" type="submit">
-                        Sign In
+                        Sign Up
                     </button>
-                    <span className="my-4"> Already have an account? <Link href="/signin"> <span className="hover:cursor-pointer text-gray-700 font-semibold">Sign in</span> </Link> </span>
+                    <p className="mt-4 text-center text-red-500">{error}</p>
+                    <span className="my-4"> Already have an account? <Link href="/signin"> <span className="hover:cursor-pointer text-gray-700 font-semibold">Sign In</span> </Link> </span>
                 </div>
-            </div>
+            </form>
+        </div>
       );
 }

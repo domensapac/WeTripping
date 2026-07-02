@@ -1,19 +1,45 @@
-import { createClient } from "@/lib/supabase/server"
+'use server'
 
-async function signUpNewUser() {
-  const { data, error } = await supabase.auth.signUp({
-    email: 'valid.email@supabase.io',
-    password: 'example-password',
-    options: {
-      emailRedirectTo: 'https://example.com/welcome',
-    },
-  })
+import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
+import { createClient } from '@/lib/supabase/server'
+
+export async function signup(formData: FormData) {
+  const supabase = await createClient()
+
+  const email = formData.get('email') as string
+  const password = formData.get('password') as string
+
+  const data = await supabase.auth.signUp({ email, password }); 
+  const error = data.error; 
+
+  if (error) {
+    redirect(`/signup?error=${encodeURIComponent(error.message)}`)
+  }
+
+  revalidatePath('/signin', 'layout')
+  redirect('/signin')
 }
 
+export async function login(formData: FormData) {
+  const supabase = await createClient()
 
-async function signInWithEmail() {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: 'valid.email@supabase.io',
-    password: 'example-password',
-  })
+  const email = formData.get('email') as string
+  const password = formData.get('password') as string
+
+  const { error } = await supabase.auth.signInWithPassword({ email, password })
+
+  if (error) {
+    redirect(`/signin?error=${encodeURIComponent(error.message)}`)
+  }
+
+  revalidatePath('/', 'layout')
+  redirect('/')
+}
+
+export async function logout() {
+  const supabase = await createClient()
+  await supabase.auth.signOut()
+  revalidatePath('/', 'layout')
+  redirect('/signin')
 }
