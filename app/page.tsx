@@ -2,6 +2,11 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-   <h1> TEST </h1>
+    <div className="h-full">
+      <div className="flex justify-center items-center">
+        <input className="border-1 rounded-lg">
+        </input>
+      </div>
+    </div>
   );
 }

@@ -38,7 +38,7 @@ export default function SignIn() {
                     <button className="text-gray-600 bg-[#F9EFE1] border-gray-300 hover:cursor-pointer mt-4 px-2 py-1 border-1 rounded-sm" type="submit">
                         Sign In
                     </button>
-                    <span className="my-4">Don't have an account? <Link href="/signup"> <span className="hover:cursor-pointer text-gray-600">Sign up</span> </Link> </span>
+                    <span className="my-4">Don't have an account? <Link href="/signup"> <span className="hover:cursor-pointer text-gray-700 font-semibold">Sign up</span> </Link> </span>
                 </div>
             </div>
       );

@@ -3,7 +3,7 @@ import Link from 'next/link'
 export default function SignUp() {
     return (
         <div>
-                <span className="flex text-3xl p-3 mb-8 w-full justify-center text-gray-600"> Sign In </span>
+                <span className="flex text-3xl p-3 mb-8 w-full justify-center text-gray-600"> Sign Up </span>
                 <div className="flex justify-center items-center ">
                     <span className="hover:bg-[#F9EFE1] hover:border-gray-300 border-1 flex rounded-sm p-1 hover:cursor-pointer items-center me-1"> 
                         <svg className="p-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="18px" height="18px">
@@ -35,10 +35,14 @@ export default function SignUp() {
                         <label>Password</label>
                         <input className="border-1 rounded-md p-1 text-gray-600" id="password" name="password" type="password"/>
                     </div>
+                    <div className="w-2/3 md:w-1/2 flex flex-col mb-1">
+                        <label>Confirm Password</label>
+                        <input className="border-1 rounded-md p-1 text-gray-600" id="conf_password" name="conf_password" type="text"/>
+                    </div>
                     <button className="text-gray-600 bg-[#F9EFE1] border-gray-300 hover:cursor-pointer mt-4 px-2 py-1 border-1 rounded-sm" type="submit">
                         Sign In
                     </button>
-                    <span className="my-4">Don't have an account? <Link href="/signup"> <span className="hover:cursor-pointer text-gray-600">Sign up</span> </Link> </span>
+                    <span className="my-4"> Already have an account? <Link href="/signin"> <span className="hover:cursor-pointer text-gray-700 font-semibold">Sign in</span> </Link> </span>
                 </div>
             </div>
       );

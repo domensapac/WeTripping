@@ -7,7 +7,7 @@ const architectsDaughter = Architects_Daughter({
   variable: '--font-architects',
 });
 
-export default function AuthLayout({
+export default async function AuthLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
