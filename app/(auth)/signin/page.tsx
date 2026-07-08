@@ -36,7 +36,7 @@ export default async function SignIn({
                     <span className="px-3 text-sm text-gray-400">OR</span>
                     <div className="flex-1 border-t border-gray-300"></div>
                 </div>
-                <div className="flex flex-col justify-center items-center m-7">
+                <div className="flex flex-col justify-center items-center m-7 ">
                     <div className="w-2/3 md:w-1/2 flex flex-col mb-1">
                         <label>Email</label>
                         <input className="border-1 rounded-md p-1 text-gray-600" id="email" name="email" type="text" required/>
@@ -45,11 +45,14 @@ export default async function SignIn({
                         <label>Password</label>
                         <input className="border-1 rounded-md p-1 text-gray-600" id="password" name="password" type="password" required/>
                     </div>
+                    <div className="">
+                        <Link href=""><span className="text-gray-600 hover:cursor-pointer">Forgotten your password?</span> </Link>
+                    </div>
                     <button className="text-gray-600 bg-[#F9EFE1] border-gray-300 hover:cursor-pointer mt-4 px-2 py-1 border-1 rounded-sm" type="submit">
                         Sign In
                     </button>
                     <span className="my-4">Don't have an account? <Link href="/signup"> <span className="hover:cursor-pointer text-gray-700 font-semibold">Sign up</span> </Link> </span>
-                    <span> {error} </span>
+                    <span className="mt-2 text-red-500 font-semibold"> {error} </span>
                 </div>
             </form>
         </div>

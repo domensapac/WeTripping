@@ -52,8 +52,8 @@ export default async function SignUp({
                         Sign Up
                     </button>
                     <span className="my-4"> Already have an account? <Link href="/signin"> <span className="hover:cursor-pointer text-gray-700 font-semibold">Sign In</span> </Link> </span>
+                    <span className="mt-2 text-red-500 font-semibold"> {error} </span>
                 </div>
-                <span> {error} </span>
             </form>
         </div>
       );
