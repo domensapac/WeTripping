@@ -49,6 +49,7 @@ export default async function SignIn({
                         Sign In
                     </button>
                     <span className="my-4">Don't have an account? <Link href="/signup"> <span className="hover:cursor-pointer text-gray-700 font-semibold">Sign up</span> </Link> </span>
+                    <span> {error} </span>
                 </div>
             </form>
         </div>

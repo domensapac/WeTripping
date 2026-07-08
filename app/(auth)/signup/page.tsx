@@ -2,12 +2,12 @@ import Link from 'next/link'
 import { signup } from '../actions'
 
 export default async function SignUp({
-  searchParams,
+    searchParams,
 }: {
-  searchParams: Promise<{ error?: string }>
+    searchParams: Promise<{ error?: string }>
 }) {
-  const params = await searchParams
-  const error = params.error
+    const params = await searchParams
+    const error = params.error
 
     return (
         <div>
@@ -51,9 +51,9 @@ export default async function SignUp({
                     <button className="text-gray-600 bg-[#F9EFE1] border-gray-300 hover:cursor-pointer mt-4 px-2 py-1 border-1 rounded-sm" type="submit">
                         Sign Up
                     </button>
-                    <p className="mt-4 text-center text-red-500">{error}</p>
                     <span className="my-4"> Already have an account? <Link href="/signin"> <span className="hover:cursor-pointer text-gray-700 font-semibold">Sign In</span> </Link> </span>
                 </div>
+                <span> {error} </span>
             </form>
         </div>
       );
