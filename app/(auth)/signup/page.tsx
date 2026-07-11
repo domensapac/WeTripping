@@ -1,5 +1,8 @@
 import Link from 'next/link'
 import { signup } from '../actions'
+import { Toaster } from 'sonner'
+import ErrorToast from '@/components/ErrorToast'
+
 
 export default async function SignUp({
     searchParams,
@@ -35,25 +38,31 @@ export default async function SignUp({
                     <span className="px-3 text-sm text-gray-400">OR</span>
                     <div className="flex-1 border-t border-gray-300"></div>
                 </div>
-                <div className="flex flex-col justify-center items-center m-7">
-                    <div className="w-2/3 md:w-1/2 flex flex-col mb-1">
-                        <label>Email</label>
-                        <input className="border-1 rounded-md p-1 text-gray-600" id="email" name="email" type="text" required/>
-                    </div>
-                    <div className="w-2/3 md:w-1/2 flex flex-col mt-1">
-                        <label>Password</label>
-                        <input className="border-1 rounded-md p-1 text-gray-600" id="password" name="password" type="password" required/>
-                    </div>
-                    <div className="w-2/3 md:w-1/2 flex flex-col mb-1">
-                        <label>Confirm Password</label>
-                        <input className="border-1 rounded-md p-1 text-gray-600" id="conf_password" name="conf_password" type="password" required/>
+                <div className="flex flex-col justify-center items-center sm:m-7">
+                    <div className="w-2/3 lg:w-1/2">
+                        <div className="flex flex-col mb-1">
+                            <label>Email</label>
+                            <input className="border-1 rounded-md p-1 text-gray-600" id="email" name="email" type="text" required/>
+                        </div>
+                        <div className="flex flex-col mt-1">
+                            <label>Password</label>
+                            <input className="border-1 rounded-md p-1 text-gray-600" id="password" name="password" type="password" required/>
+                        </div>
+                        <div className="flex flex-col mb-1">
+                            <label>Confirm Password</label>
+                            <input className="border-1 rounded-md p-1 text-gray-600" id="conf_password" name="conf_password" type="password" required/>
+                        </div>
+                        <div className="my-2">
+                            <Link href="/"> <span className="hover:underline text-gray-800 text-sm"> Forgotten your password?</span></Link>
+                        </div>
                     </div>
                     <button className="text-gray-600 bg-[#F9EFE1] border-gray-300 hover:cursor-pointer mt-4 px-2 py-1 border-1 rounded-sm" type="submit">
                         Sign Up
                     </button>
-                    <span className="my-4"> Already have an account? <Link href="/signin"> <span className="hover:cursor-pointer text-gray-700 font-semibold">Sign In</span> </Link> </span>
-                    <span className="mt-2 text-red-500 font-semibold"> {error} </span>
+                    <span className="mt-8"> Already have an account? <Link href="/signin"> <span className="hover:cursor-pointer text-gray-700 font-semibold">Sign In</span> </Link> </span>
                 </div>
+                <Toaster />
+                <ErrorToast error={error} />
             </form>
         </div>
       );
