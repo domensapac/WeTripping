@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import { login } from '../actions'
+import { Toaster } from 'sonner'
+import ErrorToast from '@/components/ErrorToast'
 
 export default async function SignIn({
   searchParams,
@@ -11,7 +13,6 @@ export default async function SignIn({
 
   return (
         <div>
-            <p>{error}</p>
             <form action={login}>
                 <span className="flex text-3xl p-3 mb-8 w-full justify-center text-gray-600"> Sign In </span>
                 <div className="flex justify-center items-center ">
@@ -48,8 +49,9 @@ export default async function SignIn({
                     <button className="text-gray-600 bg-[#F9EFE1] border-gray-300 hover:cursor-pointer mt-4 px-2 py-1 border-1 rounded-sm" type="submit">
                         Sign In
                     </button>
-                    <span className="my-4">Don't have an account? <Link href="/signup"> <span className="hover:cursor-pointer text-gray-700 font-semibold">Sign up</span> </Link> </span>
-                    <span> {error} </span>
+                    <span className="mt-8">Don't have an account? <Link href="/signup"> <span className="hover:cursor-pointer text-gray-700 font-semibold">Sign up</span> </Link> </span>
+                    <Toaster />
+                    <ErrorToast error={error} />
                 </div>
             </form>
         </div>
