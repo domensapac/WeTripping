@@ -1,5 +1,7 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
+import { logout } from './app/(auth)/actions'
+
 
 export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request })
@@ -28,6 +30,13 @@ export async function proxy(request: NextRequest) {
   const {
     data: { user },
   } = await supabase.auth.getUser()
+
+
+  if(user && (request.nextUrl.pathname.startsWith('/signin') || request.nextUrl.pathname.startsWith('/signup'))){
+    await supabase.auth.signOut(); 
+    return NextResponse.redirect(request.nextUrl.clone()); 
+  }
+
 
   // zaščiti vse razen /signin, /signup in statičnih datotek
   if (

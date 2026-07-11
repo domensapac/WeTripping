@@ -43,3 +43,7 @@ export async function logout() {
   revalidatePath('/', 'layout')
   redirect('/signin')
 }
+
+export async function createTrip(formData : FormData) {
+  console.log(formData); 
+}
