@@ -11,7 +11,7 @@ export default async function SignUp({
 }) {
     const params = await searchParams
     const error = params.error
-
+    
     return (
         <div>
             <form action={signup}>

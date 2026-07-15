@@ -44,6 +44,40 @@ export async function logout() {
   redirect('/signin')
 }
 
-export async function createTrip(formData : FormData) {
-  console.log(formData); 
+type TripData = {
+  destination : string; 
+  startDate : string; 
+  endDate : string; 
+}; 
+
+export async function createTrip(data : TripData) {
+  const supabase = await createClient()
+  const { data: userData, error: userError } = await supabase.auth.getUser();
+
+  const { data : trip, error } = await supabase
+    .from('trips')
+    .insert({
+      name : data.destination,
+      start_date : data.startDate,
+      end_date : data.endDate
+    })
+    .select()
+    .single();
+
+  if(error)
+    throw new Error(error.message);
+
+  const { error: travellerError } = await supabase
+    .from('trip_travellers')
+    .insert({
+      trip_id: trip.id,
+      user_id: userData.user.id,
+      role: 'organizer',
+    });
+
+  if (travellerError) {
+    throw new Error(travellerError.message);
+  }
+
+  return trip;
 }
