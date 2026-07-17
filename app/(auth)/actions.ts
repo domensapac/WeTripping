@@ -33,8 +33,8 @@ export async function login(formData: FormData) {
     redirect(`/signin?error=${encodeURIComponent(error.message)}`)
   }
 
-  revalidatePath('/', 'layout')
-  redirect('/')
+  revalidatePath('/trips/new', 'layout')
+  redirect('/trips/new')
 }
 
 export async function logout() {
@@ -54,7 +54,10 @@ export async function createTrip(data : TripData) {
   const supabase = await createClient()
   const { data: userData, error: userError } = await supabase.auth.getUser();
 
-  const { data : trip, error } = await supabase
+  if(userError)
+    throw new Error(userError.message); 
+
+  const { data : trip, error: tripError } = await supabase
     .from('trips')
     .insert({
       name : data.destination,
@@ -64,8 +67,8 @@ export async function createTrip(data : TripData) {
     .select()
     .single();
 
-  if(error)
-    throw new Error(error.message);
+  if(tripError)
+    throw new Error(tripError.message);
 
   const { error: travellerError } = await supabase
     .from('trip_travellers')
@@ -75,9 +78,9 @@ export async function createTrip(data : TripData) {
       role: 'organizer',
     });
 
-  if (travellerError) {
+  if (travellerError) 
     throw new Error(travellerError.message);
-  }
-
-  return trip;
+  
+  redirect('/');
 }
+
