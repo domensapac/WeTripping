@@ -7,18 +7,16 @@ import { addDays } from "date-fns"
 import { type DateRange } from "react-day-picker"
 import DestinationStep from "./_components/DestinationStep";
 import DatesStep from "./_components/DatesStep";
-
-
-type TripData = {
-  destination : string; 
-  startDate : string; 
-  endDate : string; 
-}; 
-
+import SuccessPage from "./SuccessPage";
 
 export default function NewTrip() {
 
   async function handleSubmit() {
+
+    if(!destination || !date?.from || !date?.to){
+      return;
+    }
+
     const tripData = {
       destination,
       startDate: date?.from?.toISOString() ?? '',
@@ -26,7 +24,8 @@ export default function NewTrip() {
     }
      
     try{
-      await createTrip(tripData);
+      const trip = await createTrip(tripData);
+      setStep('success'); 
 
     }catch(err){
       console.error('Napaka', err);
@@ -52,4 +51,10 @@ export default function NewTrip() {
       <DatesStep date={date} setDate={setDate} setStep={setStep } handleSubmit={handleSubmit}/>
     );
   }  
+
+  if(step == 'success'){
+    return(
+      <SuccessPage destination={destination} dates={date}/>
+    )
+  }
 }

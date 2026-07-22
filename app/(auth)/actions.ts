@@ -37,6 +37,39 @@ export async function login(formData: FormData) {
   redirect('/trips/new')
 }
 
+export async function resetPassword(formData: FormData){
+  const supabase = await createClient()
+
+  const email = formData.get('email') as string
+
+  const { data, error } = await supabase.auth
+    .resetPasswordForEmail(email,
+    {redirectTo : '/new-password'})
+
+  if(error){
+    console.log("error")
+  }
+
+}
+
+export async function updatePassword(formData: FormData){
+  const supabase = await createClient()
+
+  const newPassword = formData.get('password') as string
+  const repeatPassword = formData.get('repeatPassword') as string 
+
+  const { data, error } = await supabase.auth.updateUser({
+    password: newPassword
+  })
+
+  if(error){
+    console.log("error")
+  }
+
+  revalidatePath('/', 'layout')
+  redirect('/signin')
+}
+
 export async function logout() {
   const supabase = await createClient()
   await supabase.auth.signOut()
@@ -81,6 +114,8 @@ export async function createTrip(data : TripData) {
   if (travellerError) 
     throw new Error(travellerError.message);
   
-  redirect('/');
+  //redirect('/');
+
+  return trip; 
 }
 
