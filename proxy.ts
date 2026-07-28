@@ -38,12 +38,14 @@ export async function proxy(request: NextRequest) {
   }
 
 
-  // zaščiti vse razen /signin, /signup, /reset-password in statičnih datotek
+  // zaščiti vse razen /signin, /signup, /reset-password, /new-password, /confirm  in statičnih datotek
   if (
     !user &&
     !request.nextUrl.pathname.startsWith('/signin') &&
     !request.nextUrl.pathname.startsWith('/signup') && 
-    !request.nextUrl.pathname.startsWith('/reset-password')
+    !request.nextUrl.pathname.startsWith('/reset-password') &&
+    !request.nextUrl.pathname.startsWith('/new-password') && 
+    !request.nextUrl.pathname.startsWith('/confirm')
   ) {
     const url = request.nextUrl.clone()
     url.pathname = '/signin'

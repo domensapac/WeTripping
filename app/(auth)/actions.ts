@@ -42,9 +42,9 @@ export async function resetPassword(formData: FormData){
 
   const email = formData.get('email') as string
 
-  const { data, error } = await supabase.auth
-    .resetPasswordForEmail(email,
-    {redirectTo : '/new-password'})
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: 'http://localhost:3000/confirm?next=/new-password',
+  })
 
   if(error){
     console.log("error")
@@ -58,12 +58,20 @@ export async function updatePassword(formData: FormData){
   const newPassword = formData.get('password') as string
   const repeatPassword = formData.get('repeatPassword') as string 
 
+  if(newPassword != repeatPassword){
+    console.log("ERROR")
+    return
+  }
+
   const { data, error } = await supabase.auth.updateUser({
     password: newPassword
   })
 
   if(error){
-    console.log("error")
+    console.log(error)
+  }
+  else{
+    console.log(data);
   }
 
   revalidatePath('/', 'layout')

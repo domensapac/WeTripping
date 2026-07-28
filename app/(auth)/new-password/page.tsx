@@ -1,4 +1,4 @@
-import { resetPassword } from "../actions";
+import { resetPassword, updatePassword } from "../actions";
 import Link from 'next/link'
 
 export default function NewPassword(){
@@ -9,11 +9,11 @@ export default function NewPassword(){
                 <div className="flex flex-col justify-center items-center sm:m-7 ">
                     <div className="w-2/3 lg:w-1/2">
                         <div className="flex flex-col mt-1 text-black">
-                            <label>Password</label>
+                            <label>New Password</label>
                             <input className="border-1 rounded-md p-1 text-gray-600" id="password" name="password" type="password" required/>
                         </div>
                         <div className="flex flex-col mt-1 text-black">
-                            <label>New password</label>
+                            <label>Repeat new password</label>
                             <input className="border-1 rounded-md p-1 text-gray-600" id="repeatPassowrd" name="repeatPassword" type="password" required/>
                         </div>
                     </div>
