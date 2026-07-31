@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { login } from '../actions'
-import { Toaster } from 'sonner'
 import ErrorToast from '@/components/ErrorToast'
 
 export default async function SignIn({
@@ -14,6 +13,7 @@ export default async function SignIn({
   return (
         <div>
             <form action={login}>
+                <ErrorToast error={error} />
                 <span className="flex text-3xl p-3 mb-8 w-full justify-center text-black"> Sign In </span>
                 <div className="flex justify-center items-center ">
                     <span className="hover:bg-[#F9EFE1] hover:border-gray-300 border-1 flex rounded-sm p-1 hover:cursor-pointer items-center me-1 text-gray-700"> 
@@ -55,8 +55,6 @@ export default async function SignIn({
                         Sign In
                     </button>
                     <span className="mt-8 mb-2">Don't have an account? <Link href="/signup"> <span className="hover:cursor-pointer text-gray-700 font-semibold">Sign up</span> </Link> </span>
-                    <Toaster />
-                    <ErrorToast error={error} />
                 </div>
             </form>
         </div>

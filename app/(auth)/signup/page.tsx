@@ -15,6 +15,7 @@ export default async function SignUp({
     return (
         <div>
             <form action={signup}>
+                <ErrorToast error={error} />
                 <span className="flex text-3xl p-3 mb-8 w-full justify-center text-black"> Sign Up </span>
                 <div className="flex justify-center items-center ">
                     <span className="hover:bg-[#F9EFE1] hover:border-gray-300 border-1 flex rounded-sm p-1 hover:cursor-pointer items-center me-1 text-gray-700"> 
@@ -50,7 +51,7 @@ export default async function SignUp({
                         </div>
                         <div className="flex flex-col mb-1 text-black">
                             <label>Confirm Password</label>
-                            <input className="border-1 rounded-md p-1 text-gray-600" id="conf_password" name="conf_password" type="password" required/>
+                            <input className="border-1 rounded-md p-1 text-gray-600" id="confirmPassword" name="confirmPassword" type="password" required/>
                         </div>
                     </div>
                     <button className="text-black hover:cursor-pointer mt-4 px-2 py-1 border-1 rounded-sm" type="submit">
@@ -58,8 +59,6 @@ export default async function SignUp({
                     </button>
                     <span className="mt-8 mb-2"> Already have an account? <Link href="/signin"> <span className="hover:cursor-pointer text-gray-700 font-semibold">Sign In</span> </Link> </span>
                 </div>
-                <Toaster />
-                <ErrorToast error={error} />
             </form>
         </div>
       );

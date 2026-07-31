@@ -1,10 +1,18 @@
 import { resetPassword } from "../actions";
-import Link from 'next/link'
+import InfoToast from "@/components/InfoToast";
 
-export default function ResetPassword(){
+export default async function ResetPassword({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>
+}) {
+  const params = await searchParams
+  const error = params.error
+
     return(
         <div>
             <form action={resetPassword}>
+                <InfoToast error={error} />
                 <span className="flex text-3xl p-3 mb-8 w-full justify-center text-black"> Reset your password </span>
                 <div className="flex flex-col justify-center items-center sm:m-7 ">
                     <div className="w-2/3 lg:w-1/2">

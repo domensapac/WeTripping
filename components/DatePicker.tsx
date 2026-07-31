@@ -35,13 +35,14 @@ export function DatePickerWithRange({date, setDate} : DatePickerProps) {
           ) : (
             <span>Pick a date</span>
           )}</Button>} />
-        <PopoverContent className="w-auto p-0" align="start"   side="bottom">
+        <PopoverContent className="w-auto p-0" align="start" side="bottom">
           <Calendar
             mode="range"
             defaultMonth={date?.from}
             selected={date}
             onSelect={setDate}
             numberOfMonths={1}
+            disabled={{ before: new Date() }}
           />
         </PopoverContent>
       </Popover>

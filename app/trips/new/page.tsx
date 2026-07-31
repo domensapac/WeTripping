@@ -1,6 +1,6 @@
 'use client';
 
-import { createTrip, logout } from "@/app/(auth)/actions";
+import { createTrip } from "../actions";
 import { useState } from "react";
 import * as React from "react"
 import { addDays } from "date-fns"
@@ -30,14 +30,13 @@ export default function NewTrip() {
     }catch(err){
       console.error('Napaka', err);
     }
-
   }
 
   const [destination, setDestination] = useState<string>(''); 
   const [step, setStep] = useState<string>('destination'); 
   const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(new Date().getFullYear(), 0, 20),
-    to: addDays(new Date(new Date().getFullYear(), 0, 20), 20),
+    from: new Date,
+    to: addDays(new Date(), 20),
   })
   
   if(step === 'destination'){

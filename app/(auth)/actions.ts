@@ -9,9 +9,13 @@ export async function signup(formData: FormData) {
 
   const email = formData.get('email') as string
   const password = formData.get('password') as string
+  const confirmPassword = formData.get('confirmPassword') as string
 
-  const data = await supabase.auth.signUp({ email, password }); 
-  const error = data.error; 
+  if(password !== confirmPassword){
+    redirect(`/signup?error=${encodeURIComponent('Passwords must match')}`)
+  }
+
+  const { error } = await supabase.auth.signUp({ email, password }); 
 
   if (error) {
     redirect(`/signup?error=${encodeURIComponent(error.message)}`)
@@ -42,14 +46,15 @@ export async function resetPassword(formData: FormData){
 
   const email = formData.get('email') as string
 
-  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: 'http://localhost:3000/confirm?next=/new-password',
   })
 
   if(error){
-    console.log("error")
+    redirect(`/reset-password?error=${encodeURIComponent(error.message)}`)
   }
 
+  redirect(`/reset-password?error=${encodeURIComponent('Reset link sent to your email')}`)
 }
 
 export async function updatePassword(formData: FormData){
@@ -58,20 +63,16 @@ export async function updatePassword(formData: FormData){
   const newPassword = formData.get('password') as string
   const repeatPassword = formData.get('repeatPassword') as string 
 
-  if(newPassword != repeatPassword){
-    console.log("ERROR")
-    return
+  if(newPassword !== repeatPassword){
+    redirect(`/new-password?error=${encodeURIComponent('Passwords must match')}`)
   }
 
-  const { data, error } = await supabase.auth.updateUser({
+  const { error } = await supabase.auth.updateUser({
     password: newPassword
   })
 
   if(error){
-    console.log(error)
-  }
-  else{
-    console.log(data);
+    redirect(`/new-password?error=${encodeURIComponent(error.message)}`)
   }
 
   revalidatePath('/', 'layout')
@@ -85,45 +86,4 @@ export async function logout() {
   redirect('/signin')
 }
 
-type TripData = {
-  destination : string; 
-  startDate : string; 
-  endDate : string; 
-}; 
-
-export async function createTrip(data : TripData) {
-  const supabase = await createClient()
-  const { data: userData, error: userError } = await supabase.auth.getUser();
-
-  if(userError)
-    throw new Error(userError.message); 
-
-  const { data : trip, error: tripError } = await supabase
-    .from('trips')
-    .insert({
-      name : data.destination,
-      start_date : data.startDate,
-      end_date : data.endDate
-    })
-    .select()
-    .single();
-
-  if(tripError)
-    throw new Error(tripError.message);
-
-  const { error: travellerError } = await supabase
-    .from('trip_travellers')
-    .insert({
-      trip_id: trip.id,
-      user_id: userData.user.id,
-      role: 'organizer',
-    });
-
-  if (travellerError) 
-    throw new Error(travellerError.message);
-  
-  //redirect('/');
-
-  return trip; 
-}
 

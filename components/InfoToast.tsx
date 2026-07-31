@@ -3,13 +3,13 @@
 import { useEffect, useRef } from 'react'
 import { toast } from 'sonner'
 
-export default function ErrorToast({ error }: { error?: string }) {
+export default function InfoToast({ error }: { error?: string }) {
   const shown = useRef(false)
 
   useEffect(() => {
     if (error && !shown.current) {
       shown.current = true
-      toast.error(error)
+      toast.info(error)
     }
   }, [error])
 
