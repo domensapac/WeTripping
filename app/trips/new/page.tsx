@@ -7,10 +7,15 @@ import { addDays } from "date-fns"
 import { type DateRange } from "react-day-picker"
 import DestinationStep from "./_components/DestinationStep";
 import DatesStep from "./_components/DatesStep";
-import SuccessPage from "./SuccessPage";
+import SuccessPage from "./_components/SuccessPage";
 import ConfirmationStep from "./_components/Confirmation";
 
-export default function NewTrip() {
+type PropType = {
+  step : string
+  setStep : React.Dispatch<React.SetStateAction<string>>
+}
+
+export default function NewTrip({step, setStep} : PropType) {
 
   async function handleSubmit() {
 
@@ -29,12 +34,11 @@ export default function NewTrip() {
       setStep('success'); 
 
     }catch(err){
-      console.error('Napaka', err);
+      
     }
   }
 
   const [destination, setDestination] = useState<string>(''); 
-  const [step, setStep] = useState<string>('destination'); 
   const [date, setDate] = React.useState<DateRange | undefined>({
     from: new Date,
     to: addDays(new Date(), 20),

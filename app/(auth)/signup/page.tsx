@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { signup } from '../actions'
-import { Toaster } from 'sonner'
 import ErrorToast from '@/components/ErrorToast'
 
 

@@ -1,5 +1,6 @@
-import { InputGroupIcon } from "@/components/LocationInput";
 import { DateRange } from "react-day-picker";
+import { format } from "date-fns"
+import { MoveLeft } from "lucide-react";
 
 type PropType = {
     destination : string; 
@@ -10,13 +11,32 @@ type PropType = {
 
 export default function ConfirmationStep({destination, date, setStep, handleSubmit} : PropType){
     return( 
-    <div className="tracking-[1px] min-h-screen flex bg-[#96beb5] w-full justify-center items-center text-black">
-      <div className="flex-1 m-6 h-72 flex flex-col border-1 rounded-sm justify-center items-center bg-white">
+    <div className="tracking-[1px] flex w-full text-black">
+      <div className="relative w-90 m-6 h-72 flex flex-col border-1 rounded-sm justify-center items-center bg-white">
+        <span className="hover:cursor-pointer absolute top-4 left-4" onClick={() => {setStep('dates')}}><MoveLeft /></span>
         <div className="my-3">
           <span className="text-2xl">Trip details</span>
         </div>
+        <div className="my-3 flex flex-col">
+           <div className="my-1 flex flex-col">
+              <span className="text-xs">
+                DESTINATION
+              </span>
+              <span className="text-2xl">
+                {destination}
+              </span>
+           </div>
+           <div className="my-1 flex flex-col">
+              <span className="text-xs">
+                PERIOD
+              </span>
+              <span className="text-2xl">
+                {date?.from && date?.to ? (`${format(date.from, "LLL dd, yy")} - ${" "}  ${format(date.to, "LLL dd, yy")}`) : ('Missing data')}
+              </span>
+           </div>
+        </div>
         <div className="mt-5">
-          <button className="disabled:text-gray-500 border-1 rounded-sm p-1 hover:cursor-pointer" onClick={handleSubmit} disabled={!destination}>Finish</button>
+          <button className="w-20 disabled:text-gray-500 border-1 rounded-sm p-1 hover:cursor-pointer" onClick={ () => { setStep('success'); handleSubmit}} disabled={!destination}>Finish</button>
         </div>
       </div>
     </div>
