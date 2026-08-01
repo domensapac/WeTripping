@@ -41,11 +41,11 @@ export default async function SignIn({
                     <div className="w-2/3 lg:w-1/2">
                         <div className="flex flex-col mb-1 text-black">
                             <label>Email</label>
-                            <input className="border-1 rounded-md p-1 text-gray-600" id="email" name="email" type="text" required/>
+                            <input className="border-1 rounded-md p-1 ps-2 text-gray-600" id="email" name="email" type="text" required/>
                         </div>
                         <div className="flex flex-col mt-1 text-black">
                             <label>Password</label>
-                            <input className="border-1 rounded-md p-1 text-gray-600" id="password" name="password" type="password" required/>
+                            <input className="border-1 rounded-md p-1 ps-2 text-gray-600" id="password" name="password" type="password" required/>
                         </div>
                         <div className="my-2">
                             <Link href="/reset-password"> <span className="hover:underline text-gray-600 text-sm"> Forgotten your password?</span></Link>

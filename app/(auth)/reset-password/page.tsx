@@ -18,7 +18,7 @@ export default async function ResetPassword({
                     <div className="w-2/3 lg:w-1/2">
                         <div className="flex flex-col mt-1 text-black">
                             <label>Email</label>
-                            <input className="border-1 rounded-md p-1 text-gray-600" id="email" name="email" type="email" required/>
+                            <input className="border-1 rounded-md p-1 ps-2 text-gray-600" id="email" name="email" type="email" required/>
                         </div>
                     </div>
                     <button className="text-black hover:cursor-pointer mt-7 px-2 py-1 border-1 rounded-sm" type="submit">Confirm</button>

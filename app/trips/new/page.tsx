@@ -8,6 +8,7 @@ import { type DateRange } from "react-day-picker"
 import DestinationStep from "./_components/DestinationStep";
 import DatesStep from "./_components/DatesStep";
 import SuccessPage from "./SuccessPage";
+import ConfirmationStep from "./_components/Confirmation";
 
 export default function NewTrip() {
 
@@ -45,13 +46,19 @@ export default function NewTrip() {
     );
   }
 
-  if(step == 'dates'){
+  if(step === 'dates'){
     return (
-      <DatesStep date={date} setDate={setDate} setStep={setStep } handleSubmit={handleSubmit}/>
+      <DatesStep date={date} setDate={setDate} setStep={setStep }/>
     );
   }  
 
-  if(step == 'success'){
+  if(step === 'confirmation'){
+    return (
+      <ConfirmationStep destination={destination} date={date} setStep={setStep} handleSubmit={handleSubmit}/>
+    );
+  }
+
+  if(step === 'success'){
     return(
       <SuccessPage destination={destination} dates={date}/>
     )

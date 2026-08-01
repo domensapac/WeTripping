@@ -29,7 +29,6 @@ export default function SuccessPage({destination, dates} : PropType){
                     <House />
                 </div>
             </Link>
-            
         </div>
     )
 }

@@ -8,8 +8,8 @@ type PropType = {
 
 export default function DestinationStep({destination, setDestination, setStep} : PropType){
     return( 
-    <div className="tracking-[1px] min-h-screen flex bg-[#96beb5] w-full justify-center items-center text-black">
-      <div className="flex-1 m-6 h-72 flex flex-col border-1 rounded-sm justify-center items-center bg-white">
+    <div className="tracking-[1px] min-h-screen flex bg-[#99f0ff] w-full justify-center items-center text-black">
+      <div className="flex m-6 w-90 h-72 flex-col border-1 rounded-sm justify-center items-center bg-white">
         <div className="my-3">
           <span className="text-2xl">Where to?</span>
         </div>

@@ -43,15 +43,15 @@ export default async function SignUp({
                     <div className="w-2/3 lg:w-1/2">
                         <div className="flex flex-col mb-1 text-black">
                             <label>Email</label>
-                            <input className="border-1 rounded-md p-1 text-gray-600" id="email" name="email" type="text" required/>
+                            <input className="border-1 rounded-md p-1 ps-2 text-gray-600" id="email" name="email" type="text" required/>
                         </div>
                         <div className="flex flex-col mt-1 text-black">
                             <label>Password</label>
-                            <input className="border-1 rounded-md p-1 text-gray-600" id="password" name="password" type="password" required/>
+                            <input className="border-1 rounded-md p-1 ps-2 text-gray-600" id="password" name="password" type="password" required/>
                         </div>
                         <div className="flex flex-col mb-1 text-black">
                             <label>Confirm Password</label>
-                            <input className="border-1 rounded-md p-1 text-gray-600" id="confirmPassword" name="confirmPassword" type="password" required/>
+                            <input className="border-1 rounded-md p-1 ps-2 text-gray-600" id="confirmPassword" name="confirmPassword" type="password" required/>
                         </div>
                     </div>
                     <button className="text-black hover:cursor-pointer mt-4 px-2 py-1 border-1 rounded-sm" type="submit">
