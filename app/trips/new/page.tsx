@@ -1,6 +1,6 @@
 'use client';
 
-import { createTrip } from "../actions";
+import { createInvite, createTrip } from "../actions";
 import { useState } from "react";
 import * as React from "react"
 import { addDays } from "date-fns"
@@ -18,7 +18,8 @@ type PropType = {
 export default function NewTrip({step, setStep} : PropType) {
 
   async function handleSubmit() {
-
+    console.log("HALO");
+    
     if(!destination || !date?.from || !date?.to){
       return;
     }
@@ -31,13 +32,19 @@ export default function NewTrip({step, setStep} : PropType) {
      
     try{
       const trip = await createTrip(tripData);
+
+      const inviteLink = await createInvite(trip.id); 
+
+
+      setInvite(inviteLink); 
       setStep('success'); 
 
     }catch(err){
-      
+      console.log(err);
     }
   }
 
+  const [invite, setInvite] = useState<string>('')
   const [destination, setDestination] = useState<string>(''); 
   const [date, setDate] = React.useState<DateRange | undefined>({
     from: new Date,
@@ -64,7 +71,7 @@ export default function NewTrip({step, setStep} : PropType) {
 
   if(step === 'success'){
     return(
-      <SuccessPage destination={destination} dates={date}/>
+      <SuccessPage destination={destination} dates={date} inviteLink={invite}/>
     )
   }
 }

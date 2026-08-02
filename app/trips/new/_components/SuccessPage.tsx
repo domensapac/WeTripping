@@ -1,29 +1,38 @@
 'use client'
 
-import { CheckCheck } from 'lucide-react';
 import { DateRange } from 'react-day-picker';
 import { format } from "date-fns";
 import { House } from 'lucide-react';
 import Link from 'next/link'
+import { Copy } from 'lucide-react';
 
 type PropType = {
     destination : string; 
-    dates : DateRange | undefined
+    dates : DateRange | undefined;
+    inviteLink : string;
 }
 
-export default function SuccessPage({destination, dates} : PropType){
+export default function SuccessPage({destination, dates, inviteLink} : PropType){
+
     return (
         <div className="tracking-[1px] flex w-full text-black">
             <div className="flex m-6 w-90 h-72 flex-col border-1 rounded-sm justify-center items-center bg-white">
                 <div className="text-3xl">
-                    <span className="flex text-center items-center ms-3"> <CheckCheck className="mx-2"/> Trip created!</span>
+                    <span className="ms-3">Trip created!</span>
                 </div>
                 <div className="my-4 text-xl">
-                    <span> {destination}, </span>
+                    <span> {destination} </span>
+                    <span className="text-blue-500"> {dates?.from && dates?.to ? `${format(dates.from, "yy")}` : "Ni izbranih datumov"} </span>
+                </div>
+                <div>
                     <span> {dates?.from && dates?.to ? `${format(dates.from, "d. M. yy")} - ${format(dates.to, "d. M. yy")}` : "Ni izbranih datumov"} </span>
                 </div>
                 <div className="my-4 hover:underline">
                     Invite others
+                </div>
+                <div className="w-85 flex items-center border-1">
+                    <span className="w-85 text-xs truncate">{inviteLink}</span>
+                    <Copy className="hover:cursor-pointer active:scale-85" />
                 </div>
                 <Link href="/">
                     <div className="mt-5 border-1 p-2 rounded-sm mt-5">

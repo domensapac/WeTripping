@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { randomBytes } from 'node:crypto';
 
 type TripData = {
   destination : string; 
@@ -41,7 +42,35 @@ export async function createTrip(data : TripData) {
   if (travellerError) 
     throw new Error(travellerError.message);
   
-  //redirect('/');
-
   return trip; 
+}
+
+export async function createInvite(tripId:  number){
+  const supabase = await createClient()
+  const { data: userData, error: userError } = await supabase.auth.getUser();
+
+  if(userError)
+    throw new Error(userError.message);
+
+  let inviteCode = generateInviteCode(); 
+
+  const { data : invite, error: inviteError } = await supabase
+    .from('invites')
+    .insert({
+      trip_id : tripId,
+      created_by : userData.user.id,
+      invite_code : inviteCode
+    })
+    .select()
+    .single();
+
+  if(inviteError){
+    console.log(inviteError); 
+  }
+
+  return `http://localhost:3000/join/${inviteCode}`
+}
+
+function generateInviteCode(): string {
+  return randomBytes(4).toString('hex');
 }

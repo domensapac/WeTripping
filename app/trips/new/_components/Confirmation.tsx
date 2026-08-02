@@ -36,7 +36,7 @@ export default function ConfirmationStep({destination, date, setStep, handleSubm
            </div>
         </div>
         <div className="mt-5">
-          <button className="w-23 border-black border-1 rounded-sm p-1 hover:cursor-pointer" onClick={ () => { setStep('success'); handleSubmit}} disabled={!destination}>Finish</button>
+          <button className="w-23 border-black border-1 rounded-sm p-1 hover:cursor-pointer" onClick={ () => { handleSubmit()}} disabled={!destination}>Finish</button>
         </div>
       </div>
     </div>
