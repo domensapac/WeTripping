@@ -20,7 +20,7 @@ export default function DatesStep({date, setDate, setStep} : PropType){
             <DatePickerWithRange date={date} setDate={setDate}/>
           </div>
           <div className="mt-5">
-            <button className="w-20 disabled:text-gray-500 border-1 rounded-sm p-1 hover:cursor-pointer w-18" onClick={() => setStep('confirmation')} disabled={!date}>Continue</button>
+            <button className="w-23 text-black border-1 border-black rounded-sm p-1 hover:cursor-pointer w-18" onClick={() => setStep('confirmation')} disabled={!date}>Continue</button>
           </div>
         </div>
       </div>
