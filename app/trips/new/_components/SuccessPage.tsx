@@ -14,6 +14,10 @@ type PropType = {
 
 export default function SuccessPage({destination, dates, inviteLink} : PropType){
 
+    function handleCopy() {
+        navigator.clipboard.writeText(inviteLink);
+    }
+
     return (
         <div className="tracking-[1px] flex w-full text-black">
             <div className="flex m-6 w-90 h-72 flex-col border-1 rounded-sm justify-center items-center bg-white">
@@ -27,12 +31,9 @@ export default function SuccessPage({destination, dates, inviteLink} : PropType)
                 <div>
                     <span> {dates?.from && dates?.to ? `${format(dates.from, "d. M. yy")} - ${format(dates.to, "d. M. yy")}` : "Ni izbranih datumov"} </span>
                 </div>
-                <div className="my-4 hover:underline">
-                    Invite others
-                </div>
                 <div className="w-85 flex items-center border-1">
                     <span className="w-85 text-xs truncate">{inviteLink}</span>
-                    <Copy className="hover:cursor-pointer active:scale-85" />
+                    <Copy className="hover:cursor-pointer active:scale-85" onClick={handleCopy}/>
                 </div>
                 <Link href="/">
                     <div className="mt-5 border-1 p-2 rounded-sm mt-5">

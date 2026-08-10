@@ -68,9 +68,69 @@ export async function createInvite(tripId:  number){
     console.log(inviteError); 
   }
 
-  return `http://localhost:3000/join/${inviteCode}`
+  return `http://localhost:3000/trips/join/${inviteCode}`
 }
 
 function generateInviteCode(): string {
   return randomBytes(4).toString('hex');
+}
+
+export async function getInviteData(code : string) {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from('invites')
+    .select('*')
+    .eq('invite_code', code)
+    .maybeSingle();
+
+  if(error){
+    console.log("error"); 
+  }
+
+  if(data){ //invite obstaja
+    const { data: { user } } = await supabase.auth.getUser() 
+
+    if(user?.id == data?.created_by){
+      //redirect('/home')
+    }
+
+    return data; 
+  }
+}
+
+export async function getTripData(trip_id : string){
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from('trips')
+    .select('*')
+    .eq('id', trip_id)
+    .maybeSingle();
+
+  if(error){
+    console.log("error"); 
+  }
+
+  return data;
+}
+
+export async function getUserData(user_id : string){
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from('users')
+    .select('*')
+    .eq('id', user_id)
+    .maybeSingle();
+
+  if(error){
+    console.log("error"); 
+  }
+
+  return data;
+}
+
+export async function joinTrip(){
+  
 }
