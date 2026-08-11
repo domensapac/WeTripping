@@ -24,16 +24,19 @@ export default function SuccessPage({destination, dates, inviteLink} : PropType)
                 <div className="text-3xl">
                     <span className="ms-3">Trip created!</span>
                 </div>
-                <div className="my-4 text-xl">
+                <div className="my-2 text-xl">
                     <span> {destination} </span>
                     <span className="text-blue-500"> {dates?.from && dates?.to ? `${format(dates.from, "yy")}` : "Ni izbranih datumov"} </span>
                 </div>
-                <div>
-                    <span> {dates?.from && dates?.to ? `${format(dates.from, "d. M. yy")} - ${format(dates.to, "d. M. yy")}` : "Ni izbranih datumov"} </span>
+                <div className="my-2">
+                    <span>Now let's invite your friends</span>
                 </div>
-                <div className="w-85 flex items-center border-1">
-                    <span className="w-85 text-xs truncate">{inviteLink}</span>
-                    <Copy className="hover:cursor-pointer active:scale-85" onClick={handleCopy}/>
+                <div className="my-2 flex flex-col">
+                    <span className="text-xs">Invite by link</span>        
+                    <div className="flex items-center border-1">
+                        <span className="w-60 text-xs truncate">{inviteLink}</span>
+                        <Copy className="hover:cursor-pointer active:scale-85" onClick={handleCopy}/>
+                    </div>
                 </div>
                 <Link href="/">
                     <div className="mt-5 border-1 p-2 rounded-sm mt-5">

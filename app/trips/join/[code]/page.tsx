@@ -29,6 +29,8 @@ export default async function Page({ params } : PropType) {
                                 <button type="submit">
                                     Join
                                 </button>
+                                <input className="hidden" id="trip_code" name="trip_code" type="text" value={code} readOnly/>
+                                <input className="hidden" id="trip_id" name="trip_id" type="text" value={invite.trip_id} readOnly/>
                             </div>
                         </div>
                     </form>
