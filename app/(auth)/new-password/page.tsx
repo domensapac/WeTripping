@@ -1,18 +1,22 @@
-import InfoToast from "@/components/InfoToast";
-import { updatePassword } from "../actions";
+'use client'
 
-export default async function NewPassword({
-  searchParams,
-}: {
-  searchParams: Promise<{ error?: string }>
-}) {
-  const params = await searchParams
-  const error = params.error
+import InfoToast from "@/components/InfoToast";
+import { NewPasswordState, updatePassword } from "../actions";
+import { useActionState, useEffect } from "react";
+import { toast } from "sonner";
+
+const initialState: NewPasswordState = { error: null }
+
+export default function NewPassword(){
+    const [state, formAction, pending] = useActionState(updatePassword, initialState)
+
+    useEffect(() => {
+        if (state.error) toast.error(state.error)
+    }, [state.error])
 
     return(
         <div>
-            <form action={updatePassword}>
-                <InfoToast error={error}/>
+            <form action={formAction}>
                 <span className="flex text-3xl p-3 mb-8 w-full justify-center text-black"> Choose new password </span>
                 <div className="flex flex-col justify-center items-center sm:m-7 ">
                     <div className="w-2/3 lg:w-1/2">

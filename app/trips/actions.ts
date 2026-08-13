@@ -92,7 +92,7 @@ export async function getInviteData(code : string) {
     const { data: { user } } = await supabase.auth.getUser() 
 
     if(user?.id == data?.created_by){
-      //redirect('/home')
+      //redirect('/home') 
     }
 
     return data; 

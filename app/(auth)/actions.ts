@@ -4,7 +4,25 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 
-export async function signup(formData: FormData) {
+
+export type SignInState = {
+  error: string | null
+}
+
+export type SignUpState = {
+  error: string | null
+}
+
+export type ResetPasswordState = {
+  error: string | null, 
+  success? : boolean
+}
+
+export type NewPasswordState = {
+  error: string | null
+}
+
+export async function signup(prevState: SignUpState, formData: FormData): Promise<SignUpState> {
   const supabase = await createClient()
 
   const email = formData.get('email') as string
@@ -12,20 +30,20 @@ export async function signup(formData: FormData) {
   const confirmPassword = formData.get('confirmPassword') as string
 
   if(password !== confirmPassword){
-    redirect(`/signup?error=${encodeURIComponent('Passwords must match')}`)
+    return { error: "Passwords must match!"}
   }
 
   const { error } = await supabase.auth.signUp({ email, password }); 
 
   if (error) {
-    redirect(`/signup?error=${encodeURIComponent(error.message)}`)
+    return { error: error.message } 
   }
 
   revalidatePath('/signin', 'layout')
   redirect('/signin')
 }
 
-export async function login(formData: FormData) {
+export async function login(prevState: SignInState, formData: FormData): Promise<SignUpState> {
   const supabase = await createClient()
 
   const email = formData.get('email') as string
@@ -34,14 +52,14 @@ export async function login(formData: FormData) {
   const { error } = await supabase.auth.signInWithPassword({ email, password })
 
   if (error) {
-    redirect(`/signin?error=${encodeURIComponent(error.message)}`)
+    return { error: error.message } 
   }
 
-  revalidatePath('/trips/new', 'layout')
-  redirect('/trips/new')
+  revalidatePath('/', 'layout')
+  redirect('/')  
 }
 
-export async function resetPassword(formData: FormData){
+export async function resetPassword(prevState: ResetPasswordState, formData: FormData): Promise<ResetPasswordState> {
   const supabase = await createClient()
 
   const email = formData.get('email') as string
@@ -51,20 +69,20 @@ export async function resetPassword(formData: FormData){
   })
 
   if(error){
-    redirect(`/reset-password?error=${encodeURIComponent(error.message)}`)
+    return { error: error.message}
   }
 
-  redirect(`/reset-password?error=${encodeURIComponent('Reset link sent to your email')}`)
+  return { error: null, success : true}
 }
 
-export async function updatePassword(formData: FormData){
+export async function updatePassword(prevState: NewPasswordState, formData: FormData): Promise<NewPasswordState> {
   const supabase = await createClient()
 
   const newPassword = formData.get('password') as string
   const repeatPassword = formData.get('repeatPassword') as string 
 
   if(newPassword !== repeatPassword){
-    redirect(`/new-password?error=${encodeURIComponent('Passwords must match')}`)
+    return { error: "Passwords must match"}
   }
 
   const { error } = await supabase.auth.updateUser({
@@ -72,10 +90,9 @@ export async function updatePassword(formData: FormData){
   })
 
   if(error){
-    redirect(`/new-password?error=${encodeURIComponent(error.message)}`)
+    return { error: error.message}
   }
 
-  revalidatePath('/', 'layout')
   redirect('/signin')
 }
 

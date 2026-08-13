@@ -4,6 +4,8 @@ import ErrorToast from '@/components/ErrorToast'
 import { useState } from "react";
 import { ProgressBar } from "@/components/ProgressBar";
 import NewTrip from "./page";
+import Link from 'next/link';
+import { House } from 'lucide-react';
 
 export default function TripLayout({
   children,

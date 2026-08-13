@@ -25,7 +25,7 @@ export default function SuccessPage({destination, dates, inviteLink} : PropType)
                     <span className="ms-3">Trip created!</span>
                 </div>
                 <div className="my-2 text-xl">
-                    <span> {destination} </span>
+                    <span> {destination} </span> -
                     <span className="text-blue-500"> {dates?.from && dates?.to ? `${format(dates.from, "yy")}` : "Ni izbranih datumov"} </span>
                 </div>
                 <div className="my-2">
@@ -33,16 +33,11 @@ export default function SuccessPage({destination, dates, inviteLink} : PropType)
                 </div>
                 <div className="my-2 flex flex-col">
                     <span className="text-xs">Invite by link</span>        
-                    <div className="flex items-center border-1">
-                        <span className="w-60 text-xs truncate">{inviteLink}</span>
-                        <Copy className="hover:cursor-pointer active:scale-85" onClick={handleCopy}/>
+                    <div className="flex items-center text-xs gap-2">
+                        <span className="border-1 border-gray-300 rounded-sm w-60 truncate p-1">{inviteLink}</span>
+                        <button className="border-1 border-black rounded-sm flex items-center hover:cursor-pointer group p-1 " onClick={handleCopy}> <Copy className="h-2 hover:cursor-pointer group-active:scale-85"/> Copy link</button>
                     </div>
                 </div>
-                <Link href="/">
-                    <div className="mt-5 border-1 p-2 rounded-sm mt-5">
-                        <House />
-                    </div>
-                </Link>
             </div>
         </div>
     )
