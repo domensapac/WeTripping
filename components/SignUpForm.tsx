@@ -18,6 +18,16 @@ export default function SignUpForm() {
     <form action={formAction}>
        <div className="flex flex-col justify-center items-center sm:m-7">
             <div className="w-2/3 lg:w-1/2">
+                <div className="flex gap-2 mb-1 text-black">
+                    <div className="flex flex-col">
+                        <label>First name</label>
+                        <input className="w-full border-1 rounded-md p-1 ps-2 text-gray-600" id="first_name" name="first_name" type="text" required/>
+                    </div>
+                    <div className="flex flex-col">
+                        <label>Last name</label>
+                        <input className="w-full border-1 rounded-md p-1 ps-2 text-gray-600" id="last_name" name="last_name" type="text" required/>
+                    </div>
+                </div>
                 <div className="flex flex-col mb-1 text-black">
                     <label>Email</label>
                     <input className="border-1 rounded-md p-1 ps-2 text-gray-600" id="email" name="email" type="text" required/>

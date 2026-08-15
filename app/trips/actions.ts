@@ -119,7 +119,7 @@ export async function getUserData(user_id : string){
   const supabase = await createClient();
 
   const { data, error } = await supabase
-    .from('users')
+    .from('profiles')
     .select('*')
     .eq('id', user_id)
     .maybeSingle();

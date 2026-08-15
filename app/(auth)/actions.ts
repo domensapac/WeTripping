@@ -28,12 +28,22 @@ export async function signup(prevState: SignUpState, formData: FormData): Promis
   const email = formData.get('email') as string
   const password = formData.get('password') as string
   const confirmPassword = formData.get('confirmPassword') as string
+  const first_name = formData.get('first_name') as string
+  const last_name = formData.get('last_name') as string
 
   if(password !== confirmPassword){
     return { error: "Passwords must match!"}
   }
 
-  const { error } = await supabase.auth.signUp({ email, password }); 
+  const { error } = await supabase.auth.signUp({ 
+    email: email, 
+    password: password,
+    options: {
+      data: {
+        first_name : first_name,
+        last_name : last_name
+      }
+    } }); 
 
   if (error) {
     return { error: error.message } 
