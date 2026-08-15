@@ -162,3 +162,27 @@ export async function joinTrip(formData: FormData){
   //console.log(code); 
   //redirect('/')
 }
+
+export async function getTrips(){
+  const supabase = await createClient(); 
+
+  const { data: { user } } = await supabase.auth.getUser() 
+
+  const { data, error } = await supabase
+    .from('trips')
+    .select(`
+      *,
+      trip_travellers!inner (
+        user_id,
+        trip_id
+      )
+    `)
+    .eq('trip_travellers.user_id', user?.id);
+  
+  if(error){
+    console.log(error)
+    
+  } 
+
+  return data
+}
