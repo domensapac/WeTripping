@@ -12,7 +12,7 @@ type PropType = {
 export default function ConfirmationStep({destination, date, setStep, handleSubmit} : PropType){
     return( 
     <div className="tracking-[1px] flex w-full text-black">
-      <div className="relative w-90 m-6 h-72 flex flex-col border-1 rounded-sm justify-center items-center bg-white">
+      <div className="relative w-90 m-6 h-72 flex flex-col border-1 border-gray-200 shadow-sm rounded-sm justify-center items-center bg-white">
         <span className="hover:cursor-pointer absolute top-4 left-4" onClick={() => {setStep('dates')}}><MoveLeft /></span>
         <div className="my-3">
           <span className="text-2xl">Trip details</span>

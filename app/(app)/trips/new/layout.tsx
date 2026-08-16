@@ -16,10 +16,10 @@ export default function TripLayout({
     const [step, setStep] = useState<string>('destination'); 
     
     return(
-      <div className="bg-[url('/test_bg.png')] w-full">
+      <div className="w-full">
         <ErrorToast/>
           <div className="h-full flex flex-col justify-center items-center w-full">
-            <div className="w-90">
+            <div className="w-90 ">
               <ProgressBar step={step}/>
             </div>
             <div>

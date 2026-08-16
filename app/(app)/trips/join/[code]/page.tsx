@@ -17,9 +17,9 @@ export default async function Page({ params } : PropType) {
     const user = await getUserData(invite.created_by)
 
     return(
-        <div className="bg-[url('/test_bg.png')]">
+        <div className="bg-[url('/test_bg.png')] w-full">
             <ErrorToast/>
-            <div className="flex flex-col justify-center items-center min-h-screen w-full">
+            <div className="flex flex-col justify-center items-center h-full w-full">
                 <div className="w-90">
                     <form action={joinTrip}>
                         <div className="tracking-[1px] flex w-full text-black">

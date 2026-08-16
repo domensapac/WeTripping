@@ -20,7 +20,7 @@ export default function SuccessPage({destination, dates, inviteLink} : PropType)
 
     return (
         <div className="tracking-[1px] flex w-full text-black">
-            <div className="flex m-6 w-90 h-72 flex-col border-1 rounded-sm justify-center items-center bg-white">
+            <div className="flex m-6 w-90 h-72 flex-col border-1 border-gray-200 shadow-sm rounded-sm justify-center items-center bg-white">
                 <div className="text-3xl">
                     <span className="ms-3">Trip created!</span>
                 </div>

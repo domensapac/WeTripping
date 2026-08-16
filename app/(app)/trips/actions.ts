@@ -13,7 +13,7 @@ type TripData = {
 
 export async function createTrip(data : TripData) {
   const supabase = await createClient()
-  const { data: userData, error: userError } = await supabase.auth.getUser();
+  const { data: { user } , error: userError } = await supabase.auth.getUser();
 
   if(userError)
     throw new Error(userError.message); 
@@ -23,7 +23,8 @@ export async function createTrip(data : TripData) {
     .insert({
       name : data.destination,
       start_date : data.startDate,
-      end_date : data.endDate
+      end_date : data.endDate,
+      created_by : user?.id
     })
     .select()
     .single();
@@ -35,7 +36,7 @@ export async function createTrip(data : TripData) {
     .from('trip_travellers')
     .insert({
       trip_id: trip.id,
-      user_id: userData.user.id,
+      user_id: user?.id,
       role: 'organizer',
     });
 
@@ -169,6 +170,10 @@ export async function getTrips(){
     .from('trips')
     .select(`
       *,
+      created_by:profiles!trips_created_by_fkey (
+        first_name,
+        last_name
+      ),
       trip_travellers!inner (
         user_id,
         trip_id
