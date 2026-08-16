@@ -157,10 +157,7 @@ export async function joinTrip(formData: FormData){
     console.log(error)
   }
 
-  console.log(data)
-
-  //console.log(code); 
-  //redirect('/')
+  redirect('/')
 }
 
 export async function getTrips(){
@@ -181,7 +178,6 @@ export async function getTrips(){
   
   if(error){
     console.log(error)
-    
   } 
 
   return data
