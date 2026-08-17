@@ -69,7 +69,7 @@ export async function createInvite(tripId:  number){
     console.log(inviteError); 
   }
 
-  return `http://localhost:3000/trips/join/${inviteCode}`
+  return `http://localhost:3000/trip/join/${inviteCode}`
 }
 
 function generateInviteCode(): string {

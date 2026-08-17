@@ -16,7 +16,7 @@ export default function Navbar(){
                 <Home/>
                 <span className={pathname === '/' ? "absolute bottom-2 h-[4px] w-[4px] rounded-full bg-black" : "hidden"} ></span>
             </Link>
-            <Link href="/trips/new" className="relative -top-7 bg-black rounded-full shadow-xl p-3">
+            <Link href="/trip/new" className="relative -top-7 bg-black rounded-full shadow-xl p-3">
                 <Plus className="text-white" size={35}/>
             </Link>
             <Link href="/profile" className="flex flex-col items-center">
