@@ -1,9 +1,20 @@
 'use client'
 
 import Link from "next/link";
-import { Bell, LayoutGrid, User, Search} from 'lucide-react';
+import { Bell, LayoutGrid, User, Search, Rows3} from 'lucide-react';
 import { format } from "date-fns";
 import { useState } from "react";
+import NotificationsTab from "./NotificationsTab";
+
+type Notification = {
+    id: string,
+    created_at: Date
+    user_id: string,
+    was_read: boolean,
+    title: string,
+    description: string,
+    type: string
+}
 
 type Trip = {
     id: string,
@@ -17,20 +28,27 @@ type Trip = {
     }
 }
 
-type TripsSectionProps = {
-  trips: Trip[] | null;
+type HomeProps = {
+  trips: Trip[] | null,
+  notifications: Notification[] | null
 };
 
-export default function HomePage({trips} : TripsSectionProps){
+export default function HomePage({trips, notifications} : HomeProps){
 
-    const [view, setView] = useState('grid')
+    const [view, setView] = useState('list')
+    const [visible, setVisible] = useState<boolean>(false) 
 
     return(
     <div className={`flex flex-col w-full gap-3 m-8`}>
       <div className="flex w-full justify-between items-center mt-2 mb-5">
-        <button className="hover:cursor-pointer" onClick={()=> setView(view === 'list' ? 'grid' : 'list')}><LayoutGrid/></button>
+        <button className={`hover:cursor-pointer transition-transform duration-200 active:scale-90`} onClick={()=> setView(view === 'list' ? 'grid' : 'list')}> 
+          {view === 'list' ? <LayoutGrid className="transition-transform"/> : <Rows3 className="transition-transform"/>}
+        </button>
         <span className="font-semibold">Home</span>
-        <Bell className="fill-black"/>
+        <button className="hover:cursor-pointer relative" onClick={() => setVisible(!visible)}>
+          <Bell className="fill-black"/>
+          {visible === true ? <NotificationsTab notifications={notifications} /> : ""}
+        </button>
       </div>
       <div className="flex flex-col w-full rounded-sm h-30 relative shrink-0 mt-2">
         <span className="text-2xl font-semibold">No more calculating</span>

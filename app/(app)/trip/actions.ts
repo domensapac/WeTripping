@@ -93,7 +93,6 @@ export async function getInviteData(code : string) {
     const { data: { user } } = await supabase.auth.getUser() 
 
     if(user?.id == data?.created_by){
-      //redirect('/home') 
     }
 
     return data; 
@@ -184,6 +183,19 @@ export async function getTrips(){
   if(error){
     console.log(error)
   } 
+
+  return data
+}
+
+export async function getNotifications(){
+  const supabase = await createClient(); 
+
+  const { data: { user } } = await supabase.auth.getUser() 
+
+  const { data, error } = await supabase
+    .from('notifications')
+    .select(`*`)
+    .eq('user_id', user?.id)
 
   return data
 }

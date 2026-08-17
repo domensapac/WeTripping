@@ -35,7 +35,7 @@ export async function signup(prevState: SignUpState, formData: FormData): Promis
     return { error: "Passwords must match!"}
   }
 
-  const { error } = await supabase.auth.signUp({ 
+  const { data, error } = await supabase.auth.signUp({ 
     email: email, 
     password: password,
     options: {
@@ -49,6 +49,18 @@ export async function signup(prevState: SignUpState, formData: FormData): Promis
     return { error: error.message } 
   }
 
+  const { data : notifData, error: notifError } = await supabase
+    .from('notifications')
+    .insert({
+      user_id: data.user?.id,
+      title: "Thank you for joining us!",
+      description: "Create your first trip and share it with friends",
+      type: "welcome_message"
+    })
+    .select()
+    .maybeSingle()
+
+    
   revalidatePath('/signin', 'layout')
   redirect('/signin')
 }
