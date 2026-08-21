@@ -10,7 +10,7 @@ export default function Navbar(){
         
 
     return(
-        <div className="w-full shrink-0 h-15 flex items-center justify-center border-1 border-gray-200 p-2">
+        <div className="w-full shrink-0 h-15 flex items-center justify-center border-1 border-gray-200 p-2 z-999">
             <div className="flex w-3/4 justify-between items-center">
             <Link href="/" className="flex flex-col items-center">
                 <Home/>

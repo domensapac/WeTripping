@@ -9,7 +9,7 @@ export default function Profile() {
                 <button><LogOut/></button>
                 </form>
             </div>
-            <div className="w-full flex justify-center">
+            <div className="relative flex w-full justify-center items-center mt-2 mb-5">
                 <span className="font-semibold">Profile</span>
             </div>
             <div className="grid grid-cols-2 gap-4">

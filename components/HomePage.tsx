@@ -38,16 +38,23 @@ export default function HomePage({trips, notifications} : HomeProps){
     const [view, setView] = useState('list')
     const [visible, setVisible] = useState<boolean>(false) 
 
+    const numberOfNotifications = notifications?.length
+
     return(
-    <div className={`flex flex-col w-full gap-3 m-8`}>
-      <div className="flex w-full justify-between items-center mt-2 mb-5">
-        <button className={`hover:cursor-pointer transition-transform duration-200 active:scale-90`} onClick={()=> setView(view === 'list' ? 'grid' : 'list')}> 
+    <div className={`flex flex-col w-full gap-3 m-8 relative`}>
+      {visible === true ? <NotificationsTab notifications={notifications} setVisible={setVisible} /> : ""}
+      
+      <div className="relative flex w-full justify-center items-center mt-2 mb-5">
+        <button className={`absolute left-0 hover:cursor-pointer transition-transform duration-200 active:scale-90`} onClick={()=> setView(view === 'list' ? 'grid' : 'list')}> 
           {view === 'list' ? <LayoutGrid className="transition-transform"/> : <Rows3 className="transition-transform"/>}
         </button>
         <span className="font-semibold">Home</span>
-        <button className="hover:cursor-pointer relative" onClick={() => setVisible(!visible)}>
+        <button className="absolute right-0 hover:cursor-pointer" onClick={() => setVisible(!visible)}>
           <Bell className="fill-black"/>
-          {visible === true ? <NotificationsTab notifications={notifications} /> : ""}
+           { numberOfNotifications && numberOfNotifications > 0 ? 
+           <>
+           <span className={`absolute text-center right-1 top-0 h-[14px] w-[14px] rounded-full bg-red-600 -translate-y-1/2 translate-x-1/3 text-white text-[10px]`}>{numberOfNotifications}</span>
+           </> : ""}
         </button>
       </div>
       <div className="flex flex-col w-full rounded-sm h-30 relative shrink-0 mt-2">
