@@ -196,6 +196,7 @@ export async function getNotifications(){
     .from('notifications')
     .select(`*`)
     .eq('user_id', user?.id)
+    .order('created_at', { ascending: false})
 
   return data
 }
