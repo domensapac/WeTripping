@@ -41,21 +41,19 @@ export default function HomePage({trips, notifications} : HomeProps){
     const numberOfNotifications = notifications?.length
 
     return(
-    <div className={`flex flex-col w-full gap-3 m-8 relative`}>
-      {visible === true ? <NotificationsTab notifications={notifications} setVisible={setVisible} /> : ""}
-      
+    <div className={`flex flex-col w-full gap-3 m-8 relative`}>      
       <div className="relative flex w-full justify-center items-center mt-2 mb-5">
         <button className={`absolute left-0 hover:cursor-pointer transition-transform duration-200 active:scale-90`} onClick={()=> setView(view === 'list' ? 'grid' : 'list')}> 
           {view === 'list' ? <LayoutGrid className="transition-transform"/> : <Rows3 className="transition-transform"/>}
         </button>
         <span className="font-semibold">Home</span>
-        <button className="absolute right-0 hover:cursor-pointer" onClick={() => setVisible(!visible)}>
+        <Link href="/notifications" className="absolute right-0 hover:cursor-pointer">
           <Bell className="fill-black"/>
-           { numberOfNotifications && numberOfNotifications > 0 ? 
-           <>
-           <span className={`absolute text-center right-1 top-0 h-[14px] w-[14px] rounded-full bg-red-600 -translate-y-1/2 translate-x-1/3 text-white text-[10px]`}>{numberOfNotifications}</span>
-           </> : ""}
-        </button>
+          { numberOfNotifications && numberOfNotifications > 0 ? 
+          <>
+          <span className={`absolute text-center right-1 top-0 h-[14px] w-[14px] rounded-full bg-red-600 -translate-y-1/2 translate-x-1/3 text-white text-[10px]`}>{numberOfNotifications}</span>
+          </> : ""}
+        </Link>
       </div>
       <div className="flex flex-col w-full rounded-sm h-30 relative shrink-0 mt-2">
         <span className="text-2xl font-semibold">No more calculating</span>
@@ -72,6 +70,7 @@ export default function HomePage({trips, notifications} : HomeProps){
         <span className="text-lg font-semibold">My Trips</span>
       </div>
       <div className={`w-full ${view === 'list' ? "flex flex-col gap-4" : "grid grid-cols-2 gap-3"}`}>
+        {!trips || trips.length === 0 ? <>No trips yet</> :""} 
         {trips?.map(trip => (
           <Link key={trip.id} href={`/trip/${trip.id}`}>
             <div className={`shrink-0 flex flex-col min-h-30 border-1 border-gray-200 rounded-sm p-2 shadow-sm relative ${view === 'list' ? "w-full" : "col-span-1"}`}>

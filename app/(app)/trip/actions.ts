@@ -200,3 +200,25 @@ export async function getNotifications(){
 
   return data
 }
+
+export async function markAsRead(id: string){
+  const supabase = await createClient(); 
+
+  const { data, error } = await supabase
+    .from('notifications')
+    .update({was_read : true})
+    .eq('id', id)
+  
+  return data
+}
+
+export async function deleteNotification(id: string){
+  const supabase = await createClient(); 
+
+  const { data, error } = await supabase
+    .from('notifications')
+    .delete()
+    .eq('id', id)
+  
+  return data
+}
