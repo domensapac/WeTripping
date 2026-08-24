@@ -35,7 +35,7 @@ export default function NotificationsTab({notifications} : NotificationProps){
         }, [ref]);
     }
 
-    const [localNotifications, setLocalNotifications] = useState(notifications ?? [])
+    const [localNotifications, setLocalNotifications] = useState( notifications ?? [])
     const [shown, setShown] = useState<string>('')
     const wrapperRef = useRef(null);
     useOutsideAlerter(wrapperRef);

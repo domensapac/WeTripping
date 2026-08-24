@@ -1,7 +1,11 @@
-import { logout } from "@/app/(auth)/actions"
+import { getUserData, logout } from "@/app/(auth)/actions"
 import { LogOut } from "lucide-react";
 
-export default function Profile() {
+export default async function Profile() {
+
+    const data = await getUserData()
+    console.log(data)
+
     return( 
         <div className="w-full flex flex-col gap-10 m-8">
              <div className="absolute top-2 right-2">
@@ -20,11 +24,11 @@ export default function Profile() {
                     <form>
                         <div className="text-sm flex flex-col">
                             <span>First Name</span>
-                            <input type="text" name="first_name" id="first_name" className="border-1 border-gray-200 rounded-sm p-1"></input>
+                            <input type="text" name="first_name" id="first_name" className="border-1 border-gray-200 rounded-sm p-1" defaultValue={data?.first_name}></input>
                         </div>
                         <div className="text-sm flex flex-col">
                             <span>Last Name</span>
-                        <input type="text" name="last_name" id="last_name" className="border-1 border-gray-200 rounded-sm p-1"></input>
+                        <input type="text" name="last_name" id="last_name" className="border-1 border-gray-200 rounded-sm p-1" defaultValue={data?.last_name}></input>
                         </div>
                     </form>
                 </div>

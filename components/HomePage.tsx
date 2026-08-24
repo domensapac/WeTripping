@@ -69,8 +69,13 @@ export default function HomePage({trips, notifications} : HomeProps){
       <div>
         <span className="text-lg font-semibold">My Trips</span>
       </div>
-      <div className={`w-full ${view === 'list' ? "flex flex-col gap-4" : "grid grid-cols-2 gap-3"}`}>
-        {!trips || trips.length === 0 ? <>No trips yet</> :""} 
+      <div className={`w-full ${view === 'list' ? "flex flex-col h-full gap-4" : "grid grid-cols-2 gap-3"}`}>
+        {!trips || trips.length === 0 ? 
+        <>
+          <div className="flex justify-center items-center w-full h-full">
+            <span className="text-xl">No trips yet..</span>
+          </div>
+        </> :""} 
         {trips?.map(trip => (
           <Link key={trip.id} href={`/trip/${trip.id}`}>
             <div className={`shrink-0 flex flex-col min-h-30 border-1 border-gray-200 rounded-sm p-2 shadow-sm relative ${view === 'list' ? "w-full" : "col-span-1"}`}>
