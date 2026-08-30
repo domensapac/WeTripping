@@ -47,6 +47,7 @@ export default function AvatarSection(){
 
             const url = URL.createObjectURL(data)
             setAvatarUrl(url)
+            
         } catch (error) {
             console.log('Error downloading image: ')
         }
@@ -60,12 +61,11 @@ export default function AvatarSection(){
                 console.log("error")
                 return
             }
-            const { data, error } = await supabase.storage.from('Avatars').download(path)
-        if (error) {
-            throw error
-        }
-        const url = URL.createObjectURL(data)
-        setAvatarUrl(url)
+            
+            const { data } = supabase.storage.from('Avatars').getPublicUrl(path)
+
+            setAvatarUrl(data.publicUrl)
+
         } catch (error) {
         console.log('Error downloading image: ')
         }
@@ -89,7 +89,11 @@ export default function AvatarSection(){
             const file = event.target.files[0]
             const fileExt = file.name.split('.').pop()
             const fileName = `${user?.id}.${fileExt}`
-            const filePath = `${fileName}`
+            const filePath = `${fileName}?t=${Date.now()}`
+
+            if(avatarUrl){
+                await supabase.storage.from('Avatars').remove([avatarUrl])
+            }
 
             let { error: uploadError } = await supabase.storage.from('Avatars').upload(filePath, file, { upsert:true })
             if (uploadError) {
@@ -108,33 +112,26 @@ export default function AvatarSection(){
     }
 
     return(
-        <div>
-      {avatarUrl ? (
-        <img
-          src={avatarUrl}
-          alt="Avatar"
-          className="avatar image"
-          style={{ height: 100, width: 100 }}
-        />
-      ) : (
-        <div className="avatar no-image" style={{ height: 100, width: 100 }} />
-      )}
-      <div style={{ width: 100 }}>
-        <label className="button primary block" htmlFor="single">
-          {uploading ? 'Uploading ...' : 'Upload'}
-        </label>
-        <input
-          style={{
-            visibility: 'hidden',
-            position: 'absolute',
-          }}
-          type="file"
-          id="single"
-          accept="image/*"
-          onChange={uploadAvatar}
-          disabled={uploading}
-        />
-      </div>
+        <div className="flex items-center justify-center">
+            <div>
+                {avatarUrl ? (
+                    <img src={avatarUrl} alt="Avatar" className="rounded-full w-30 h-30"/>
+                ) : (
+                    <div className=""/>
+                )}
+            <div className="w-30 text-center mt-2 border-1 border-gray-400 rounded-sm">
+                <label className="text-center" htmlFor="single">
+                {uploading ? 'Uploading ...' : 'Upload'}
+                </label>
+                <input style={{ visibility: 'hidden', position: 'absolute' }}
+                type="file"
+                id="single"
+                accept="image/*"
+                onChange={uploadAvatar}
+                disabled={uploading}
+                />
+            </div>
+        </div>
     </div>
     )
 }
