@@ -138,3 +138,18 @@ export async function getUserData(){
 
   return data
 }
+
+export async function updateUserImgPath(id : string, filePath : string){
+  const supabase = await createClient()
+
+  const { data : pathData, error : pathError} = await supabase
+    .from('profiles')
+    .update({ img_path: filePath})
+    .eq('id', id)
+
+  if(pathError){
+    console.log(pathError)
+  }
+
+  return pathData
+}
