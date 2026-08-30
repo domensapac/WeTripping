@@ -222,3 +222,19 @@ export async function deleteNotification(id: string){
   
   return data
 }
+
+export async function getTripTravellers(trip_id : string){
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from('trip_travellers')
+    .select('user_id, profiles!trip_travellers_user_id_fkey(id, first_name, last_name, created_at, img_path)')    
+    .eq('trip_id', trip_id)
+    
+  if(error){
+    console.log("error"); 
+  }
+
+  return data as unknown as { user_id: string; profiles: { id: string; first_name: string; last_name: string; created_at: string; img_path: string } }[] | null;
+
+}

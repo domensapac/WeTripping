@@ -1,10 +1,10 @@
 import { getUserData, logout } from "@/app/(auth)/actions"
+import AvatarSection from "@/components/AvatarSection";
 import { LogOut } from "lucide-react";
 
 export default async function Profile() {
 
     const data = await getUserData()
-    console.log(data)
 
     return( 
         <div className="w-full flex flex-col gap-10 m-8">
@@ -19,6 +19,7 @@ export default async function Profile() {
             <div className="grid grid-cols-2 gap-4">
                 <div className="col-span-1">
                     <img src="/profile_pic.svg" alt="prof" className="w-30"></img>
+                    <AvatarSection/>
                 </div>
                 <div className="col-span-1 flex flex-col items-center justify-center">
                     <form>
