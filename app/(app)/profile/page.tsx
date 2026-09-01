@@ -12,11 +12,6 @@ export default async function Profile() {
 
     return( 
         <div className="w-full flex flex-col m-8">
-             <div className="absolute top-2 right-2">
-                <form action={logout}>
-                <button><LogOut/></button>
-                </form>
-            </div>
             <div className="relative flex w-full justify-center items-center mt-2 mb-5">
                 <span className="font-semibold">Profile</span>
             </div>
@@ -62,6 +57,28 @@ export default async function Profile() {
                     <div className="flex flex-col w-full">
                         <span className="text-gray-500">Joined on</span>
                         <span>{format(data?.created_at, "LLLL dd, yyyy")} </span>
+                    </div>
+                </div>
+            </div>
+            <div className="mt-5 mb-3">
+                <span className="text-2xl font-semibold">Actions</span>
+            </div>
+            <div className="flex flex-col p-4 border-1 border-gray-200 rounded-sm shadow-sm gap-4">
+                <div className="text-sm flex items-center">
+                    <div className="flex flex-col w-full">
+                        <form action={logout}>
+                            <button className="text-gray-500">Log out</button>
+                        </form>
+                    </div>
+                </div>
+                <div className="text-sm flex items-center">
+                    <div className="flex flex-col w-full">
+                        <span className="text-gray-500">Help</span>
+                    </div>
+                </div>
+                <div className="text-sm flex items-center">
+                    <div className="flex flex-col w-full">
+                        <span className="text-gray-500">Delete account</span>
                     </div>
                 </div>
             </div>

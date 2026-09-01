@@ -12,11 +12,9 @@ export default async function Trip({
     
     const tripTravellers = await getTripTravellers(id)
 
-    console.log(tripData)
-    console.log(tripTravellers)
-
     const travellers = tripTravellers?.map(t => t.profiles) ?? []
     
+
     return (
         <TripPage trip={tripData} travellers={travellers}/>
     );

@@ -6,8 +6,11 @@ import { usePathname } from 'next/navigation'
 
 export default function Navbar(){
     const pathname = usePathname()
-    console.log(pathname)
-        
+
+    const isTripPage = pathname?.startsWith('/trip/') && pathname !== '/trip/new'
+    const tripId = isTripPage ? pathname.split('/')[2] : null
+
+    const fabHref = tripId ? `/trip/${tripId}/expense/new` : '/trip/new'
 
     return(
         <div className="w-full shrink-0 h-15 flex items-center justify-center border-1 border-gray-200 p-2 z-999">
@@ -16,7 +19,7 @@ export default function Navbar(){
                 <Home/>
                 <span className={pathname === '/' ? "absolute bottom-2 h-[4px] w-[4px] rounded-full bg-black" : "hidden"} ></span>
             </Link>
-            <Link href="/trip/new" className="relative -top-7 bg-black rounded-full shadow-xl p-3">
+            <Link href={fabHref} className="relative -top-7 bg-black rounded-full shadow-xl p-3">
                 <Plus className="text-white" size={35}/>
             </Link>
             <Link href="/profile" className="flex flex-col items-center">
