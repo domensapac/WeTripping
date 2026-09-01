@@ -16,7 +16,7 @@ export default async function Trip({
     console.log(tripTravellers)
 
     const travellers = tripTravellers?.map(t => t.profiles) ?? []
-
+    
     return (
         <TripPage trip={tripData} travellers={travellers}/>
     );

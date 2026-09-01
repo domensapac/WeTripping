@@ -2,11 +2,13 @@ import { getUserData, logout } from "@/app/(auth)/actions"
 import AvatarSection from "@/components/AvatarSection";
 import { LogOut, Mail, Phone, User } from "lucide-react";
 import { format } from "date-fns"
+import { getTrips } from "../trip/actions";
 
 export default async function Profile() {
     
 
     const data = await getUserData()
+    const trips = await getTrips()
 
     return( 
         <div className="w-full flex flex-col m-8">
@@ -25,21 +27,21 @@ export default async function Profile() {
             </div>
             <div className="flex flex-col p-4 border-1 border-gray-200 rounded-sm shadow-sm gap-6 my-7">
                 <div className="text-sm flex items-center">
-                    <User strokeWidth={1} className="w-20"/>
+                    <User strokeWidth={1} className="w-15"/>
                     <div className="flex flex-col w-full">
                         <span className="text-gray-500">About me</span>
                         <span>{data?.first_name} {data?.last_name}</span>
                     </div>
                 </div>
                 <div className="text-sm flex items-center">
-                    <Phone strokeWidth={1} className="w-20"/>
+                    <Phone strokeWidth={1} className="w-15"/>
                     <div className="flex flex-col w-full">
                         <span className="text-gray-500">Mobile number</span>
                         <span>/</span>
                     </div>
                 </div>
                 <div className="text-sm flex items-center">
-                    <Mail strokeWidth={1} className="w-20"/>
+                    <Mail strokeWidth={1} className="w-15"/>
                     <div className="flex flex-col w-full">
                         <span className="text-gray-500">Email</span>
                         <span>domen.sapac10@gmail.com</span>
@@ -53,7 +55,7 @@ export default async function Profile() {
                 <div className="text-sm flex items-center">
                     <div className="flex flex-col w-full">
                         <span className="text-gray-500">Trips</span>
-                        <span>0</span>
+                        <span>{trips?.length}</span>
                     </div>
                 </div>
                 <div className="text-sm flex items-center">

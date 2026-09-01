@@ -171,7 +171,8 @@ export async function getTrips(){
       *,
       created_by:profiles!trips_created_by_fkey (
         first_name,
-        last_name
+        last_name,
+        img_path
       ),
       trip_travellers!inner (
         user_id,
@@ -184,6 +185,7 @@ export async function getTrips(){
     console.log(error)
   } 
 
+  
   return data
 }
 
@@ -238,3 +240,4 @@ export async function getTripTravellers(trip_id : string){
   return data as unknown as { user_id: string; profiles: { id: string; first_name: string; last_name: string; created_at: string; img_path: string } }[] | null;
 
 }
+

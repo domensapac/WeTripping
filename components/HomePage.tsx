@@ -57,7 +57,7 @@ export default function HomePage({trips, notifications} : HomeProps){
       </div>
       <div className="flex flex-col w-full rounded-sm h-30 relative shrink-0 mt-2">
         <span className="text-2xl font-semibold">No more calculating</span>
-        <span className="text-sm w-3/4">You just enter your expenses, we do everything else for you</span>
+        <span className="text-sm w-3/4 text-gray-500">You just enter your expenses, we do everything else for you</span>
         <div className="absolute right-5 top-8 w-20">
           <img src="/icon1.svg" alt="iconsvg" className="opacity-60"></img>
         </div>
@@ -85,7 +85,7 @@ export default function HomePage({trips, notifications} : HomeProps){
                     {format(trip.start_date, "dd.MM")} - {format(trip.end_date, "dd.MM")}
                 </span>
                 </span> 
-                <span className="text-sm ">No action yet..</span>
+                <span className="text-sm text-gray-500">No action yet..</span>
                 <span className="absolute bottom-2 right-2 text-xs flex gap-1 items-center text-gray-500"> 
                 <User size={10}/>
                 <span>{trip.created_by.first_name} {trip.created_by.last_name} </span>

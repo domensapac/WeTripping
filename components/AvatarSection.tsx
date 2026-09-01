@@ -2,6 +2,7 @@
 
 import { updateUserImgPath } from "@/app/(auth)/actions"
 import { createClient } from "@/lib/supabase/client"
+import { User } from "lucide-react"
 import { useEffect, useState } from "react"
 
 export default function AvatarSection(){
@@ -108,11 +109,11 @@ export default function AvatarSection(){
 
     return(
         <div className="flex flex-col items-center justify-center">
-            <label className="text-center w-40 shadow-lg text-center mt-2 border-1 border-gray-400 rounded-full" htmlFor="single">
+            <label className="text-center w-40 h-40 shadow-lg text-center flex justify-center items-center mt-2 border-1 border-gray-400 rounded-full" htmlFor="single">
                 {avatarUrl ? (
                     <img src={avatarUrl} alt="Avatar" className="relative rounded-full w-40 h-40 object-cover"/>
                 ) : (
-                    <div></div>
+                    <div><User size={80}/></div>
                 )}
             </label>
             <div className="">
