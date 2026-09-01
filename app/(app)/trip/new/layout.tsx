@@ -19,6 +19,9 @@ export default function TripLayout({
       <div className="w-full">
         <ErrorToast/>
           <div className="h-full flex flex-col justify-center items-center w-full">
+            <div className="absolute top-8 mt-2">
+                <span className="font-semibold">New trip</span>
+            </div>
             <div className="w-90 ">
               <ProgressBar step={step}/>
             </div>

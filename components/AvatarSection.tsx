@@ -39,14 +39,9 @@ export default function AvatarSection(){
                 return
             }
 
-            const { data, error } = await supabase.storage.from('Avatars').download(pathData.img_path)
+            const { data } = supabase.storage.from('Avatars').getPublicUrl(pathData.img_path)
 
-            if (error) {
-                throw error
-            }
-
-            const url = URL.createObjectURL(data)
-            setAvatarUrl(url)
+            setAvatarUrl(data.publicUrl)
             
         } catch (error) {
             console.log('Error downloading image: ')
@@ -112,18 +107,16 @@ export default function AvatarSection(){
     }
 
     return(
-        <div className="flex items-center justify-center">
-            <div>
+        <div className="flex flex-col items-center justify-center">
+            <label className="text-center w-40 shadow-lg text-center mt-2 border-1 border-gray-400 rounded-full" htmlFor="single">
                 {avatarUrl ? (
-                    <img src={avatarUrl} alt="Avatar" className="rounded-full w-30 h-30"/>
+                    <img src={avatarUrl} alt="Avatar" className="relative rounded-full w-40 h-40 object-cover"/>
                 ) : (
-                    <div className=""/>
+                    <div></div>
                 )}
-            <div className="w-30 text-center mt-2 border-1 border-gray-400 rounded-sm">
-                <label className="text-center" htmlFor="single">
-                {uploading ? 'Uploading ...' : 'Upload'}
-                </label>
-                <input style={{ visibility: 'hidden', position: 'absolute' }}
+            </label>
+            <div className="">
+                <input className="hidden absolute"
                 type="file"
                 id="single"
                 accept="image/*"
@@ -132,6 +125,5 @@ export default function AvatarSection(){
                 />
             </div>
         </div>
-    </div>
     )
 }
