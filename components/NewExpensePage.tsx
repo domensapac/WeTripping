@@ -3,6 +3,8 @@
 import { X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { addExpense } from '../app/(app)/trip/actions'  
+
 
 type Trip = {
     id: number,
@@ -33,24 +35,21 @@ export default function NewExpensePage({trip, travellers} : TripProps){
 
     const refHref = `/trip/${id}`
 
-    async function handleSubmit(){
-
-    }
-
     return(
         <div className={`flex flex-col w-full gap-2 m-8 relative`}>  
             <div className="relative flex w-full justify-center mt-2 mb-5">
                 <Link href={refHref}> <span className="absolute right-0"><X/> </span></Link>
                 <span className="font-semibold">Add expense</span>
             </div> 
-            <form action={handleSubmit} className="my-auto">
+            <form action={addExpense} className="my-auto">
                 <div className="flex flex-col p-4 border-1 border-gray-200 rounded-sm shadow-sm gap-4">
+                        <input type="text" className="hidden" defaultValue={trip?.id} name="id" id="id"></input>
                         <span className="text-gray-500">Amount</span>
-                        <input type="text" className="w-30 border-1"></input>
+                        <input type="text" className="w-30 border-1" name="amount" id="amount"></input>
                         <span className="text-gray-500">Description</span>
-                        <input type="text" className="w-30 border-1"></input>
+                        <input type="text" className="w-30 border-1" name="description" id="description"></input>
                         <span className="text-gray-500">Paid by</span>
-                        <select name="cars" id="cars" className="w-40">
+                        <select name="paid_by" id="paid_by" className="w-40">
                             {travellers?.map(traveller => (
                                 <option key={traveller.id} value={traveller.id}>{traveller.first_name} {traveller.last_name}</option>
                             ))}

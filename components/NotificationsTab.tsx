@@ -21,9 +21,9 @@ type NotificationProps = {
 };
 
 export default function NotificationsTab({notifications} : NotificationProps){
-    function useOutsideAlerter(ref) {
+    function useOutsideAlerter(ref:any) {
         useEffect(() => {
-            function handleClickOutside(event) {
+            function handleClickOutside(event:any) {
             if (ref.current && !ref.current.contains(event.target)) {
                 setShown('')
             }
