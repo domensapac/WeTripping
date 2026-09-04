@@ -32,7 +32,10 @@ export async function proxy(request: NextRequest) {
   } = await supabase.auth.getUser()
 
 
-  
+  if(user && (request.nextUrl.pathname.startsWith('/signin') || request.nextUrl.pathname.startsWith('/signup'))){
+    await supabase.auth.signOut(); 
+    return NextResponse.redirect(request.nextUrl.clone()); 
+  }
 
 
   // zaščiti vse razen /signin, /signup, /reset-password, /new-password, /confirm  in statičnih datotek
