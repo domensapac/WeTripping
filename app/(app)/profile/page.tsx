@@ -6,9 +6,11 @@ import { getTrips } from "../trip/actions";
 
 export default async function Profile() {
     
-
-    const data = await getUserData()
-    const trips = await getTrips()
+    const [data, trips] = await Promise.all([
+        getUserData(),
+        getTrips
+    ])
+    
 
     return( 
         <div className="w-full flex flex-col m-8">
