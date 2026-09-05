@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Bell, LayoutGrid, User, Search, Rows3} from 'lucide-react';
-import { format } from "date-fns";
+import { format, formatDistance } from "date-fns";
 import { useState } from "react";
 import NotificationsTab from "./NotificationsTab";
 
@@ -38,7 +38,7 @@ export default function HomePage({trips, notifications} : HomeProps){
     const [view, setView] = useState('list')
     const [visible, setVisible] = useState<boolean>(false) 
 
-    const numberOfNotifications = notifications?.length
+    const numberOfNotifications = notifications?.filter( el => el.was_read == false).length
 
     return(
     <div className={`flex flex-col w-full gap-3 m-8 relative`}>      
@@ -85,7 +85,7 @@ export default function HomePage({trips, notifications} : HomeProps){
                     {format(trip.start_date, "dd.MM")} - {format(trip.end_date, "dd.MM")}
                 </span>
                 </span> 
-                <span className="text-sm text-gray-500">No action yet..</span>
+                <span className="text-sm text-gray-500"> {formatDistance(trip.start_date, Date.now(), {addSuffix: true})} </span>
                 <span className="absolute bottom-2 right-2 text-xs flex gap-1 items-center text-gray-500"> 
                 <User size={10}/>
                 <span>{trip.created_by.first_name} {trip.created_by.last_name} </span>

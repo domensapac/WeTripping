@@ -30,7 +30,7 @@ export default function SignInForm() {
                     <Link href="/reset-password"> <span className="hover:underline text-gray-600 text-sm"> Forgotten your password?</span></Link>
                 </div>
             </div>
-            <button className="text-black hover:cursor-pointer mt-4 px-2 py-1 border-1 rounded-sm" type="submit">
+            <button className="text-white bg-black hover:cursor-pointer mt-4 px-2 py-1 border-1 rounded-sm" type="submit">
                 Sign In
             </button>
             <span className="mt-8 mb-2">Don't have an account? <Link href="/signup"> <span className="hover:cursor-pointer text-gray-700 font-semibold">Sign up</span> </Link> </span>

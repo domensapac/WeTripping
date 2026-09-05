@@ -41,7 +41,7 @@ export default async function Profile() {
                     <Mail strokeWidth={1} className="w-15"/>
                     <div className="flex flex-col w-full">
                         <span className="text-gray-500">Email</span>
-                        <span>domen.sapac10@gmail.com</span>
+                        <span>{data?.email}</span>
                     </div>
                 </div>
             </div>

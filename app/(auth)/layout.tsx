@@ -18,7 +18,7 @@ export default async function AuthLayout({
             </div>
             <div className="bg-cover bg-gray-500 md:bg-white w-full md:w-2/3 lg:w-1/2 flex justify-center items-center">
                 <div className="bg-white md:bg-none w-full flex-1 m-6 md:m-12 border-1 border-white rounded-lg flex-col">
-                    <span className={`flex text-xl w-full justify-center text-gray-400 ${architectsDaughter.className}`}> Welcome back! </span>
+                    <span className={`flex text-xl w-full justify-center text-gray-400 `}> Welcome back! </span>
                     {children}
                 </div>
             </div>

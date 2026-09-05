@@ -1,6 +1,6 @@
 'use client'
 
-import { PartyPopper, EllipsisVertical, MoveLeft} from 'lucide-react';
+import { PartyPopper, EllipsisVertical, MoveLeft, Trash, Eye} from 'lucide-react';
 import React, { useRef, useEffect, useState } from "react";
 import { format } from "date-fns"
 import Link from 'next/link';
@@ -59,7 +59,7 @@ export default function NotificationsTab({notifications} : NotificationProps){
             </div>
             <div className="flex flex-col w-full my-2 ">
                 {localNotifications.map(notification => (
-                    <div className={`relative border-b border-t border-gray-100 ps-18 pe-16 py-2 flex justify-center items-center text-left ${notification.was_read === false ? "bg-sky-100" : "bg-white"} `} key={notification.id}>
+                    <div key={notification.id} className={`relative border-b border-t border-gray-100 ps-18 pe-16 py-2 flex justify-center items-center text-left ${notification.was_read === false ? "bg-sky-100" : "bg-white"} `} >
                         <div className="absolute left-8">
                             {notification.type === 'welcome_message' ? <PartyPopper color="green"/> : <PartyPopper color="green"/>}
                         </div>
@@ -72,13 +72,13 @@ export default function NotificationsTab({notifications} : NotificationProps){
                             </button>
                             {shown === notification.id ? 
                             <>
-                            <div ref={wrapperRef} className={`bg-white absolute right-4 top-1/2 mt-5 border-1 rounded-sm w-35 h-20 z-999 flex flex-col`}>
+                            <div ref={wrapperRef} className={`bg-white absolute right-4 top-1/2 mt-5 border-1 rounded-sm w-35  z-999 flex flex-col`}>
                                 <span className="absolute right-5 -top-1.5 w-[11px] h-[11px] rotate-45 bg-white border-t border-l z-10"></span>
                                 <div className="w-full h-1/2 p-1 text-sm">
-                                    <button onClick={() => handleMarkAsRead(notification?.id)} className={`${notification.was_read === true ? "disabled text-gray-300" : ""}`}><span className="font-semibold">Mark as read</span></button>
+                                    <button onClick={() => handleMarkAsRead(notification?.id)} className={`${notification.was_read === true ? "disabled text-gray-300" : ""}`}> <span className="flex items-center font-semibold"> <Eye strokeWidth={1} height={15}/> Mark as read</span></button>
                                 </div>
                                 <div className="w-full h-1/2 p-1 text-sm">
-                                    <button onClick={() => handleDelete(notification?.id)}><span className="font-semibold">Delete</span></button>
+                                    <button onClick={() => handleDelete(notification?.id)}> <span className="flex items-center font-semibold"><Trash strokeWidth={1} height={15}/> Delete</span></button>
                                 </div>
                             </div>
                             </>: ""}
