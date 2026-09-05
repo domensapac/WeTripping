@@ -285,6 +285,8 @@ export async function addExpense(formData: FormData){
 
   const { data: { user } } = await supabase.auth.getUser() 
 
+  console.log(formData)
+  
   const { data, error } = await supabase 
     .from('expenses')
     .insert({trip_id: id, amount: amount, description: description, added_by: user?.id, paid_by: paid_by })
@@ -301,8 +303,13 @@ export async function getTripExpenses(trip_id : string){
 
   const { data, error } = await supabase
     .from('expenses')
-    .select("*")
-    .eq("trip_id", trip_id)
+    .select(`
+      *,
+      paid_by:profiles!expenses_paid_by_fkey (
+        first_name,
+        last_name
+      )`)
+    .eq('trip_id', trip_id);
 
   if(error){
     console.log(error)

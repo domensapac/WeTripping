@@ -3,11 +3,13 @@ import HomePage from "@/components/HomePage";
 
 export default async function Home(){
 
-  const trips = await getTrips()
-  const notifications = await getNotifications()
+  const [trips, notifications] = await Promise.all([
+    getTrips(),
+    getNotifications()
+  ])
+
   console.log(trips)
 
-  
   return(
     <HomePage trips={trips} notifications={notifications}/>
   )

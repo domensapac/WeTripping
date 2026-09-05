@@ -1,6 +1,6 @@
 'use client'
 
-import { MoveLeft, User } from "lucide-react"
+import { MoveLeft, User, Euro  } from "lucide-react"
 import Link from "next/link"
 import ExpenseButton from "./ExpenseButton"
 
@@ -21,12 +21,27 @@ type User = {
     img_path: string
 }
 
-type TripProps = {
-    trip: Trip | null,
-    travellers: User[] | null
+type Expense = {
+    id: string,
+    trip_id: string,
+    amount: number,
+    description: string,
+    category: string,
+    added_by: string,
+    paid_by: {
+        first_name: string,
+        last_name: string
+    },
+    created_at: string
 }
 
-export default function TripPage( {trip, travellers} : TripProps){
+type TripProps = {
+    trip: Trip | null,
+    travellers: User[] | null,
+    expenses: Expense[] | null
+}
+
+export default function TripPage( {trip, travellers, expenses} : TripProps){
 
     const numberOfTravellers = travellers?.length
 
@@ -43,8 +58,21 @@ export default function TripPage( {trip, travellers} : TripProps){
             <div className="mt-5 mb-1">
                 <span className="text-xl">History</span>
             </div>
-            <div className="flex flex-col p-4 border-1 border-gray-200 rounded-sm shadow-sm gap-4">
-                lorem ipsum
+            <div className="flex flex-col gap-2">
+                {expenses?.map(expense => (
+                    <div className="flex items-center p-4 border-1 border-gray-200 rounded-sm shadow-sm gap-4" key={expense.id}>
+                        <div>
+                            <Euro strokeWidth={1}/>
+                        </div>
+                        <div className="flex flex-col">
+                            <span>{expense.description}</span>
+                            <span className="text-gray-600 text-xs">Paid by {expense.paid_by.first_name} {expense.paid_by.last_name}</span>
+                        </div>
+                        <div className="ml-auto">
+                            <span >{expense.amount}€</span>
+                        </div>
+                    </div>
+                ))}
             </div>
             <div className="mt-5 mb-1">
                 <span className="text-xl">Travellers</span>

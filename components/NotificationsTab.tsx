@@ -53,7 +53,7 @@ export default function NotificationsTab({notifications} : NotificationProps){
 
     return(
         <div className="w-full flex flex-col gap-10 ">
-            <div className="flex relative justify-center p-8 pt-10 w-full">
+            <div className="flex relative justify-center p-8 pb-0 pt-10 w-full">
                 <Link href="/"> <span className="absolute left-8"><MoveLeft/> </span></Link>
                 <span className="font-semibold">Notifications</span>
             </div>
