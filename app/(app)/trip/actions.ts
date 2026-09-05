@@ -13,7 +13,18 @@ type TripData = {
 
 export async function createTrip(data : TripData) {
   const supabase = await createClient()
-  const { data: { user } , error: userError } = await supabase.auth.getUser();
+  const { data: { user } , error: userError } = await supabase.auth.getUser();
+
+  const { error: notifError } = await supabase
+    .from('notifications')
+    .insert({
+      user_id: user?.id,
+      title: "New trip created",
+      description: "Lovely news! Invite others to join your trip",
+      type: "trip_created"
+    })
+    .select()
+    .maybeSingle()
 
   if(userError)
     throw new Error(userError.message); 
@@ -39,7 +50,7 @@ export async function createTrip(data : TripData) {
       user_id: user?.id,
       role: 'organizer',
     });
-
+  
   if (travellerError) 
     throw new Error(travellerError.message);
   
@@ -134,6 +145,7 @@ export async function getUserData(user_id : string){
 export async function joinTrip(formData: FormData){
   const code = formData.get('trip_code') as string
   const id = formData.get('trip_id') as string
+  const created_by = formData.get('created_by') as string
 
   const supabase = await createClient()
     
@@ -148,6 +160,18 @@ export async function joinTrip(formData: FormData){
     console.log(travellerError)
   }
 
+  const { error: notifError } = await supabase
+    .from('notifications')
+    .insert({
+      user_id: created_by,
+      title: "Traveller joined your trip!",
+      description: "You can both start adding expenses",
+      type: "traveller_joined"
+    })
+    .select()
+    .maybeSingle()
+  
+  
   const { data, error } = await supabase
     .from('invites')
     .update({valid : false})

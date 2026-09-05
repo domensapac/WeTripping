@@ -2,6 +2,8 @@ import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import { getInviteData, getTripData, getUserData, joinTrip } from '../../actions';
 import ErrorToast from '@/components/ErrorToast';
+import { format } from 'date-fns';
+import { getAuthenticatedUser } from '@/app/(auth)/actions';
 
 interface PropType {
   params: Promise<{code: string;}>;
@@ -12,37 +14,63 @@ export default async function Page({ params } : PropType) {
 
     const invite = await getInviteData(code)
 
-    const trip = await getTripData(invite.trip_id)
-
-    const user = await getUserData(invite.created_by)
+    const [trip, user, authUser] = await Promise.all([
+        getTripData(invite.trip_id),
+        getUserData(invite.created_by),
+        getAuthenticatedUser()
+    ])
 
     return(
-        <div className="bg-[url('/test_bg.png')] w-full">
+        <div className="w-full">
             <ErrorToast/>
             <div className="flex flex-col justify-center items-center h-full w-full">
                 <div className="w-90">
                     <div className="tracking-[1px] flex w-full text-black">
-                        <div className="flex m-6 w-90 h-72 flex-col border-1 rounded-sm justify-center items-center bg-white">
-                            {invite?.valid === true ? 
+                        <div className="flex m-6 w-90 h-80 flex-col border-1 border-gray-200 shadow-sm rounded-sm justify-center items-center bg-white">
+                            { (invite?.valid === false || invite?.created_by == authUser?.id) ? 
                             <>
-                                <form action={joinTrip}>
-                                    <div className="flex flex-col gap-2">
-                                        <span>Invited to join <span className="font-bold text-xl">{trip.name}</span> </span>
-                                        <span>by {user.first_name} {user.last_name}</span>
-                                    </div>
-                                    <button type="submit">
-                                        Join
-                                    </button>
-                                    <input className="hidden" id="trip_code" name="trip_code" type="text" value={code} readOnly/>
-                                    <input className="hidden" id="trip_id" name="trip_id" type="text" value={invite.trip_id} readOnly/>
-                                </form>
+                                <div className="text-2xl">Invalid invite</div>
                             </> : 
-                                <div>Invalid invite</div>
+                                <form action={joinTrip}>
+                                    <div className="my-3 text-center">
+                                        <span className="text-2xl text-center">Invited to join</span>
+                                    </div>
+                                    <div className="my-3 flex flex-col">
+                                        <div className="my-1 flex flex-col">
+                                            <span className="text-xs">
+                                            DESTINATION
+                                            </span>
+                                            <span className="text-2xl">
+                                            {trip.name}
+                                            </span>
+                                        </div>
+                                        <div className="my-1 flex flex-col">
+                                            <span className="text-xs">
+                                            BY
+                                            </span>
+                                            <span className="text-2xl">
+                                                {user.first_name} {user.last_name}
+                                            </span>
+                                        </div>
+                                        <div className="my-1 flex flex-col">
+                                            <span className="text-xs">
+                                            PERIOD
+                                            </span>
+                                            <span className="text-2xl">
+                                                {trip?.start_date && trip?.end_date ? (`${format(trip?.start_date, "LLL dd, yy")} - ${" "}  ${format(trip?.end_date, "LLL dd, yy")}`) : ('Missing data')}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className="mt-5 flex justify-center">
+                                        <button type="submit" className="w-23 border-1 border-black rounded-sm">
+                                            Join
+                                        </button>
+                                    </div>
+                                    <input className="hidden" type="text" name="created_by" id="created_by" defaultValue={invite?.created_by}></input>
+                                </form>
                             }
                         </div>
                     </div>
-                    
-                    
                 </div>
             </div>
         </div>

@@ -153,3 +153,11 @@ export async function updateUserImgPath(id : string, filePath : string){
 
   return pathData
 }
+
+export async function getAuthenticatedUser(){
+  const supabase = await createClient()
+
+  const { data: { user } , error: userError } = await supabase.auth.getUser()
+
+  return user
+}
