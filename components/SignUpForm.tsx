@@ -44,7 +44,7 @@ export default function SignUpForm() {
             <button className="text-black border-black hover:cursor-pointer mt-4 px-2 py-1 border-1 rounded-sm" type="submit">
                 Sign Up
             </button>
-            <span className="mt-8 mb-2"> Already have an account? <Link href="/signin"> <span className="hover:cursor-pointer text-gray-700 font-semibold">Sign In</span> </Link> </span>
+            <span className="mt-8 mb-2 text-sm"> Already have an account? <Link href="/signin"> <span className="hover:cursor-pointer text-gray-700 font-semibold">Sign In</span> </Link> </span>
         </div>
     </form>
   )

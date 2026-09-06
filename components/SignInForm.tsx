@@ -38,7 +38,7 @@ export default function SignInForm() {
             <button className="text-black border-black hover:cursor-pointer mt-4 px-2 py-1 border-1 rounded-sm" type="submit">
                 Sign In
             </button>
-            <span className="mt-8 mb-2">Don't have an account? <Link href="/signup"> <span className="hover:cursor-pointer text-gray-700 font-semibold">Sign up</span> </Link> </span>
+            <span className="mt-8 mb-2 text-sm">Don't have an account? <Link href="/signup"> <span className="hover:cursor-pointer text-gray-700 font-semibold">Sign up</span> </Link> </span>
             <input type="text" hidden name="redirectTo" id="redirectTo" defaultValue={search || " "}></input>
         </div>
     </form>

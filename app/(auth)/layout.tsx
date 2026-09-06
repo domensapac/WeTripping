@@ -14,10 +14,10 @@ export default async function AuthLayout({
 }>) {
     return (
         <div className="tracking-[1px] flex min-h-screen w-full text-gray-400">
-            <div className="hidden md:flex md:w-1/3 lg:w-1/2 bg-cover bg-gray-500 ...">    
+            <div className="hidden md:flex md:w-1/3 lg:w-1/2 bg-cover bg-gray-200 ...">    
             </div>
-            <div className="bg-cover bg-gray-500 md:bg-white w-full md:w-2/3 lg:w-1/2 flex justify-center items-center">
-                <div className="bg-white md:bg-none w-full flex-1 m-6 md:m-12 border-1 border-white rounded-lg flex-col">
+            <div className="bg-cover bg-gray-200 md:bg-white w-full md:w-2/3 lg:w-1/2 flex justify-center items-center">
+                <div className="bg-white md:bg-none w-full flex-1 m-6 md:m-12 border-1 rounded-lg flex-col shadow-sm border-gray-200 md:shadow-none md:border-none">
                     <span className={`flex text-xl w-full justify-center text-gray-400 `}> Welcome back! </span>
                     {children}
                 </div>
