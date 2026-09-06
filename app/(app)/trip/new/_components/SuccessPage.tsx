@@ -26,7 +26,7 @@ export default function SuccessPage({destination, dates, inviteLink} : PropType)
                 </div>
                 <div className="my-2 text-xl">
                     <span> {destination} </span> -
-                    <span className="text-blue-500"> {dates?.from && dates?.to ? `${format(dates.from, "yy")}` : "Ni izbranih datumov"} </span>
+                    <span className="text-[#1B6BFF]"> {dates?.from && dates?.to ? `${format(dates.from, "yy")}` : "Ni izbranih datumov"} </span>
                 </div>
                 <div className="my-2">
                     <span>Now let's invite your friends</span>

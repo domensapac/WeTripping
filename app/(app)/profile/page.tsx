@@ -8,7 +8,7 @@ export default async function Profile() {
     
     const [data, trips] = await Promise.all([
         getUserData(),
-        getTrips
+        getTrips()
     ])
     
 
@@ -17,7 +17,7 @@ export default async function Profile() {
             <div className="relative flex w-full justify-center items-center mt-2 mb-5">
                 <span className="font-semibold">Profile</span>
             </div>
-            <div className="flex justify-center items-center w-full mt-8">
+            <div className="flex justify-center items-center w-full mt-5">
                 <div className="">
                     <AvatarSection/>
                 </div>
