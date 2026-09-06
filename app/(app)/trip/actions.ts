@@ -80,7 +80,7 @@ export async function createInvite(tripId:  number){
     console.log(inviteError); 
   }
 
-  return `http://localhost:3000/trip/join/${inviteCode}`
+  return `https://we-tripping.vercel.app/trip/join/${inviteCode}`
 }
 
 function generateInviteCode(): string {
