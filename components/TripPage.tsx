@@ -94,7 +94,7 @@ export default function TripPage({trip, travellers, expenses} : TripProps){
                         <div className="flex items-center text-sm">
                             <span className="mx-2">
                                 {traveller.img_path !== '' ? 
-                                    <Image className="w-6 h-6 object-cover rounded-full" alt="avatar" src={traveller.img_path}/> :
+                                    <img className="w-6 h-6 object-cover rounded-full" alt="avatar" src={traveller.img_path}/> :
                                     <User strokeWidth={1} className="w-6 h-6" />}
                             </span>
                             <span className="text-gray-800">{traveller.first_name} {traveller.last_name}</span>
