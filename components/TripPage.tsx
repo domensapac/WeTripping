@@ -2,8 +2,8 @@
 
 import { MoveLeft, User, Euro, UserPlus, Share } from "lucide-react"
 import Link from "next/link"
-import ExpenseButton from "./ExpenseButton"
 import { createInvite } from "@/app/(app)/trip/actions"
+import Image from 'next/image'
 
 type Trip = {
     id: number,
@@ -86,7 +86,7 @@ export default function TripPage({trip, travellers, expenses} : TripProps){
             </div>
             <div className="flex justify-between mt-5 mb-1">
                 <span className="text-xl">Travellers</span>
-                <button className="hover:scale-90 flex items-center border-1 border-gray-400 shadow-sm px-1 rounded-sm text-md" onClick={handleInvite}><Share height={15}/> Invite</button>
+                <button className="active:scale-95 flex items-center border-1 border-gray-400 shadow-sm px-1 rounded-sm text-md" onClick={handleInvite}><Share height={15}/> Invite</button>
             </div>
             <div className="flex flex-col p-4 border-1 border-gray-200 rounded-sm shadow-sm gap-4">
                 {travellers?.map(traveller => (
@@ -94,7 +94,7 @@ export default function TripPage({trip, travellers, expenses} : TripProps){
                         <div className="flex items-center text-sm">
                             <span className="mx-2">
                                 {traveller.img_path !== '' ? 
-                                    <img className="w-6 h-6 object-cover rounded-full" alt="avatar" src={traveller.img_path}/> :
+                                    <Image className="w-6 h-6 object-cover rounded-full" alt="avatar" src={traveller.img_path}/> :
                                     <User strokeWidth={1} className="w-6 h-6" />}
                             </span>
                             <span className="text-gray-800">{traveller.first_name} {traveller.last_name}</span>

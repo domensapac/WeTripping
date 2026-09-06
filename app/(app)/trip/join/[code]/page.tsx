@@ -1,5 +1,3 @@
-import { createClient } from '@/lib/supabase/server';
-import { redirect } from 'next/navigation';
 import { getInviteData, getTripData, getUserData, joinTrip } from '../../actions';
 import ErrorToast from '@/components/ErrorToast';
 import { format } from 'date-fns';

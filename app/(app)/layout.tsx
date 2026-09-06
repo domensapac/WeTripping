@@ -1,9 +1,5 @@
-
 import Navbar from "@/components/Navbar";
-import { Home, Plus, User } from "lucide-react";
-import Link from "next/link";
  
-
 export default function AppLayout({
   children,
 }: Readonly<{

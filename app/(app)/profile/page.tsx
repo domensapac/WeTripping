@@ -1,6 +1,6 @@
 import { getUserData, logout } from "@/app/(auth)/actions"
 import AvatarSection from "@/components/AvatarSection";
-import { LogOut, Mail, Phone, User } from "lucide-react";
+import { Mail, Phone, User } from "lucide-react";
 import { format } from "date-fns"
 import { getTrips } from "../trip/actions";
 

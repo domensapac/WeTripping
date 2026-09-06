@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Bell, LayoutGrid, User, Search, Rows3} from 'lucide-react';
 import { format, formatDistance } from "date-fns";
 import { useState } from "react";
-import NotificationsTab from "./NotificationsTab";
 
 type Notification = {
     id: string,
