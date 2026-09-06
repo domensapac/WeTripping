@@ -80,7 +80,7 @@ export async function createInvite(tripId:  number){
     console.log(inviteError); 
   }
 
-  return `https://we-tripping.vercel.app/trip/join/${inviteCode}`
+  return `http://localhost:3000/trip/join/${inviteCode}`
 }
 
 function generateInviteCode(): string {
@@ -143,7 +143,7 @@ export async function getUserData(user_id : string){
 }
 
 export async function joinTrip(formData: FormData){
-  const code = formData.get('trip_code') as string
+  const code = formData.get('invite_code') as string
   const id = formData.get('trip_id') as string
   const created_by = formData.get('created_by') as string
 
@@ -171,6 +171,7 @@ export async function joinTrip(formData: FormData){
     .select()
     .maybeSingle()
   
+  console.log("CODE", code)
   
   const { data, error } = await supabase
     .from('invites')
@@ -178,7 +179,7 @@ export async function joinTrip(formData: FormData){
     .eq('invite_code', code)
 
   if(error){
-    console.log(error)
+    console.log("CODE ERROR: ", error)
   }
 
   redirect('/')

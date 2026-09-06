@@ -66,6 +66,8 @@ export default async function Page({ params } : PropType) {
                                             Join
                                         </button>
                                     </div>
+                                    <input className="hidden" type="text" name="invite_code" id="invite_code" defaultValue={invite?.invite_code}></input>
+                                    <input className="hidden" type="text" name="trip_id" id="trip_id" defaultValue={trip?.id}></input>
                                     <input className="hidden" type="text" name="created_by" id="created_by" defaultValue={invite?.created_by}></input>
                                 </form>
                             }

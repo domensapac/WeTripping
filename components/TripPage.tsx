@@ -86,7 +86,7 @@ export default function TripPage({trip, travellers, expenses} : TripProps){
             </div>
             <div className="flex justify-between mt-5 mb-1">
                 <span className="text-xl">Travellers</span>
-                <button className="flex items-center border-1 border-gray-400 shadow-sm px-1 rounded-sm text-md" onClick={handleInvite}><Share height={15}/> Invite</button>
+                <button className="hover:scale-90 flex items-center border-1 border-gray-400 shadow-sm px-1 rounded-sm text-md" onClick={handleInvite}><Share height={15}/> Invite</button>
             </div>
             <div className="flex flex-col p-4 border-1 border-gray-200 rounded-sm shadow-sm gap-4">
                 {travellers?.map(traveller => (
