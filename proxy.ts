@@ -46,12 +46,14 @@ export async function proxy(request: NextRequest) {
     !request.nextUrl.pathname.startsWith('/new-password') && 
     !request.nextUrl.pathname.startsWith('/confirm')
   ) {
-
-    
     const url = request.nextUrl.clone()
-    const redirectTo = request.nextUrl.pathname + request.nextUrl.search
     url.pathname = '/signin'
-    url.searchParams.set('redirectTo', redirectTo)
+
+    if(request.nextUrl.pathname.startsWith('/trip/join')){
+      const redirectTo = request.nextUrl.pathname + request.nextUrl.search
+      url.searchParams.set('redirectTo', redirectTo)
+    }
+
     return NextResponse.redirect(url)
   }
 
