@@ -167,3 +167,40 @@ export async function getAuthenticatedUser(){
 
   return user
 }
+
+export async function getNotifications(){
+  const supabase = await createClient(); 
+
+  const { data: { user } } = await supabase.auth.getUser() 
+
+  const { data, error } = await supabase
+    .from('notifications')
+    .select(`*`)
+    .eq('user_id', user?.id)
+    .order('created_at', { ascending: false})
+
+  return data
+}
+
+export async function deleteNotification(id: string){
+  const supabase = await createClient(); 
+
+  const { data, error } = await supabase
+    .from('notifications')
+    .delete()
+    .eq('id', id)
+  
+  return data
+}
+
+export async function markAsRead(id: string){
+  const supabase = await createClient(); 
+
+  const { data, error } = await supabase
+    .from('notifications')
+    .update({was_read : true})
+    .eq('id', id)
+  
+  return data
+}
+

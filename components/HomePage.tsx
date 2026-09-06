@@ -66,13 +66,17 @@ export default function HomePage({trips, notifications} : HomeProps){
         <span className="peer-focus:invisible pointer-events-none text-gray-500 relative -top-9 left-3 flex gap-2 items-start"><Search/> Search for trip</span>
       </div>
       <div>
-        <span className="text-lg font-semibold">My Trips</span>
+        <span className="text-xl font-medium">My Trips</span>
       </div>
       <div className={`w-full ${view === 'list' ? "flex flex-col h-full gap-4" : "grid grid-cols-2 gap-3"}`}>
         {!trips || trips.length === 0 ? 
         <>
           <div className="flex justify-center items-center w-full h-full">
-            <span className="text-xl">No trips yet..</span>
+            <div className="w-1/2 flex flex-col justify-center items-center text-center gap-2">
+              <img src="/nodata.svg" alt="nodata" className=" opacity-00 h-30"></img>
+              <span className="font-semibold">No available trips.</span>
+              <span className="text-xs text-gray-600">Click the plus button to create your first one</span>
+            </div>
           </div>
         </> :""} 
         {trips?.map(trip => (

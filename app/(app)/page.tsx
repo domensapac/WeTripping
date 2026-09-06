@@ -1,4 +1,5 @@
-import { getNotifications, getTrips } from "./trip/actions";
+import { getNotifications } from "../(auth)/actions";
+import { getTrips } from "./trip/actions";
 import HomePage from "@/components/HomePage";
 
 export default async function Home(){

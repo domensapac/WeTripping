@@ -4,7 +4,7 @@ import { PartyPopper, EllipsisVertical, MoveLeft, Trash, Eye} from 'lucide-react
 import React, { useRef, useEffect, useState } from "react";
 import { format } from "date-fns"
 import Link from 'next/link';
-import { markAsRead, deleteNotification } from '@/app/(app)/trip/actions';
+import { markAsRead, deleteNotification } from '@/app/(auth)/actions';
 
 type Notification = {
     id: string,

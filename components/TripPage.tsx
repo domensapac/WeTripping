@@ -45,6 +45,7 @@ type TripProps = {
 export default function TripPage({trip, travellers, expenses} : TripProps){
 
     const numberOfTravellers = travellers?.length
+    const numberOfExpenses = expenses?.length || 0
 
     async function handleInvite() {
         if(!trip) return
@@ -61,31 +62,39 @@ export default function TripPage({trip, travellers, expenses} : TripProps){
             </div> 
             <div className="flex flex-col gap-2 mt-3">
                 <div className="flex justify-between">
-                    <span className="text-3xl">{trip?.name}</span>
+                    <span className="text-3xl font-medium">{trip?.name}</span>
                 </div>
                 <span className="flex items-center border-1 rounded-lg p-[3px] w-12 text-sm text-gray-500"><span><User height={15}/></span> {numberOfTravellers}  </span>
             </div>
             <div className="mt-5 mb-1">
-                <span className="text-xl">History</span>
+                <span className="text-xl font-medium">History</span>
             </div>
-            <div className="flex flex-col gap-2">
-                {expenses?.map(expense => (
-                    <div className="flex items-center p-4 border-1 border-gray-200 rounded-sm shadow-sm gap-4" key={expense.id}>
-                        <div>
-                            <Euro strokeWidth={1}/>
+            <div className="flex flex-col gap-2 ">
+                {numberOfExpenses > 0 ? 
+                <>
+                    {expenses?.map(expense => (
+                        <div className="flex items-center p-4 border-1 border-gray-200 rounded-sm shadow-sm gap-4" key={expense.id}>
+                            <div>
+                                <Euro strokeWidth={1}/>
+                            </div>
+                            <div className="flex flex-col">
+                                <span>{expense.description}</span>
+                                <span className="text-gray-600 text-xs">Paid by {expense.paid_by.first_name} {expense.paid_by.last_name}</span>
+                            </div>
+                            <div className="ml-auto">
+                                <span>{expense.amount}€</span>
+                            </div>
                         </div>
-                        <div className="flex flex-col">
-                            <span>{expense.description}</span>
-                            <span className="text-gray-600 text-xs">Paid by {expense.paid_by.first_name} {expense.paid_by.last_name}</span>
-                        </div>
-                        <div className="ml-auto">
-                            <span>{expense.amount}€</span>
-                        </div>
+                    ))}
+                </> : 
+                <>
+                    <div className="">
+                        <span className="text-gray-500">No records available..</span>
                     </div>
-                ))}
+                </>}
             </div>
             <div className="flex justify-between mt-5 mb-1">
-                <span className="text-xl">Travellers</span>
+                <span className="text-xl font-medium">Travellers</span>
                 <button className="active:scale-95 flex items-center border-1 border-gray-400 shadow-sm px-1 rounded-sm text-md" onClick={handleInvite}><Share height={15}/> Invite</button>
             </div>
             <div className="flex flex-col p-4 border-1 border-gray-200 rounded-sm shadow-sm gap-4">

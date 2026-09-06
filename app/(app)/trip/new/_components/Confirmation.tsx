@@ -19,16 +19,16 @@ export default function ConfirmationStep({destination, date, setStep, handleSubm
         </div>
         <div className="my-3 flex flex-col">
            <div className="my-1 flex flex-col">
-              <span className="text-xs">
-                DESTINATION
+              <span className="text-">
+                Destination
               </span>
               <span className="text-2xl">
                 {destination}
               </span>
            </div>
            <div className="my-1 flex flex-col">
-              <span className="text-xs">
-                PERIOD
+              <span className="text-md">
+                Period
               </span>
               <span className="text-2xl">
                 {date?.from && date?.to ? (`${format(date.from, "LLL dd, yy")} - ${" "}  ${format(date.to, "LLL dd, yy")}`) : ('Missing data')}

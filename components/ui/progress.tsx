@@ -1,5 +1,4 @@
 'use client'
-import { PlaneTakeoff } from 'lucide-react';
 import { Progress as ProgressPrimitive } from "@base-ui/react/progress"
 import { Plane } from 'lucide-react';
 
@@ -14,6 +13,7 @@ function Progress({
   return (
     <ProgressPrimitive.Root
       value={value}
+      suppressHydrationWarning
       data-slot="progress"
       className={cn("flex flex-wrap gap-3 ", className)}
       {...props}

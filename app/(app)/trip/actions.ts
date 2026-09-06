@@ -214,42 +214,6 @@ export async function getTrips(){
   return data
 }
 
-export async function getNotifications(){
-  const supabase = await createClient(); 
-
-  const { data: { user } } = await supabase.auth.getUser() 
-
-  const { data, error } = await supabase
-    .from('notifications')
-    .select(`*`)
-    .eq('user_id', user?.id)
-    .order('created_at', { ascending: false})
-
-  return data
-}
-
-export async function markAsRead(id: string){
-  const supabase = await createClient(); 
-
-  const { data, error } = await supabase
-    .from('notifications')
-    .update({was_read : true})
-    .eq('id', id)
-  
-  return data
-}
-
-export async function deleteNotification(id: string){
-  const supabase = await createClient(); 
-
-  const { data, error } = await supabase
-    .from('notifications')
-    .delete()
-    .eq('id', id)
-  
-  return data
-}
-
 export async function getTripTravellers(trip_id: string) {
   const supabase = await createClient();
 
@@ -320,7 +284,7 @@ export async function addExpense(formData: FormData){
     console.log(error)
   }
 
-  redirect("/")
+  redirect(`/trip/${id}`)
 }
 
 export async function getTripExpenses(trip_id : string){

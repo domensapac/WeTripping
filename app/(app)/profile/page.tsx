@@ -46,7 +46,7 @@ export default async function Profile() {
                 </div>
             </div>
             <div className="mt-5 mb-3">
-                <span className="text-2xl font-semibold">My stats</span>
+                <span className="text-xl font-medium">My stats</span>
             </div>
             <div className="flex flex-col p-4 border-1 border-gray-200 rounded-sm shadow-sm gap-4">
                 <div className="text-sm flex items-center">
@@ -63,7 +63,7 @@ export default async function Profile() {
                 </div>
             </div>
             <div className="mt-5 mb-3">
-                <span className="text-2xl font-semibold">Actions</span>
+                <span className="text-xl font-medium">Actions</span>
             </div>
             <div className="flex flex-col p-4 border-1 border-gray-200 rounded-sm shadow-sm gap-4">
                 <div className="text-sm flex items-center">
