@@ -8,8 +8,6 @@ export default async function Home(){
     getNotifications()
   ])
 
-  console.log(trips)
-
   return(
     <HomePage trips={trips} notifications={notifications}/>
   )

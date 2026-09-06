@@ -4,11 +4,16 @@ import { useActionState, useEffect } from 'react'
 import { toast } from 'sonner'
 import { login, SignInState } from '../app/(auth)/actions'  
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 
 const initialState: SignInState = { error: null }
 
 export default function SignInForm() {
   const [state, formAction, pending] = useActionState(login, initialState)
+  const searchParams = useSearchParams()
+  const search = searchParams.get('redirectTo')
+
+  console.log(searchParams)
 
   useEffect(() => {
     if (state.error) toast.error(state.error)
@@ -34,6 +39,7 @@ export default function SignInForm() {
                 Sign In
             </button>
             <span className="mt-8 mb-2">Don't have an account? <Link href="/signup"> <span className="hover:cursor-pointer text-gray-700 font-semibold">Sign up</span> </Link> </span>
+            <input type="text" hidden name="redirectTo" id="redirectTo" defaultValue={search || " "}></input>
         </div>
     </form>
   )

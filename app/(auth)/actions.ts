@@ -70,7 +70,10 @@ export async function login(prevState: SignInState, formData: FormData): Promise
 
   const email = formData.get('email') as string
   const password = formData.get('password') as string
+  const redirectTo = formData.get('redirectTo') as string
 
+  console.log(redirectTo)
+  
   const { error } = await supabase.auth.signInWithPassword({ email, password })
 
   if (error) {
@@ -78,6 +81,9 @@ export async function login(prevState: SignInState, formData: FormData): Promise
   }
 
   revalidatePath('/', 'layout')
+  if(redirectTo != " "){
+    redirect(redirectTo)  
+  }
   redirect('/')  
 }
 

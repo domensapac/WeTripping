@@ -1,8 +1,9 @@
 'use client'
 
-import { MoveLeft, User, Euro  } from "lucide-react"
+import { MoveLeft, User, Euro, UserPlus, Share } from "lucide-react"
 import Link from "next/link"
 import ExpenseButton from "./ExpenseButton"
+import { createInvite } from "@/app/(app)/trip/actions"
 
 type Trip = {
     id: number,
@@ -41,9 +42,16 @@ type TripProps = {
     expenses: Expense[] | null
 }
 
-export default function TripPage( {trip, travellers, expenses} : TripProps){
+export default function TripPage({trip, travellers, expenses} : TripProps){
 
     const numberOfTravellers = travellers?.length
+
+    async function handleInvite() {
+        if(!trip) return
+        
+        const inviteLink = await createInvite(trip?.id); 
+        navigator.clipboard.writeText(inviteLink);
+    }
 
     return(
         <div className={`flex flex-col w-full gap-2 m-8 relative`}>  
@@ -52,8 +60,10 @@ export default function TripPage( {trip, travellers, expenses} : TripProps){
                 <span className="font-semibold">Trip</span>
             </div> 
             <div className="flex flex-col gap-2 mt-3">
-                <span className="text-3xl">{trip?.name}</span> 
-                <button className="border-1 rounded-lg p-[3px] text-sm w-20 text-gray-500">{numberOfTravellers} joined </button>
+                <div className="flex justify-between">
+                    <span className="text-3xl">{trip?.name}</span>
+                </div>
+                <span className="flex items-center border-1 rounded-lg p-[3px] w-12 text-sm text-gray-500"><span><User height={15}/></span> {numberOfTravellers}  </span>
             </div>
             <div className="mt-5 mb-1">
                 <span className="text-xl">History</span>
@@ -69,13 +79,14 @@ export default function TripPage( {trip, travellers, expenses} : TripProps){
                             <span className="text-gray-600 text-xs">Paid by {expense.paid_by.first_name} {expense.paid_by.last_name}</span>
                         </div>
                         <div className="ml-auto">
-                            <span >{expense.amount}€</span>
+                            <span>{expense.amount}€</span>
                         </div>
                     </div>
                 ))}
             </div>
-            <div className="mt-5 mb-1">
+            <div className="flex justify-between mt-5 mb-1">
                 <span className="text-xl">Travellers</span>
+                <button className="flex items-center border-1 border-gray-400 shadow-sm px-1 rounded-sm text-md" onClick={handleInvite}><Share height={15}/> Invite</button>
             </div>
             <div className="flex flex-col p-4 border-1 border-gray-200 rounded-sm shadow-sm gap-4">
                 {travellers?.map(traveller => (

@@ -37,7 +37,6 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(request.nextUrl.clone()); 
   }
 
-
   // zaščiti vse razen /signin, /signup, /reset-password, /new-password, /confirm  in statičnih datotek
   if (
     !user &&
@@ -47,8 +46,12 @@ export async function proxy(request: NextRequest) {
     !request.nextUrl.pathname.startsWith('/new-password') && 
     !request.nextUrl.pathname.startsWith('/confirm')
   ) {
+
+    
     const url = request.nextUrl.clone()
+    const redirectTo = request.nextUrl.pathname + request.nextUrl.search
     url.pathname = '/signin'
+    url.searchParams.set('redirectTo', redirectTo)
     return NextResponse.redirect(url)
   }
 
