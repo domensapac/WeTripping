@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import SignInForm from '../../../components/SignInForm';
 
 export default async function SignIn(){
@@ -28,7 +29,9 @@ export default async function SignIn(){
                 <div className="flex-1 border-t border-gray-300"></div>
             </div>
             <div>
-                <SignInForm></SignInForm>
+                <Suspense fallback={null}>
+                    <SignInForm></SignInForm>
+                </Suspense>
             </div>
         </div>
       );
