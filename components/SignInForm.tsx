@@ -22,23 +22,23 @@ export default function SignInForm() {
   return (
     <form action={formAction}>
         <div className="flex flex-col justify-center items-center sm:m-7 ">
-            <div className="w-2/3 lg:w-1/2">
-                <div className="flex flex-col mb-1 text-black">
-                    <label>Email</label>
-                    <input className="border-1 rounded-md p-1 ps-2 text-gray-600" id="email" name="email" type="text" required/>
+            <div className="w-[80%] lg:w-1/2">
+                <div className="flex flex-col text-black">
+                    <label className="font-medium">Email</label>
+                    <input className="border-1 rounded-md p-2 text-gray-600 text-sm" id="email" name="email" type="text" required/>
                 </div>
-                <div className="flex flex-col mt-1 text-black">
-                    <label>Password</label>
-                    <input className="border-1 rounded-md p-1 ps-2 text-gray-600" id="password" name="password" type="password" required/>
+                <div className="flex flex-col mt-4 text-black">
+                    <label className="font-medium">Password</label>
+                    <input className="border-1 rounded-md p-2 text-gray-600 text-sm" id="password" name="password" type="password" required/>
                 </div>
                 <div className="my-2">
-                    <Link href="/reset-password"> <span className="hover:underline text-gray-600 text-sm"> Forgotten your password?</span></Link>
+                    <Link href="/reset-password"> <span className="hover:underline text-gray-600 text-xs"> Forgotten your password?</span></Link>
                 </div>
-            </div>
-            <button className="text-black border-black hover:cursor-pointer mt-4 px-2 py-1 border-1 rounded-sm" type="submit">
+                <button className="w-full font-medium text-white border-white bg-[#1B6BFF] hover:cursor-pointer mt-4 px-2 py-2 border-1 rounded-full shadow-md" type="submit">
                 Sign In
-            </button>
-            <span className="mt-8 mb-2 text-sm">Don't have an account? <Link href="/signup"> <span className="hover:cursor-pointer text-gray-700 font-semibold">Sign up</span> </Link> </span>
+                </button>
+            </div>
+            <span className="mt-3 mb-6 text-xs">Don't have an account? <Link href="/signup"> <span className="hover:cursor-pointer text-gray-700 font-semibold">Sign up</span> </Link> </span>
             <input type="text" hidden name="redirectTo" id="redirectTo" defaultValue={search || " "}></input>
         </div>
     </form>
