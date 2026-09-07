@@ -15,7 +15,7 @@ export default async function Profile() {
     return( 
         <div className="w-full flex flex-col m-8">
             <div className="relative flex w-full justify-center items-center mt-2 mb-5">
-                <span className="font-semibold">Profile</span>
+                <span className="font-semibold md:hidden">Profile</span>
             </div>
             <div className="flex justify-center items-center w-full mt-5">
                 <div className="">

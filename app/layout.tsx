@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-dvh overflow-hidden">
-      <body className={`${inter.className} antialiased h-dvh overflow-hidden m-0 p-0 tracking-[1px]`}>
+      <body className={`${inter.className} antialiased h-dvh overflow-hidden m-0 p-0 tracking-[1px] md:flex md:justify-center`}>
         {children}
         <Toaster />
       </body>

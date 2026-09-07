@@ -35,11 +35,12 @@ export default function NewExpensePage({trip, travellers} : TripProps){
 
     const refHref = `/trip/${id}`
 
+    
     return(
         <div className={`flex flex-col w-full gap-2 m-8 relative`}>  
             <div className="relative flex w-full justify-center mt-2 mb-5">
                 <Link href={refHref}> <span className="absolute right-0"><X/> </span></Link>
-                <span className="font-semibold">Add expense</span>
+                <span className="font-semibold md:hidden">Add expense</span>
             </div> 
             <form action={addExpense} className="my-auto">
                 <div className="flex flex-col p-4 border-1 border-gray-200 rounded-sm shadow-sm gap-5">

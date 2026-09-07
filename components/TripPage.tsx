@@ -1,9 +1,9 @@
 'use client'
 
-import { MoveLeft, User, Euro, UserPlus, Share } from "lucide-react"
+import { MoveLeft, User, Euro, SquareArrowRightExit , Share, EllipsisVertical, Trash, Eye } from "lucide-react"
 import Link from "next/link"
 import { createInvite } from "@/app/(app)/trip/actions"
-import Image from 'next/image'
+import { RefObject, useEffect, useRef, useState } from "react"
 
 type Trip = {
     id: number,
@@ -54,15 +54,49 @@ export default function TripPage({trip, travellers, expenses} : TripProps){
         navigator.clipboard.writeText(inviteLink);
     }
 
+
+    function useOutsideAlerter(ref:any) {
+        useEffect(() => {
+            function handleClickOutside(event:any) {
+            if (ref.current && !ref.current.contains(event.target)) {
+                setShown(false)
+            }
+            }
+            document.addEventListener("mousedown", handleClickOutside);
+            return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            };
+        }, [ref]);
+    }
+
+    const [shown, setShown] = useState<boolean>(false)
+    const wrapperRef = useRef(null);
+    useOutsideAlerter(wrapperRef);
+    
     return(
         <div className={`flex flex-col w-full gap-2 m-8 relative`}>  
             <div className="relative flex w-full justify-center mt-2 mb-5">
                 <Link href="/"> <span className="absolute left-0"><MoveLeft/> </span></Link>
-                <span className="font-semibold">Trip</span>
+                <span className="font-semibold md:hidden">Trip</span>
             </div> 
             <div className="flex flex-col gap-2 mt-3">
                 <div className="flex justify-between">
                     <span className="text-3xl font-medium">{trip?.name}</span>
+                    <button onClick={() => setShown(!shown)}>
+                        <EllipsisVertical />
+                    </button>
+                    {shown === true ? 
+                    <>
+                    <div ref={wrapperRef} className={`bg-white absolute -right-3.5 mt-9 border-1 rounded-sm w-35  z-999 flex flex-col`}>
+                        <span className="absolute right-5 -top-1.5 w-[11px] h-[11px] rotate-45 bg-white border-t border-l z-10"></span>
+                        <div className="w-full h-1/2 p-1 text-sm">
+                            <button > <span className="flex items-center font-semibold"> <SquareArrowRightExit strokeWidth={1} height={15}/>Leave trip</span></button>
+                        </div>
+                        <div className="w-full h-1/2 p-1 text-sm">
+                            <button> <span className="flex items-center font-semibold"><Trash strokeWidth={1} height={15}/>Delete</span></button>
+                        </div>
+                    </div>
+                    </>: ""}
                 </div>
                 <span className="flex items-center border-1 rounded-lg p-[3px] w-12 text-sm text-gray-500"><span><User height={15}/></span> {numberOfTravellers}  </span>
             </div>
@@ -114,4 +148,8 @@ export default function TripPage({trip, travellers, expenses} : TripProps){
             </div>
         </div>
     )
+}
+
+function useOutsideAlerter(wrapperRef: RefObject<null>) {
+    throw new Error("Function not implemented.")
 }

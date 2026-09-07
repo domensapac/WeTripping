@@ -45,7 +45,7 @@ export default function HomePage({trips, notifications} : HomeProps){
         <button className={`absolute left-0 hover:cursor-pointer transition-transform duration-200 active:scale-90`} onClick={()=> setView(view === 'list' ? 'grid' : 'list')}> 
           {view === 'list' ? <LayoutGrid className="transition-transform"/> : <Rows3 className="transition-transform"/>}
         </button>
-        <span className="font-semibold">Home</span>
+        <span className="font-semibold md:hidden">Home</span>
         <Link href="/notifications" className="absolute right-0 hover:cursor-pointer">
           <Bell className="fill-black"/>
           { numberOfNotifications && numberOfNotifications > 0 ? 
@@ -62,13 +62,13 @@ export default function HomePage({trips, notifications} : HomeProps){
         </div>
       </div>
       <div className="relative mt-3">
-        <input type="text" id="search" name="search" className="peer p-3 border-1 border-gray-200 rounded-sm shadow-sm w-full h-12 focus:shadow-md"></input>
+        <input type="text" id="search" name="search" className="peer p-3 border-1 border-gray-200 rounded-sm shadow-sm w-full h-12 focus:shadow-md md:w-70"></input>
         <span className="peer-focus:invisible pointer-events-none text-gray-500 relative -top-9 left-3 flex gap-2 items-start"><Search/> Search for trip</span>
       </div>
       <div>
         <span className="text-xl font-medium ">My Trips</span>
       </div>
-      <div className={`w-full ${view === 'list' ? "flex flex-col h-full gap-4" : "grid grid-cols-2 gap-3"}`}>
+      <div className={`w-full ${view === 'list' ? "flex flex-col h-full gap-4 md:w-1/2" : "grid grid-cols-2 gap-3"}`}>
         {!trips || trips.length === 0 ? 
         <>
           <div className="flex justify-center items-center w-full h-full">
