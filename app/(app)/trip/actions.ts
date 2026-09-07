@@ -307,3 +307,21 @@ export async function getTripExpenses(trip_id : string){
 
   return data
 }
+
+export async function leaveTrip(trip_id : number){
+  const supabase = await createClient()
+
+  const { data: { user } } = await supabase.auth.getUser() 
+
+  const { data, error } = await supabase
+    .from('trip_travellers')
+    .delete()
+    .eq('trip_id', trip_id)
+    .eq('user_id', user?.id)
+
+  if(error){
+    console.log(error)
+  }
+
+  return data
+}
