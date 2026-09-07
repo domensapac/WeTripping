@@ -59,9 +59,9 @@ export default function NotificationsTab({notifications} : NotificationProps){
             </div>
             <div className="flex flex-col w-full my-2 ">
                 {localNotifications.map(notification => (
-                    <div key={notification.id} className={`relative border-b border-t border-gray-100 ps-18 pe-16 py-2 flex justify-center items-center text-left ${notification.was_read === false ? "bg-sky-100" : "bg-white"} `} >
+                    <div key={notification.id} className={`relative border-b border-t border-gray-100 ps-18 pe-16 py-2 flex justify-center items-center text-left ${notification.was_read === false ? "" : "bg-white"} `} >
                         <div className="absolute left-8">
-                            {notification.type === 'welcome_message' ? <PartyPopper color="green"/> : <PartyPopper color="green"/>}
+                            {notification.type === 'welcome_message' ? <PartyPopper color="black"/> : <PartyPopper color="black"/>}
                         </div>
                         <div className={`w-full flex flex-col h-20 gap-1`}>
                             <span className="w-full text-sm font-semibold"> {notification.title}</span>

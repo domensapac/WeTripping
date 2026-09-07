@@ -204,7 +204,8 @@ export async function getTrips(){
         trip_id
       )
     `)
-    .eq('trip_travellers.user_id', user?.id);
+    .eq('trip_travellers.user_id', user?.id)
+    .order('start_date', {ascending:true})
   
   if(error){
     console.log(error)
