@@ -122,10 +122,8 @@ export default function TripPage({trip, travellers, expenses, authUserId} : Trip
         if(!trip){
             return
         }
-
-        console.log(checkBox)
         
-        const data = await createInvite(trip?.id)
+        const data = await createInvite(trip?.id, checkBox)
         
         if(data){
             setInviteLink(data)
@@ -169,7 +167,8 @@ export default function TripPage({trip, travellers, expenses, authUserId} : Trip
                                     <input 
                                         type="checkbox" 
                                         name="tomato" 
-                                        onChange={()=> setCheckBox(!checkBox)}
+                                        checked={checkBox}
+                                        onChange={(e) => setCheckBox(e.target.checked)}
                                     />
                                 </div>
                                 

@@ -180,6 +180,7 @@ export async function joinTrip(formData: FormData){
     .from('invites')
     .update({valid : false})
     .eq('invite_code', code)
+    .eq('permanent', false)
 
   if(error){
     console.log("CODE ERROR: ", error)
