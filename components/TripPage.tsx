@@ -155,29 +155,28 @@ export default function TripPage({trip, travellers, expenses, authUserId} : Trip
                 <div className="fixed inset-0 w-full flex justify-center z-50 items-center">
                     <div ref={wrapperRefInvite} className="p-8 border-1 border-gray-300 w-[90%] h-90 relative z-70 bg-white rounded-sm shadow-sm">
                         <div className="flex justify-between">
-                            <span className="text-xl font-medium">Invite friends</span>
+                            <span className="text-2xl font-medium">Invite friends</span>
                             <button onClick={() => setInviteShown(!inviteShown)}>
                                 <X className=""/>
                             </button>
                         </div>
                         <div className="flex flex-col mt-3 gap-4">
                             <div className="my-2 flex flex-col">
-                                <div className="flex items-center gap-3">
-                                    <label>Doesn't expire</label>
+                                <span className="text-lg ">Additional</span>
+                                <div className="flex items-center gap-1">
                                     <input 
                                         type="checkbox" 
                                         name="tomato" 
                                         checked={checkBox}
                                         onChange={(e) => setCheckBox(e.target.checked)}
                                     />
+                                    <label>Doesn't expire</label>
                                 </div>
-                                
-
-                                <button className="flex items-center text-sm font-medium text-white border-white bg-[#1B6BFF] hover:cursor-pointer px-2 py-1 border-1 rounded-full shadow-md w-30" onClick={handleInviteCreate}>Create invite</button>      
-                                <div className="flex items-center text-xs gap-2 mt-4">
-                                    <span className="border-1 border-gray-300 rounded-sm w-60 truncate p-1">{inviteLink}</span>
-                                    <button className="text-sm font-medium text-white border-white bg-[#1B6BFF] hover:cursor-pointer px-3 border-1 rounded-full shadow-md" onClick={handleCopy}> <Copy className="h-full p-1 hover:cursor-pointer group-active:scale-85"/> </button>
+                                <div className="w-full flex items-center text-xs gap-2 mt-7">
+                                    <span className="grow truncate border-1 rounded-md p-2 text-gray-600 text-sm">{inviteLink}</span>
+                                    <button className="text-sm font-medium text-white border-white bg-[#1B6BFF] hover:cursor-pointer px-3 py-2 border-1 rounded-full shadow-md" onClick={handleCopy}> <Copy className="h-full p-1 hover:cursor-pointer group-active:scale-85"/> </button>
                                 </div>
+                                <button className="mt-8 w-full text-sm font-medium text-white border-white bg-[#1B6BFF] hover:cursor-pointer px-2 py-2 border-1 rounded-full shadow-md w-30" onClick={handleInviteCreate}>Create invite</button>      
                             </div>
                         </div>
                     </div>
