@@ -57,10 +57,12 @@ export async function createTrip(data : TripData) {
   return trip; 
 }
 
-export async function createInvite(tripId:  number){
+export async function createInvite(tripId:  number, perma: boolean = false){
   const supabase = await createClient()
   const { data: userData, error: userError } = await supabase.auth.getUser();
 
+  console.log(perma)
+  
   if(userError)
     throw new Error(userError.message);
 
@@ -71,7 +73,8 @@ export async function createInvite(tripId:  number){
     .insert({
       trip_id : tripId,
       created_by : userData.user.id,
-      invite_code : inviteCode
+      invite_code : inviteCode,
+      permanent: perma
     })
     .select()
     .single();
@@ -318,6 +321,24 @@ export async function leaveTrip(trip_id : number){
     .delete()
     .eq('trip_id', trip_id)
     .eq('user_id', user?.id)
+
+  if(error){
+    console.log(error)
+  }
+
+  return data
+}
+
+export async function deleteTrip(trip_id : number){
+  const supabase = await createClient()
+
+  const { data: { user } } = await supabase.auth.getUser() 
+
+  const { data, error } = await supabase
+    .from('trips')
+    .delete()
+    .eq('id', trip_id)
+    .eq('created_by', user?.id)
 
   if(error){
     console.log(error)
