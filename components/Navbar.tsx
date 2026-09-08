@@ -23,7 +23,7 @@ export default function Navbar(){
             </div>
                 
             </Link>
-            <Link href={fabHref} className="md:hidden relative -top-7 bg-[#1B6BFF] rounded-full shadow-xl p-3">
+            <Link href={fabHref} className="md:hidden relative -top-7 bg-[#0d3978] rounded-full shadow-xl p-3">
                 <Plus className="md:hidden text-white" size={35}/>
             </Link>
             <Link href={fabHref} className="hidden md:flex flex-col items-center">

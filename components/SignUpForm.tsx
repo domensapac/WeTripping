@@ -40,7 +40,7 @@ export default function SignUpForm() {
                     <label className="font-medium">Confirm Password</label>
                     <input className="border-1 rounded-md p-2 text-gray-600" id="confirmPassword" name="confirmPassword" type="password" required/>
                 </div>
-                 <button className="w-full text-white bg-[#1B6BFF] border-white hover:cursor-pointer mt-4 px-2 py-2 border-1 rounded-full shadow-md" type="submit">
+                 <button className="w-full text-white bg-[#0d3978] border-white hover:cursor-pointer mt-4 px-2 py-2 border-1 rounded-full shadow-md" type="submit">
                     Sign Up
                 </button>
             </div>

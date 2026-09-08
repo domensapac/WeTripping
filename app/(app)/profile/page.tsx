@@ -22,7 +22,7 @@ export default async function Profile() {
                     <AvatarSection/>
                 </div>
             </div>
-            <div className="flex flex-col p-4 border-1 border-gray-200 rounded-sm shadow-sm gap-6 my-7">
+            <div className="flex flex-col p-4 border-1 border- rounded-lg shadow-xs gap-6 my-7">
                 <div className="text-sm flex items-center">
                     <User strokeWidth={1} className="w-15"/>
                     <div className="flex flex-col w-full">
@@ -46,9 +46,9 @@ export default async function Profile() {
                 </div>
             </div>
             <div className="mt-5 mb-3">
-                <span className="text-xl font-medium">My stats</span>
+                <span className="text-xl font-semibold">My stats</span>
             </div>
-            <div className="flex flex-col p-4 border-1 border-gray-200 rounded-sm shadow-sm gap-4">
+            <div className="flex flex-col p-4 border-1 border-gray-200 rounded-lg shadow-xs gap-4">
                 <div className="text-sm flex items-center">
                     <div className="flex flex-col w-full">
                         <span className="text-gray-500">Trips</span>
@@ -63,9 +63,9 @@ export default async function Profile() {
                 </div>
             </div>
             <div className="mt-5 mb-3">
-                <span className="text-xl font-medium">Actions</span>
+                <span className="text-xl font-semibold">Actions</span>
             </div>
-            <div className="flex flex-col p-4 border-1 border-gray-200 rounded-sm shadow-sm gap-4">
+            <div className="flex flex-col p-4 border-1 border-gray-200 rounded-lg shadow-xs gap-4">
                 <div className="text-sm flex items-center">
                     <div className="flex flex-col w-full">
                         <form action={logout}>

@@ -17,7 +17,7 @@ export default function DestinationStep({destination, setDestination, setStep} :
             <InputGroupIcon destination={destination} setDestination={setDestination}/>
         </div>
         <div className="mt-5">
-          <button className="w-23 border-1 rounded-sm border-black p-1 hover:cursor-pointer" onClick={() => setStep('dates')} disabled={!destination}>Continue</button>
+          <button className="w-30 text-center text-md font-medium text-white bg-[#1B6BFF] hover:cursor-pointer p-2 rounded-full shadow-md" onClick={() => setStep('dates')} disabled={!destination}>Continue</button>
         </div>
       </div>
     </div>

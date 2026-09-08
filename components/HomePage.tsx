@@ -1,7 +1,7 @@
 'use client'
 
 import Link from "next/link";
-import { Bell, LayoutGrid, User, Search, Rows3} from 'lucide-react';
+import { Bell, LayoutGrid, User, Search, Rows3, EllipsisVertical} from 'lucide-react';
 import { format, formatDistance } from "date-fns";
 import { useState } from "react";
 
@@ -45,7 +45,7 @@ export default function HomePage({trips, notifications} : HomeProps){
         <button className={`absolute left-0 hover:cursor-pointer transition-transform duration-200 active:scale-90`} onClick={()=> setView(view === 'list' ? 'grid' : 'list')}> 
           {view === 'list' ? <LayoutGrid className="transition-transform"/> : <Rows3 className="transition-transform"/>}
         </button>
-        <span className="font-semibold md:hidden">Home</span>
+        <span className="font-semibold md:hidden ">Home</span>
         <Link href="/notifications" className="absolute right-0 hover:cursor-pointer">
           <Bell className="fill-black"/>
           { numberOfNotifications && numberOfNotifications > 0 ? 
@@ -54,19 +54,19 @@ export default function HomePage({trips, notifications} : HomeProps){
           </> : ""}
         </Link>
       </div>
-      <div className="flex flex-col w-full rounded-sm h-30 relative shrink-0 mt-2 ">
-        <span className="text-2xl font-semibold ">No more <span className="text-[#1B6BFF]">calculating.</span></span>
-        <span className="text-sm w-3/4 text-gray-600">You just enter your expenses, we do everything else for you</span>
-        <div className="absolute right-5 top-8 w-30">
+      <div className="flex flex-col w-full rounded-lg h-30 relative shrink-0 mt-2 bg-[#0d3978] p-3 text-white ">
+        <span className="text-2xl font-semibold ">No more <span className="">calculating.</span></span>
+        <span className="text-sm w-3/4 text-gray-300 z-50">You just enter your expenses, we do everything else for you</span>
+        <div className="absolute right-3 top-6 w-20">
           <img src="/icon1.svg" alt="iconsvg" className="opacity-60"></img>
         </div>
       </div>
       <div className="relative mt-3">
-        <input type="text" id="search" name="search" className="peer p-3 border-1 border-gray-200 rounded-sm shadow-sm w-full h-12 focus:shadow-md md:w-70"></input>
+        <input type="text" id="search" name="search" className="peer p-3 border-1 border-[#0d3978] rounded-sm shadow-xs w-full h-12 focus:shadow-md md:w-70"></input>
         <span className="peer-focus:invisible pointer-events-none text-gray-500 relative -top-9 left-3 flex gap-2 items-start"><Search/> Search for trip</span>
       </div>
       <div>
-        <span className="text-xl font-medium ">My Trips</span>
+        <span className="text-xl font-semibold ">My Trips </span>
       </div>
       <div className={`w-full ${view === 'list' ? "flex flex-col h-full gap-4 md:w-1/2" : "grid grid-cols-2 gap-3"}`}>
         {!trips || trips.length === 0 ? 
@@ -81,7 +81,7 @@ export default function HomePage({trips, notifications} : HomeProps){
         </> :""} 
         {trips?.map(trip => (
           <Link key={trip.id} href={`/trip/${trip.id}`}>
-            <div className={` shrink-0 flex flex-col min-h-30 border-1 border-gray-300 rounded-sm p-2 shadow-sm relative ${view === 'list' ? "w-full" : "col-span-1"}`}>
+            <div className={`bg-[#c1e0ff]/40 shrink-0 flex flex-col min-h-30 rounded-lg p-3 shadow-xs relative ${view === 'list' ? "w-full" : "col-span-1"}`}>
                 <span className={`flex w-full ${view === 'list' ? "justify-between items-baseline" : "flex-col"}`}>
                 <span className={`text-2xl font-medium`}>{trip.name}</span>
                 <span className={`${view === 'list' ? "text-md" : "text-sm"}`}>
@@ -89,10 +89,13 @@ export default function HomePage({trips, notifications} : HomeProps){
                 </span>
                 </span> 
                 <span className="text-sm text-gray-500"> {formatDistance(trip.start_date, Date.now(), {addSuffix: true})} </span>
-                <span className="absolute bottom-2 right-2 text-xs flex gap-1 items-center text-gray-500"> 
-                <User size={10}/>
-                <span>{trip.created_by.first_name} {trip.created_by.last_name} </span>
-                </span>
+                <div className="absolute bottom-3 left-3">
+                  <span className="text-xs flex gap-1 items-center text-gray-500"> 
+                  <User size={10}/>
+                  <span>{trip.created_by.first_name} {trip.created_by.last_name} </span>
+                  </span>
+                </div>
+                
             </div>
           </Link>
         ))}

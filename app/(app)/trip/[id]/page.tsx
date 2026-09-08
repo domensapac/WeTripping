@@ -1,5 +1,5 @@
 import TripPage from "@/components/TripPage";
-import { getTripData, getTripExpenses, getTripTravellers } from "../actions";
+import { calculateTripExpenses, getTripData, getTripExpenses, getTripTravellers } from "../actions";
 import { getAuthenticatedUser } from "@/app/(auth)/actions";
 
 export default async function Trip({ 
@@ -10,12 +10,15 @@ export default async function Trip({
 
     const { id } = await params;
 
-    const [tripData, tripTravellers, tripExpenses, authUser] = await Promise.all([
+    const [tripData, tripTravellers, tripExpenses, authUser, results] = await Promise.all([
         getTripData(id),
         getTripTravellers(id),
         getTripExpenses(id),
-        getAuthenticatedUser()
+        getAuthenticatedUser(),
+        calculateTripExpenses(id)
     ])
+    
+    console.log(results)
     
     const travellers = tripTravellers?.map(t => t.profiles) ?? []
 

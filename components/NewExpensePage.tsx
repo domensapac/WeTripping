@@ -43,27 +43,27 @@ export default function NewExpensePage({trip, travellers} : TripProps){
                 <span className="font-semibold md:hidden">Add expense</span>
             </div> 
             <form action={addExpense} className="my-auto">
-                <div className="flex flex-col p-4 border-1 border-gray-200 rounded-sm shadow-sm gap-5">
+                <div className="flex flex-col p-8 border-1 border-gray-200 rounded-sm shadow-sm gap-5">
                     <input type="text" className="hidden" defaultValue={trip?.id} name="id" id="id"></input>
                     <div className="flex flex-col gap-1 relative">
                         <span className="text-lg font-medium">Amount</span>
-                        <input type="text" className="border-1 rounded-md p-1 ps-2 " name="amount" id="amount"></input>
+                        <input type="text" className="border-1 rounded-md p-2 text-gray-600 " name="amount" id="amount"></input>
                         <span className="text-gray-500 absolute right-0 top-1/2 -translate-x-1/2 translate-y-1/5">€</span>
                     </div>
                     <div className="flex flex-col gap-1">
                         <span className="text-lg font-medium">Description</span>
-                        <input type="text" className="border-1 rounded-md p-1 ps-2 " name="description" id="description"></input>
+                        <input type="text" className="border-1 rounded-md p-2 text-gray-600" name="description" id="description"></input>
                     </div>
                     <div className="flex flex-col gap-1">
-                        <span className="text-lg font-medium">Person who paid</span>
-                        <select name="paid_by" id="paid_by" className="border-1 rounded-md p-1 ps-2 ">
+                        <span className="text-lg font-medium">Paid by</span>
+                        <select name="paid_by" id="paid_by" className="border-1 rounded-md p-2 text-gray-600">
                             {travellers?.map(traveller => (
                                 <option key={traveller.id} value={traveller.id}>{traveller.first_name} {traveller.last_name}</option>
                             ))}
                         </select>
                     </div>
                     <div className="flex justify-center">
-                        <button className="border-1 rounded-sm bg-black text-white w-30 h-10">Finish</button>
+                        <button className="w-full text-white bg-[#0d3978] border-white hover:cursor-pointer mt-4 px-2 py-2 border-1 rounded-full shadow-md">Add expense</button>
                     </div>
                 </div>
             </form>

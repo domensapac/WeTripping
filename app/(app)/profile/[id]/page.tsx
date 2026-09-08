@@ -61,13 +61,13 @@ export default async function ViewProfile({
                 <div className="text-sm flex items-center">
                     <User strokeWidth={1} className="w-15"/>
                     <div className="flex flex-col w-full">
-                        <span className="text-gray-500">About me</span>
+                        <span className="text-gray-500">About</span>
                         <span>{data?.first_name} {data?.last_name}</span>
                     </div>
                 </div>
             </div>
             <div className="mt-5 mb-3">
-                <span className="text-xl font-medium">Stats</span>
+                <span className="text-xl font-semibold">Stats</span>
             </div>
             <div className="flex flex-col p-4 border-1 border-gray-200 rounded-sm shadow-sm gap-4">
                 <div className="text-sm flex items-center">

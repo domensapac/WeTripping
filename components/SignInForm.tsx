@@ -34,7 +34,7 @@ export default function SignInForm() {
                 <div className="my-2">
                     <Link href="/reset-password"> <span className="hover:underline text-gray-600 text-xs"> Forgotten your password?</span></Link>
                 </div>
-                <button className="w-full font-medium text-white border-white bg-[#1B6BFF] hover:cursor-pointer mt-4 px-2 py-2 border-1 rounded-full shadow-md" type="submit">
+                <button className="w-full font-medium text-white border-white bg-[#0d3978] hover:cursor-pointer mt-4 px-2 py-2 border-1 rounded-full shadow-md" type="submit">
                 Sign In
                 </button>
             </div>

@@ -1,8 +1,8 @@
 'use client'
 
-import { MoveLeft, User, Euro, SquareArrowRightExit , Share, EllipsisVertical, Trash, X, Copy } from "lucide-react"
+import { MoveLeft, User, Euro, SquareArrowRightExit , Share, EllipsisVertical, Trash, X, Copy, ArrowRight } from "lucide-react"
 import Link from "next/link"
-import { createInvite, deleteTrip, leaveTrip } from "@/app/(app)/trip/actions"
+import { calculateTripExpenses, createInvite, deleteTrip, leaveTrip } from "@/app/(app)/trip/actions"
 import { RefObject, useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import { format } from "date-fns"
@@ -49,7 +49,7 @@ export default function TripPage({trip, travellers, expenses, authUserId} : Trip
 
     const numberOfTravellers = travellers?.length
     const numberOfExpenses = expenses?.length || 0
-
+    
     async function handleInvite() {
         if(!trip) return
         
@@ -90,6 +90,7 @@ export default function TripPage({trip, travellers, expenses, authUserId} : Trip
             function handleClickOutside(event:any) {
             if (ref.current && !ref.current.contains(event.target)) {
                 setInviteShown(false)
+                setInviteLink('')
             }
             }
             document.addEventListener("mousedown", handleClickOutside);
@@ -100,7 +101,7 @@ export default function TripPage({trip, travellers, expenses, authUserId} : Trip
     }
 
     const [checkBox, setCheckBox] = useState<boolean>(false)
-    const [inviteLink, setInviteLink] = useState<string>('No link yet..')
+    const [inviteLink, setInviteLink] = useState<string>('')
     const [inviteShown, setInviteShown] = useState<boolean>(false)
     const [profilesShown, setProfilesShown] = useState<boolean>(false)
     const [shown, setShown] = useState<boolean>(false)
@@ -153,7 +154,7 @@ export default function TripPage({trip, travellers, expenses, authUserId} : Trip
             {inviteShown === true ? 
             <>
                 <div className="fixed inset-0 w-full flex justify-center z-50 items-center">
-                    <div ref={wrapperRefInvite} className="p-8 border-1 border-gray-300 w-[90%] h-90 relative z-70 bg-white rounded-sm shadow-sm">
+                    <div ref={wrapperRefInvite} className="p-8 border-1 border-gray-300 w-[90%] h-90 relative z-70 bg-white rounded-sm shadow-xs">
                         <div className="flex justify-between">
                             <span className="text-2xl font-medium">Invite friends</span>
                             <button onClick={() => setInviteShown(!inviteShown)}>
@@ -173,10 +174,10 @@ export default function TripPage({trip, travellers, expenses, authUserId} : Trip
                                     <label>Doesn't expire</label>
                                 </div>
                                 <div className="w-full flex items-center text-xs gap-2 mt-7">
-                                    <span className="grow truncate border-1 rounded-md p-2 text-gray-600 text-sm">{inviteLink}</span>
-                                    <button className="text-sm font-medium text-white border-white bg-[#1B6BFF] hover:cursor-pointer px-3 py-2 border-1 rounded-full shadow-md" onClick={handleCopy}> <Copy className="h-full p-1 hover:cursor-pointer group-active:scale-85"/> </button>
+                                    <span className="grow truncate border-1 rounded-md p-2 text-gray-600 text-sm">{inviteLink || "No link yet.."}</span>
+                                    <button className={`${inviteLink === "" ? "bg-indigo-100" : "bg-[#0d3978]"} text-sm font-medium text-white hover:cursor-pointer px-3 py-2  rounded-full shadow-xs`} onClick={handleCopy}> <Copy className="h-full p-1 hover:cursor-pointer group-active:scale-85"/> </button>
                                 </div>
-                                <button className="mt-8 w-full text-sm font-medium text-white border-white bg-[#1B6BFF] hover:cursor-pointer px-2 py-2 border-1 rounded-full shadow-md w-30" onClick={handleInviteCreate}>Create invite</button>      
+                                <button className="mt-8 w-full text-sm font-medium text-white bg-[#0d3978] hover:cursor-pointer px-2 py-2  rounded-full shadow-xs w-30" onClick={handleInviteCreate}>Create invite</button>      
                             </div>
                         </div>
                     </div>
@@ -186,7 +187,7 @@ export default function TripPage({trip, travellers, expenses, authUserId} : Trip
             {profilesShown === true ? 
             <>
                 <div className="fixed inset-0 w-full flex justify-center z-50 items-center">
-                    <div ref={wrapperRefProfiles} className="p-8 border-1 border-gray-300 w-[90%] h-90 relative z-70 bg-white rounded-sm shadow-sm">
+                    <div ref={wrapperRefProfiles} className="p-8 border-1 border-gray-300 w-[90%] h-90 relative z-70 bg-white rounded-sm shadow-xs">
                         <div className="flex justify-between">
                             <span className="text-xl font-medium">View profiles</span>
                             <button onClick={() => setProfilesShown(!profilesShown)}>
@@ -196,7 +197,7 @@ export default function TripPage({trip, travellers, expenses, authUserId} : Trip
                         <div className="h-[90%] flex flex-col mt-3 gap-4 overflow-x-auto">
                             {travellers?.map( traveller => (
                                 <Link key={traveller.id} href={`/profile/${traveller.id}`}>
-                                <div className="border-1 border-gray-200 rounded-sm shadow-sm px-2 py-2 flex flex-col" >
+                                <div className="bg-[#A16207]/5 border-1 border-gray-200 rounded-sm shadow-xs px-2 py-2 flex flex-col" >
                                     <div className="flex items-center text-sm">
                                         <span className="mx-2">
                                             {traveller.img_path !== '' ? 
@@ -204,7 +205,7 @@ export default function TripPage({trip, travellers, expenses, authUserId} : Trip
                                                 <User strokeWidth={1} className="w-6 h-6" />}
                                         </span>
                                         <span className="text-md">{traveller.first_name} {traveller.last_name}</span>
-                                        <span className="ml-auto">Joined on</span>
+                                        <span className="ml-auto me-3"><ArrowRight/></span>
                                     </div>
                                 </div>
                                 </Link>
@@ -214,14 +215,14 @@ export default function TripPage({trip, travellers, expenses, authUserId} : Trip
                 </div>
             </> : 
             " "}
-            <div className={`${profilesShown || inviteShown === true ? "opacity-[5%]": " "} flex flex-col`}>
+            <div className={`${profilesShown || inviteShown === true ? " blur-xs": " "} flex flex-col`}>
                 <div className={`relative flex w-full justify-center mt-2 mb-5`}>
                     <Link href="/"> <span className="absolute left-0"><MoveLeft/> </span></Link>
                     <span className="font-semibold md:hidden">Trip</span>
                 </div> 
                 <div className="flex flex-col mt-8">
                     <div className="flex justify-between">
-                        <span className="text-3xl font-medium">{trip?.name}</span>
+                        <span className="text-3xl font-semibold">{trip?.name}</span>
                         <button onClick={() => setShown(!shown)}>
                             <EllipsisVertical/>
                         </button>
@@ -230,8 +231,8 @@ export default function TripPage({trip, travellers, expenses, authUserId} : Trip
                         <div ref={wrapperRef} className={`bg-white absolute -right-3.5 mt-9 border-1 rounded-sm w-35  z-999 flex flex-col`}>
                             <span className="absolute right-5 -top-1.5 w-[11px] h-[11px] rotate-45 bg-white border-t border-l z-10 flex"></span>
                             <div className="flex flex-col">
-                                <button onClick={handleLeave} className="m-0 bg-sky-100/50 w-full"><span className="p-1 flex items-center font-semibold"> <SquareArrowRightExit strokeWidth={1} height={15}/>Leave trip</span></button>
-                                <button onClick={handleDelete} disabled={(trip?.created_by != authUserId)} className="m-0 bg-red-100/50 disabled:bg-gray-100/50 w-full"> <span className="p-1 flex items-center font-semibold"><Trash strokeWidth={1} height={15}/>Delete</span></button>
+                                <button onClick={handleLeave} className="m-0  w-full"><span className="p-1 flex items-center font-semibold"> <SquareArrowRightExit strokeWidth={1} height={15}/>Leave trip</span></button>
+                                <button onClick={handleDelete} disabled={(trip?.created_by != authUserId)} className="m-0  disabled:font-normal w-full"> <span className="p-1 flex items-center font-semibold"><Trash strokeWidth={1} height={15}/>Delete</span></button>
                             </div>
                         </div>
                         </>: ""}
@@ -239,27 +240,27 @@ export default function TripPage({trip, travellers, expenses, authUserId} : Trip
                     <div className="text-gray-600">
                         {trip?.start_date ? <>{format(trip?.start_date, "dd.MM")} - {format(trip?.end_date, "dd.MM")}</> : ""}
                     </div>
-                    <button className="mt-2 mb-2 border-black flex items-center border-1 rounded-lg p-[3px] w-12 text-sm text-black" onClick={() => setProfilesShown(!profilesShown)}>
+                    <button className="mt-2 font-medium text-white bg-[#0d3978] hover:cursor-pointer px-1 rounded-full shadow-xs flex items-center w-12" onClick={() => setProfilesShown(!profilesShown)}>
                        <User height={15}/> <span>  {numberOfTravellers} </span>
                     </button>
                 </div>
-                <div className="mt-5 mb-1">
-                    <span className="text-xl font-medium">History</span>
+                <div className="mt-10 mb-2">
+                    <span className="text-xl font-semibold ">History</span>
                 </div>
                 <div className="flex flex-col gap-2 ">
                     {numberOfExpenses > 0 ? 
                     <>
                         {expenses?.map(expense => (
-                            <div className="flex items-center p-4 border-1 border-gray-200 rounded-sm shadow-sm gap-4" key={expense.id}>
+                            <div className="bg-[#c1e0ff]/40 flex items-center p-4 border-gray-200 rounded-lg shadow-xs gap-4" key={expense.id}>
                                 <div>
-                                    <Euro strokeWidth={1}/>
+                                    <Euro strokeWidth={1.5}/>
                                 </div>
                                 <div className="flex flex-col">
-                                    <span>{expense.description}</span>
+                                    <span className="font-medium">{expense.description}</span>
                                     <span className="text-gray-600 text-xs">Paid by {expense.paid_by.first_name} {expense.paid_by.last_name}</span>
                                 </div>
                                 <div className="ml-auto">
-                                    <span>{expense.amount}€</span>
+                                    <span className="font-semibold">{expense.amount}€</span>
                                 </div>
                             </div>
                         ))}
@@ -271,10 +272,10 @@ export default function TripPage({trip, travellers, expenses, authUserId} : Trip
                     </>}
                 </div>
                 <div className="flex justify-between mt-7 mb-1">
-                    <span className="text-xl font-medium">Travellers</span>
-                    <button className="active:scale-95 flex items-center text-md font-medium text-white border-white bg-[#1B6BFF] hover:cursor-pointer px-2 border-1 rounded-full shadow-md" onClick={() => setInviteShown(true)}><Share height={15}/> Invite</button>
+                    <span className="text-xl font-semibold ">Travellers</span>
+                    <button className="active:scale-95 flex items-center text-md font-medium text-white bg-[#0d3978] hover:cursor-pointer px-2 rounded-full shadow-md" onClick={() => setInviteShown(true)}><Share height={15}/> Invite</button>
                 </div>
-                <div className="mt-2 flex flex-col p-4 border-1 border-gray-200 rounded-sm shadow-sm gap-4">
+                <div className="bg-[#c1e0ff]/40 mt-2 flex flex-col p-4 rounded-lg shadow-xs gap-4">
                     {travellers?.map(traveller => (
                         <div className="flex flex-col" key={traveller.id}>
                             <div className="flex items-center text-sm">

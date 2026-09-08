@@ -271,6 +271,7 @@ export async function getTripTravellers(trip_id: string) {
 
 export async function addExpense(formData: FormData){
   const amount = formData.get("amount") as string
+  const cleanAmount = parseFloat(amount.replace(',', '.'))
   const description = formData.get("description") as string
   const paid_by = formData.get("paid_by") as string
   const id = formData.get("id") as string
@@ -283,7 +284,7 @@ export async function addExpense(formData: FormData){
   
   const { data, error } = await supabase 
     .from('expenses')
-    .insert({trip_id: id, amount: amount, description: description, added_by: user?.id, paid_by: paid_by })
+    .insert({trip_id: id, amount: cleanAmount, description: description, added_by: user?.id, paid_by: paid_by })
 
   if(error){
     console.log(error)
@@ -344,6 +345,15 @@ export async function deleteTrip(trip_id : number){
   if(error){
     console.log(error)
   }
+
+  return data
+}
+
+export async function calculateTripExpenses(trip_id : string){
+  const supabase = await createClient()
+
+  const data = await getTripTravellers(trip_id)
+
 
   return data
 }
