@@ -352,8 +352,10 @@ export async function deleteTrip(trip_id : number){
 export async function calculateTripExpenses(trip_id : string){
   const supabase = await createClient()
 
-  const data = await getTripTravellers(trip_id)
+  const travellers = await getTripTravellers(trip_id)
 
+  const { data, error } = await supabase
+    .rpc('getExpensesSum', { user_id_param: '0f955d71-7386-4baf-bdfd-75532df303c9'})
 
   return data
 }
