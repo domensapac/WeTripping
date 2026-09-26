@@ -2,8 +2,8 @@
 
 import { MoveLeft, User, Euro, SquareArrowRightExit , Share, EllipsisVertical, Trash, X, Copy, ArrowRight } from "lucide-react"
 import Link from "next/link"
-import { calculateTripExpenses, createInvite, deleteTrip, leaveTrip } from "@/app/(app)/trip/actions"
-import { RefObject, useEffect, useRef, useState } from "react"
+import { createInvite, deleteTrip, leaveTrip } from "@/app/(app)/trip/actions"
+import {  useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import { format } from "date-fns"
 
@@ -38,14 +38,21 @@ type Expense = {
     created_at: string
 }
 
+interface UserTotal {
+  user: User;
+  total_amount: number;
+}
+
 type TripProps = {
     trip: Trip | null,
     travellers: User[] | null,
     expenses: Expense[] | null,
-    authUserId: string | null
+    authUserId: string | null,
+    calculatedExpenses: UserTotal[] | null;
 }
 
-export default function TripPage({trip, travellers, expenses, authUserId} : TripProps){
+export default function TripPage({trip, travellers, expenses, authUserId, calculatedExpenses} : TripProps){
+
 
     const numberOfTravellers = travellers?.length
     const numberOfExpenses = expenses?.length || 0

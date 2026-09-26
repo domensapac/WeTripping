@@ -301,8 +301,10 @@ export async function getTripExpenses(trip_id : string){
     .select(`
       *,
       paid_by:profiles!expenses_paid_by_fkey (
+        id,
         first_name,
-        last_name
+        last_name,
+        img_path
       )`)
     .eq('trip_id', trip_id);
 
@@ -349,13 +351,3 @@ export async function deleteTrip(trip_id : number){
   return data
 }
 
-export async function calculateTripExpenses(trip_id : string){
-  const supabase = await createClient()
-
-  const travellers = await getTripTravellers(trip_id)
-
-  const { data, error } = await supabase
-    .rpc('getExpensesSum', { user_id_param: '0f955d71-7386-4baf-bdfd-75532df303c9'})
-
-  return data
-}
