@@ -4,5 +4,6 @@
         "other": "off",
         "comments": "off",
         "strings": "off"
-    }
+    },
+    "editor.suggest.selectionMode": "never"
 }

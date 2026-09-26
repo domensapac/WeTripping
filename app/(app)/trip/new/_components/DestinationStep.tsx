@@ -14,7 +14,7 @@ export default function DestinationStep({destination, setDestination, setStep} :
           <span className="text-2xl">Where to next?</span>
         </div>
         <div className="my-3">
-            <InputGroupIcon destination={destination} setDestination={setDestination}/>
+            <input type="text" className="border-1 rounded-md px-2 py-1 text-black " name="amount" id="amount" defaultValue={destination} onChange={e => setDestination(e.target.value)}/>
         </div>
         <div className="mt-5">
           <button className="w-30 text-center text-md font-medium text-white bg-[#0d3978] hover:cursor-pointer p-2 rounded-full shadow-md" onClick={() => setStep('dates')} disabled={!destination}>Continue</button>

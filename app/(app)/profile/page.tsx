@@ -1,8 +1,6 @@
 import { getUserData, logout } from "@/app/(auth)/actions"
-import AvatarSection from "@/components/AvatarSection";
-import { Mail, Phone, User } from "lucide-react";
-import { format } from "date-fns"
 import { getTrips } from "../trip/actions";
+import ProfilePage from "@/components/ProfilePage";
 
 export default async function Profile() {
     
@@ -11,79 +9,7 @@ export default async function Profile() {
         getTrips()
     ])
     
-
     return( 
-        <div className="w-full flex flex-col m-8">
-            <div className="relative flex w-full justify-center items-center mt-2 mb-5">
-                <span className="font-semibold md:hidden">Profile</span>
-            </div>
-            <div className="flex justify-center items-center w-full mt-5">
-                <div className="">
-                    <AvatarSection/>
-                </div>
-            </div>
-            <div className="flex flex-col p-4 border-1 border- rounded-lg shadow-xs gap-6 my-7">
-                <div className="text-sm flex items-center">
-                    <User strokeWidth={1} className="w-15"/>
-                    <div className="flex flex-col w-full">
-                        <span className="text-gray-500">About me</span>
-                        <span>{data?.first_name} {data?.last_name}</span>
-                    </div>
-                </div>
-                <div className="text-sm flex items-center">
-                    <Phone strokeWidth={1} className="w-15"/>
-                    <div className="flex flex-col w-full">
-                        <span className="text-gray-500">Mobile number</span>
-                        <span>/</span>
-                    </div>
-                </div>
-                <div className="text-sm flex items-center">
-                    <Mail strokeWidth={1} className="w-15"/>
-                    <div className="flex flex-col w-full">
-                        <span className="text-gray-500">Email</span>
-                        <span>{data?.email}</span>
-                    </div>
-                </div>
-            </div>
-            <div className="mt-5 mb-3">
-                <span className="text-xl font-semibold">My stats</span>
-            </div>
-            <div className="flex flex-col p-4 border-1 border-gray-200 rounded-lg shadow-xs gap-4">
-                <div className="text-sm flex items-center">
-                    <div className="flex flex-col w-full">
-                        <span className="text-gray-500">Trips</span>
-                        <span>{trips?.length}</span>
-                    </div>
-                </div>
-                <div className="text-sm flex items-center">
-                    <div className="flex flex-col w-full">
-                        <span className="text-gray-500">Joined on</span>
-                        <span>{format(data?.created_at, "LLLL dd, yyyy")} </span>
-                    </div>
-                </div>
-            </div>
-            <div className="mt-5 mb-3">
-                <span className="text-xl font-semibold">Actions</span>
-            </div>
-            <div className="flex flex-col p-4 border-1 border-gray-200 rounded-lg shadow-xs gap-4">
-                <div className="text-sm flex items-center">
-                    <div className="flex flex-col w-full">
-                        <form action={logout}>
-                            <button className="text-gray-500">Log out</button>
-                        </form>
-                    </div>
-                </div>
-                <div className="text-sm flex items-center">
-                    <div className="flex flex-col w-full">
-                        <span className="text-gray-500">Help</span>
-                    </div>
-                </div>
-                <div className="text-sm flex items-center">
-                    <div className="flex flex-col w-full">
-                        <span className="text-gray-500">Delete account</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <ProfilePage data={data} length={trips?.length ?? 0}/>
     )
 }

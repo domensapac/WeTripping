@@ -162,7 +162,6 @@ export default function TripPage({trip, travellers, expenses, authUserId} : Trip
         router.push("/");
     }
 
-
     return(
         <div className={`flex flex-col w-full gap-2 m-8 relative`}>  
             {inviteShown === true ? 
@@ -314,7 +313,7 @@ export default function TripPage({trip, travellers, expenses, authUserId} : Trip
                                         <span className="ml-auto">No history yet..</span>
                                     </> : 
                                     <>
-                                        <span className={`${isOwed ? "text-green-500" : "text-red-500"} ml-auto`}>{ isOwed ? `Owes you ${(-difference).toFixed(2)}€` : `You owe ${(difference).toFixed(2)}€`}</span>
+                                        <span className={`${isOwed ? "text-green-800" : "text-red-800"} ml-auto`}>{ isOwed ? `Owes you ${(-difference).toFixed(2)}€` : `You owe ${(difference).toFixed(2)}€`}</span>
                                     </>}
                                 </> : 
                                 <>
