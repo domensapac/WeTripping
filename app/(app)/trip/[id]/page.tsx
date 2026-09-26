@@ -41,29 +41,11 @@ export default async function Trip({
         getAuthenticatedUser(),
     ])
     
-    const userTotalsMap = (tripExpenses ?? []).reduce((acc, expense) => {
-    const userId = expense.paid_by.id;
-    const current = acc.get(userId);
-
-    if (current) {
-        current.total_amount += expense.amount;
-    } else {
-        acc.set(userId, {
-        user: expense.paid_by,
-        total_amount: expense.amount,
-        });
-    }
-
-    return acc;
-    }, new Map<string, UserTotal>());
-
-    const result : UserTotal[] = Array.from(userTotalsMap.values());
-    result.sort((a: UserTotal, b: UserTotal) => b.total_amount - a.total_amount);
 
 
     const travellers = tripTravellers?.map(t => t.profiles) ?? []
 
     return (
-        <TripPage trip={tripData} travellers={travellers} expenses={tripExpenses} authUserId={authUser?.id || ''} calculatedExpenses={result}/>
+        <TripPage trip={tripData} travellers={travellers} expenses={tripExpenses} authUserId={authUser?.id || ''}/>
     );
 }

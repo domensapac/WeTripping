@@ -222,18 +222,33 @@ export async function getTrips(){
 export async function getTripTravellers(trip_id: string) {
   const supabase = await createClient();
 
-  const { data, error } = await supabase
-    .from('trip_travellers')
-    .select('user_id, profiles!trip_travellers_user_id_fkey(id, first_name, last_name, created_at, img_path)')
-    .eq('trip_id', trip_id);
+  const [{ data, error }, { data: expenses, error: expError }] = await Promise.all([
+    supabase
+      .from('trip_travellers')
+      .select(`
+        *,
+        profiles!trip_travellers_user_id_fkey (id, first_name, last_name, created_at, img_path)
+      `)
+      .eq('trip_id', trip_id),
+    supabase
+      .from('expenses')
+      .select('paid_by, amount')
+      .eq('trip_id', trip_id),
+  ]);
 
   if (error) {
-    console.log("error");
+    console.log(error);
     return null;
   }
 
+  const totals = expenses?.reduce((acc: Record<string, number>, e) => {
+    acc[e.paid_by] = (acc[e.paid_by] || 0) + e.amount;
+    return acc;
+  }, {});
+
   const travellers = data?.map((traveller: any) => {
     let path = ""
+
     if(traveller.profiles.img_path !== null){
       
       const { data: urlData } = supabase.storage
@@ -241,29 +256,29 @@ export async function getTripTravellers(trip_id: string) {
       .getPublicUrl(traveller.profiles.img_path);
 
       path = urlData.publicUrl
-      
     }
   
     return {
-      user_id: traveller.user_id,
       profiles: {
-        ...traveller.profiles,
+        ...traveller,
         img_path: path,
+        total_amount:  totals[traveller.user_id] ?? 0
       },
     };
-
   });
 
   return travellers as
     | {
-        user_id: string;
+      trip_id:string,
+      created_at:string,
+      user_id:string,
+      role:string,
         profiles: {
           id: string;
           first_name: string;
           last_name: string;
           created_at: string;
           img_path: string;
-          avatar_url: string;
         };
       }[]
     | null;
@@ -308,7 +323,6 @@ export async function getTripExpenses(trip_id : string){
       )`)
     .eq('trip_id', trip_id)
     .order('created_at', {ascending:false})
-
 
   if(error){
     console.log(error)

@@ -16,11 +16,18 @@ type Trip = {
 }
 
 type User = {
-    id: string,
-    first_name: string,
-    last_name: string,
-    created_at: string,
-    img_path: string
+    created_at:string,
+    img_path:string,
+    profiles: {
+        created_at: string,
+        first_name: string,
+        img_path: string,
+        last_name: string
+    }
+    role: string,
+    total_amount: number,
+    trip_id: string,
+    user_id: string
 }
 
 type TripProps = {
@@ -58,7 +65,7 @@ export default function NewExpensePage({trip, travellers} : TripProps){
                         <span className="text-lg font-medium">Paid by</span>
                         <select name="paid_by" id="paid_by" className="border-1 rounded-md p-2 text-gray-600">
                             {travellers?.map(traveller => (
-                                <option key={traveller.id} value={traveller.id}>{traveller.first_name} {traveller.last_name}</option>
+                                <option key={traveller.user_id} value={traveller.user_id}>{traveller.profiles.first_name} {traveller.profiles.last_name}</option>
                             ))}
                         </select>
                     </div>

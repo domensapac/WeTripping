@@ -17,11 +17,18 @@ type Trip = {
 }
 
 type User = {
-    id: string,
-    first_name: string,
-    last_name: string,
-    created_at: string,
-    img_path: string
+    created_at:string,
+    img_path:string,
+    profiles: {
+        created_at: string,
+        first_name: string,
+        img_path: string,
+        last_name: string
+    }
+    role: string,
+    total_amount: number,
+    trip_id: string,
+    user_id: string
 }
 
 type Expense = {
@@ -38,21 +45,17 @@ type Expense = {
     created_at: string
 }
 
-interface UserTotal {
-  user: User;
-  total_amount: number;
-}
 
 type TripProps = {
     trip: Trip | null,
     travellers: User[] | null,
     expenses: Expense[] | null,
     authUserId: string | null,
-    calculatedExpenses: UserTotal[] | null;
 }
 
-export default function TripPage({trip, travellers, expenses, authUserId, calculatedExpenses} : TripProps){
+export default function TripPage({trip, travellers, expenses, authUserId} : TripProps){
 
+    console.log(travellers)
 
     const numberOfTravellers = travellers?.length
     const numberOfExpenses = expenses?.length || 0
@@ -107,6 +110,9 @@ export default function TripPage({trip, travellers, expenses, authUserId, calcul
         }, [ref]);
     }
 
+    const tmp = travellers?.find((obj) => obj.user_id === authUserId)
+
+    const [myTotal, setMyTotal] = useState<number>(tmp?.total_amount || 0)
     const [checkBox, setCheckBox] = useState<boolean>(false)
     const [inviteLink, setInviteLink] = useState<string>('')
     const [inviteShown, setInviteShown] = useState<boolean>(false)
@@ -156,6 +162,7 @@ export default function TripPage({trip, travellers, expenses, authUserId, calcul
         router.push("/");
     }
 
+
     return(
         <div className={`flex flex-col w-full gap-2 m-8 relative`}>  
             {inviteShown === true ? 
@@ -169,22 +176,22 @@ export default function TripPage({trip, travellers, expenses, authUserId, calcul
                             </button>
                         </div>
                         <div className="flex flex-col mt-3 gap-4">
-                            <div className="my-2 flex flex-col">
+                            <div className="mt-4 flex flex-col">
                                 <span className="text-lg ">Additional</span>
                                 <div className="flex items-center gap-1">
                                     <input 
-                                        type="checkbox" 
-                                        name="tomato" 
+                                        type="radio" 
+                                        name="selection" 
                                         checked={checkBox}
                                         onChange={(e) => setCheckBox(e.target.checked)}
                                     />
                                     <label>Doesn't expire</label>
                                 </div>
-                                <div className="w-full flex items-center text-xs gap-2 mt-7">
+                                <div className="w-full flex items-center text-xs gap-2 mt-8">
                                     <span className="grow truncate border-1 rounded-md p-2 text-gray-600 text-sm">{inviteLink || "No link yet.."}</span>
                                     <button className={`${inviteLink === "" ? "bg-indigo-100" : "bg-[#0d3978]"} text-sm font-medium text-white hover:cursor-pointer px-3 py-2  rounded-full shadow-xs`} onClick={handleCopy}> <Copy className="h-full p-1 hover:cursor-pointer group-active:scale-85"/> </button>
                                 </div>
-                                <button className="mt-8 w-full text-sm font-medium text-white bg-[#0d3978] hover:cursor-pointer px-2 py-2  rounded-full shadow-xs w-30" onClick={handleInviteCreate}>Create invite</button>      
+                                <button className="mt-5 w-full text-sm font-medium text-white bg-[#0d3978] hover:cursor-pointer px-2 py-2  rounded-full shadow-xs w-30" onClick={handleInviteCreate}>Create invite</button>      
                             </div>
                         </div>
                     </div>
@@ -196,22 +203,25 @@ export default function TripPage({trip, travellers, expenses, authUserId, calcul
                 <div className="fixed inset-0 w-full flex justify-center z-50 items-center">
                     <div ref={wrapperRefProfiles} className="p-8 border-1 border-gray-300 w-[90%] h-90 relative z-70 bg-white rounded-sm shadow-xs">
                         <div className="flex justify-between">
-                            <span className="text-xl font-medium">View profiles</span>
+                            <span className="text-2xl font-medium">View profiles</span>
                             <button onClick={() => setProfilesShown(!profilesShown)}>
                                 <X className=""/>
                             </button>
                         </div>
                         <div className="h-[90%] flex flex-col mt-3 gap-4 overflow-x-auto">
                             {travellers?.map( traveller => (
-                                <Link key={traveller.id} href={`/profile/${traveller.id}`}>
+                                <Link key={traveller.user_id} href={`/profile/${traveller.user_id}`}>
                                 <div className="bg-[#A16207]/5 border-1 border-gray-200 rounded-sm shadow-xs px-2 py-2 flex flex-col" >
                                     <div className="flex items-center text-sm">
                                         <span className="mx-2">
                                             {traveller.img_path !== '' ? 
-                                                <img className="w-12 h-12 object-cover rounded-full" alt="avatar" src={traveller.img_path}/> :
-                                                <User strokeWidth={1} className="w-6 h-6" />}
+                                                <img className="w-10 h-10 object-cover rounded-full" alt="avatar" src={traveller.img_path}/> :
+                                                <User strokeWidth={1} className="w-10 h-10 rounded-full" />}
                                         </span>
-                                        <span className="text-md">{traveller.first_name} {traveller.last_name}</span>
+                                        <div className="flex flex-col">
+                                            <span className="text-md">{traveller.profiles.first_name} {traveller.profiles.last_name}</span>
+                                            <span className="text-xs text-gray-500">Joined on {format(traveller.created_at, "dd.MM")}</span>
+                                        </div>
                                         <span className="ml-auto me-3"><ArrowRight/></span>
                                     </div>
                                 </div>
@@ -283,19 +293,36 @@ export default function TripPage({trip, travellers, expenses, authUserId, calcul
                     <button className="active:scale-95 flex items-center text-md font-medium text-white bg-[#0d3978] hover:cursor-pointer px-2 rounded-full shadow-md" onClick={() => setInviteShown(true)}><Share height={15}/> Invite</button>
                 </div>
                 <div className="bg-[#c1e0ff]/40 mt-2 flex flex-col p-4 rounded-lg shadow-xs gap-4">
-                    {travellers?.map(traveller => (
-                        <div className="flex flex-col" key={traveller.id}>
+                    {travellers?.map(traveller => {
+                        const difference = traveller.total_amount / travellers.length - myTotal / travellers.length 
+                        const isOwed = difference < 0
+
+                        return (
+                        <div className="flex flex-col" key={traveller.user_id}>
                             <div className="flex items-center text-sm">
                                 <span className="mx-2">
                                     {traveller.img_path !== '' ? 
                                         <img className="w-6 h-6 object-cover rounded-full" alt="avatar" src={traveller.img_path}/> :
                                         <User strokeWidth={1} className="w-6 h-6" />}
                                 </span>
-                                <span className="text-gray-800">{traveller.first_name} {traveller.last_name}</span>
-                                <span className="ml-auto">You owe...</span>
+                                <span className="text-gray-800">{traveller.profiles.first_name} {traveller.profiles.last_name}</span>
+
+                                {traveller.user_id != authUserId ?
+                                <>
+                                    {difference === 0 ? 
+                                    <>
+                                        <span className="ml-auto">No history yet..</span>
+                                    </> : 
+                                    <>
+                                        <span className={`${isOwed ? "text-green-500" : "text-red-500"} ml-auto`}>{ isOwed ? `Owes you ${(-difference).toFixed(2)}€` : `You owe ${(difference).toFixed(2)}€`}</span>
+                                    </>}
+                                </> : 
+                                <>
+                                </>
+                                }
                             </div>
                         </div>
-                    ))}
+                    )})}
                 </div>
             </div>
         </div>
