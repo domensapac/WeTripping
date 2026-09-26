@@ -31,11 +31,11 @@ export default function SuccessPage({destination, dates, inviteLink} : PropType)
                 <div className="my-2">
                     <span>Now let's invite your friends</span>
                 </div>
-                <div className="my-2 flex flex-col">
+                <div className="mt-4 flex flex-col w-full px-3">
                     <span className="text-xs">Invite by link</span>        
-                    <div className="flex items-center text-xs gap-2">
-                        <span className="border-1 border-gray-300 rounded-sm w-60 truncate p-1">{inviteLink}</span>
-                        <button className="border-1 border-black rounded-sm flex items-center hover:cursor-pointer group p-1 " onClick={handleCopy}> <Copy className="h-2 hover:cursor-pointer group-active:scale-85"/> Copy link</button>
+                    <div className="w-full flex items-center text-xs gap-2">
+                        <span className="grow truncate border-1 rounded-md p-2 text-gray-600 text-sm">{inviteLink}</span>
+                        <button className={`${inviteLink === "" ? "bg-indigo-100" : "bg-[#0d3978]"} text-sm font-medium text-white hover:cursor-pointer px-3 py-2  rounded-full shadow-xs`} onClick={handleCopy}> <Copy className="h-full p-1 hover:cursor-pointer group-active:scale-85"/> </button>
                     </div>
                 </div>
             </div>

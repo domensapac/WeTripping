@@ -306,7 +306,9 @@ export async function getTripExpenses(trip_id : string){
         last_name,
         img_path
       )`)
-    .eq('trip_id', trip_id);
+    .eq('trip_id', trip_id)
+    .order('created_at', {ascending:false})
+
 
   if(error){
     console.log(error)

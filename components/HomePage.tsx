@@ -1,9 +1,10 @@
 'use client'
 
 import Link from "next/link";
-import { Bell, LayoutGrid, User, Search, Rows3, EllipsisVertical} from 'lucide-react';
+import { Bell, LayoutGrid, User, Search, Rows3, X} from 'lucide-react';
 import { format, formatDistance } from "date-fns";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDebouncedCallback } from 'use-debounce';
 
 type Notification = {
     id: string,
@@ -34,10 +35,35 @@ type HomeProps = {
 
 export default function HomePage({trips, notifications} : HomeProps){
 
+    const [searchTerm, setSearchTerm] = useState<string>('')
+    const [search, setSearch] = useState<string>('')
+    const [shownTrips, setShownTrips] = useState(trips)
+    const [typing, setTyping] = useState<boolean>(false)
     const [view, setView] = useState('list')
-    const [visible, setVisible] = useState<boolean>(false) 
 
     const numberOfNotifications = notifications?.filter( el => el.was_read == false).length
+
+    function handleTyping(value : string){
+      setSearchTerm(value)
+    }
+
+    const debounced = useDebouncedCallback(
+      (value) => {
+        setSearch(value)
+      }, 500
+    )
+
+    useEffect(() => {
+      const filteredTrips = trips?.filter((trip) => 
+        trip?.name.toLowerCase().includes(search.toLowerCase())
+      ) ?? []
+      setShownTrips(filteredTrips || trips)
+    }, [search])
+
+    function handleClear(){
+      setSearchTerm('')
+      setSearch('')
+    }
 
     return(
     <div className={`flex flex-col w-full gap-3 m-8 relative`}>      
@@ -62,8 +88,9 @@ export default function HomePage({trips, notifications} : HomeProps){
         </div>
       </div>
       <div className="relative mt-3">
-        <input type="text" id="search" name="search" className="peer p-3 border-1 border-[#0d3978] rounded-sm shadow-xs w-full h-12 focus:shadow-md md:w-70"></input>
-        <span className="peer-focus:invisible pointer-events-none text-gray-500 relative -top-9 left-3 flex gap-2 items-start"><Search/> Search for trip</span>
+        <input type="text" id="search" name="search" className="peer p-3 border-1 border-[#0d3978] rounded-sm shadow-xs w-full h-12 focus:shadow-md md:w-70 px-10" value={searchTerm} placeholder="Search for trip" onChange={e => { debounced(e.target.value); handleTyping(e.target.value) }} ></input>
+        <span className="peer-focus:opacity-70 pointer-events-none text-gray-500 relative -top-9 left-3 flex gap-2 items-start"><Search/></span>
+        <button onClick={handleClear} ><X className={`${searchTerm ? "flex" : "hidden"} absolute right-3 top-3`} strokeWidth={1}/></button>
       </div>
       <div>
         <span className="text-xl font-semibold ">My Trips </span>
@@ -79,7 +106,7 @@ export default function HomePage({trips, notifications} : HomeProps){
             </div>
           </div>
         </> :""} 
-        {trips?.map(trip => (
+        {shownTrips?.map(trip => (
           <Link key={trip.id} href={`/trip/${trip.id}`}>
             <div className={`bg-[#c1e0ff]/40 shrink-0 flex flex-col min-h-30 rounded-lg p-3 shadow-xs relative ${view === 'list' ? "w-full" : "col-span-1"}`}>
                 <span className={`flex w-full ${view === 'list' ? "justify-between items-baseline" : "flex-col"}`}>
@@ -95,7 +122,6 @@ export default function HomePage({trips, notifications} : HomeProps){
                   <span>{trip.created_by.first_name} {trip.created_by.last_name} </span>
                   </span>
                 </div>
-                
             </div>
           </Link>
         ))}
