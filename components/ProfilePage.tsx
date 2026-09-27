@@ -1,8 +1,8 @@
 'use client'
 
-import { logout } from "@/app/(auth)/actions"
+import { deleteAccount, logout } from "@/app/(auth)/actions"
 import AvatarSection from "@/components/AvatarSection";
-import { Mail, Phone, User } from "lucide-react";
+import { Mail, Phone, User, Info  } from "lucide-react";
 import { format } from "date-fns"
 import { useEffect, useRef, useState } from "react";
 
@@ -48,9 +48,22 @@ export default function ProfilePage({data, length}: Props ){
             {shown === true ? 
             <>
                 <div className="fixed inset-0 w-full flex justify-center z-50 items-center">
-                    <div ref={wrapperRef} className="p-8 border-1 border-gray-300 w-[70%] h-40 relative z-70 bg-white rounded-sm shadow-xs">
-                        <button onClick={() => setShown(false)}>Cancel</button>
-                        <button>Delete</button>
+                    <div ref={wrapperRef} className="p-3 border-1 border-gray-300 w-[70%] h-50 relative z-70 bg-white rounded-sm shadow-xs">
+                        <div className="flex flex-col m-2 justify-center">
+                            <div className="w-full flex justify-center">
+                                <Info height={40} strokeWidth={2} color="red" />
+                            </div>
+                            <div className="w-full flex flex-col text-center">
+                                <span className="text-xl font-medium">Are you sure?</span>
+                                <span className="text-sm text-gray-500">This action cannot be undone.</span>
+                            </div>
+                            <div className="flex justify-center items-center mt-6 gap-2">
+                                <button className="py-1.5 px-1 w-20 text-center text-black bg-gray-200 hover:cursor-pointer px-1 rounded-md shadow-xs" onClick={() => setShown(false)}>Cancel</button>
+                                <form action={deleteAccount}>
+                                    <button className="py-1.5 px-1 w-20 text-center text-white bg-red-500 hover:cursor-pointer px-1 rounded-md shadow-xs">Delete</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </>
@@ -66,7 +79,7 @@ export default function ProfilePage({data, length}: Props ){
                     <AvatarSection/>
                 </div>
             </div>
-            <div className="flex flex-col p-4 border-1 border- rounded-lg shadow-xs gap-6 my-7">
+            <div className="flex flex-col p-4 border-1  rounded-lg shadow-xs gap-6 my-7">
                 <div className="text-sm flex items-center">
                     <User strokeWidth={1} className="w-15"/>
                     <div className="flex flex-col w-full">

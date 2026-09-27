@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
-
+import { createClient as createSupabaseClient } from '@supabase/supabase-js'
 
 export type SignInState = {
   error: string | null
@@ -127,6 +127,38 @@ export async function updatePassword(prevState: NewPasswordState, formData: Form
 export async function logout() {
   const supabase = await createClient()
   await supabase.auth.signOut()
+  revalidatePath('/', 'layout')
+  redirect('/signin')
+}
+
+export async function deleteAccount(){
+  const supabase = await createClient()
+
+  const { data: { user } } = await supabase.auth.getUser() 
+
+  if(!user)
+    return
+
+  
+  const supabaseAdmin = createSupabaseClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!, 
+    {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false
+      }
+    }
+  )
+
+  const { error } = await supabaseAdmin.auth.admin.deleteUser(user.id)
+
+  if(error){
+    console.log(error)
+  }
+  
+  await supabase.auth.signOut()
+
   revalidatePath('/', 'layout')
   redirect('/signin')
 }
