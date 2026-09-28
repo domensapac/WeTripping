@@ -210,7 +210,7 @@ export default function TripPage({trip, travellers, expenses, authUserId} : Trip
                         <div className="h-[90%] flex flex-col mt-3 gap-4 overflow-x-auto">
                             {travellers?.map( traveller => (
                                 <Link key={traveller.user_id} href={`/profile/${traveller.user_id}`}>
-                                <div className="bg-[#A16207]/5 border-1 border-gray-200 rounded-sm shadow-xs px-2 py-2 flex flex-col" >
+                                <div className="bg-[#c1e0ff]/30 border-1 border-gray-200 rounded-sm shadow-xs px-2 py-2 flex flex-col" >
                                     <div className="flex items-center text-sm">
                                         <span className="mx-2">
                                             {traveller.profiles.img_path !== '' ? 
@@ -218,7 +218,7 @@ export default function TripPage({trip, travellers, expenses, authUserId} : Trip
                                                 <User strokeWidth={1} className="w-10 h-10 rounded-full" />}
                                         </span>
                                         <div className="flex flex-col">
-                                            <span className="text-md">{traveller.profiles.first_name} {traveller.profiles.last_name}</span>
+                                            <span className="text-md font-medium">{traveller.profiles.first_name} {traveller.profiles.last_name}</span>
                                             <span className="text-xs text-gray-500">Joined on {format(traveller.created_at, "dd.MM")}</span>
                                         </div>
                                         <span className="ml-auto me-3"><ArrowRight/></span>
@@ -231,12 +231,12 @@ export default function TripPage({trip, travellers, expenses, authUserId} : Trip
                 </div>
             </> : 
             " "}
-            <div className={`${profilesShown || inviteShown === true ? " blur-xs": " "} flex flex-col`}>
+            <div className={`${profilesShown || inviteShown === true ? " blur-xs": " "} flex flex-col pb-5`}>
                 <div className={`relative flex w-full justify-center mt-2 mb-5`}>
                     <Link href="/"> <span className="absolute left-0"><MoveLeft/> </span></Link>
                     <span className="font-semibold md:hidden">Trip</span>
                 </div> 
-                <div className="flex flex-col mt-8">
+                <div className="flex flex-col mt-2">
                     <div className="flex justify-between">
                         <span className="text-3xl font-semibold">{trip?.name}</span>
                         <button onClick={() => setShown(!shown)}>

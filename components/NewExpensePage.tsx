@@ -54,16 +54,16 @@ export default function NewExpensePage({trip, travellers} : TripProps){
                     <input type="text" className="hidden" defaultValue={trip?.id} name="id" id="id"></input>
                     <div className="flex flex-col gap-1 relative">
                         <span className="text-lg font-medium">Amount</span>
-                        <input type="text" className="border-1 rounded-md p-2 text-gray-600 " name="amount" id="amount"></input>
+                        <input type="text" className="border-1 rounded-md p-2 text-gray-600 " name="amount" id="amount" required></input>
                         <span className="text-gray-500 absolute right-0 top-1/2 -translate-x-1/2 translate-y-1/5">€</span>
                     </div>
                     <div className="flex flex-col gap-1">
                         <span className="text-lg font-medium">Description</span>
-                        <input type="text" className="border-1 rounded-md p-2 text-gray-600" name="description" id="description"></input>
+                        <input type="text" className="border-1 rounded-md p-2 text-gray-600" name="description" id="description" required></input>
                     </div>
                     <div className="flex flex-col gap-1">
                         <span className="text-lg font-medium">Paid by</span>
-                        <select name="paid_by" id="paid_by" className="border-1 rounded-md p-2 text-gray-600">
+                        <select name="paid_by" id="paid_by" className="border-1 rounded-md p-2 text-gray-600" required>
                             {travellers?.map(traveller => (
                                 <option key={traveller.user_id} value={traveller.user_id}>{traveller.profiles.first_name} {traveller.profiles.last_name}</option>
                             ))}

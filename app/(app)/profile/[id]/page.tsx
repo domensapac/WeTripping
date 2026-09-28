@@ -62,7 +62,7 @@ export default async function ViewProfile({
                     <User strokeWidth={1} className="w-15"/>
                     <div className="flex flex-col w-full">
                         <span className="text-gray-500">About</span>
-                        <span>{data?.first_name} {data?.last_name}</span>
+                        <span className="font-medium">{data?.first_name} {data?.last_name}</span>
                     </div>
                 </div>
             </div>
@@ -73,13 +73,13 @@ export default async function ViewProfile({
                 <div className="text-sm flex items-center">
                     <div className="flex flex-col w-full">
                         <span className="text-gray-500">Trips</span>
-                        <span>{trips?.length}</span>
+                        <span className="font-medium">{trips?.length}</span>
                     </div>
                 </div>
                 <div className="text-sm flex items-center">
                     <div className="flex flex-col w-full">
                         <span className="text-gray-500">Created on</span>
-                        <span>{format(data?.created_at, "LLLL dd, yyyy")} </span>
+                        <span className="font-medium">{format(data?.created_at, "LLLL dd, yyyy")} </span>
                     </div>
                 </div>
             </div>

@@ -84,21 +84,21 @@ export default function ProfilePage({data, length}: Props ){
                     <User strokeWidth={1} className="w-15"/>
                     <div className="flex flex-col w-full">
                         <span className="text-gray-500">About me</span>
-                        <span>{data?.first_name} {data?.last_name}</span>
+                        <span className="font-medium">{data?.first_name} {data?.last_name}</span>
                     </div>
                 </div>
                 <div className="text-sm flex items-center">
                     <Phone strokeWidth={1} className="w-15"/>
                     <div className="flex flex-col w-full">
                         <span className="text-gray-500">Mobile number</span>
-                        <span>/</span>
+                        <span className="font-medium">/</span>
                     </div>
                 </div>
                 <div className="text-sm flex items-center">
                     <Mail strokeWidth={1} className="w-15"/>
                     <div className="flex flex-col w-full">
                         <span className="text-gray-500">Email</span>
-                        <span>{data?.email}</span>
+                        <span className="font-medium">{data?.email}</span>
                     </div>
                 </div>
             </div>
@@ -109,13 +109,13 @@ export default function ProfilePage({data, length}: Props ){
                 <div className="text-sm flex items-center">
                     <div className="flex flex-col w-full">
                         <span className="text-gray-500">Trips</span>
-                        <span>{length}</span>
+                        <span className="font-medium">{length}</span>
                     </div>
                 </div>
                 <div className="text-sm flex items-center">
                     <div className="flex flex-col w-full">
                         <span className="text-gray-500">Joined on</span>
-                        <span>{format(data?.created_at, "LLLL dd, yyyy")} </span>
+                        <span className="font-medium">{format(data?.created_at, "LLLL dd, yyyy")} </span>
                     </div>
                 </div>
             </div>
@@ -126,19 +126,19 @@ export default function ProfilePage({data, length}: Props ){
                 <div className="text-sm flex items-center">
                     <div className="flex flex-col w-full">
                         <form action={logout}>
-                            <button className="text-gray-500">Log out</button>
+                            <button className=" font-medium">Log out</button>
                         </form>
                     </div>
                 </div>
                 <div className="text-sm flex items-center">
                     <div className="flex flex-col w-full">
-                        <span className="text-gray-500">Help</span>
+                        <span className="font-medium">Help</span>
                     </div>
                 </div>
                 <div className="text-sm flex items-center">
                     <div className="flex flex-col">
                         <button onClick={() => setShown(true)}>
-                            <span className="text-gray-500">Delete account</span>
+                            <span className="font-medium">Delete account</span>
                         </button>
                     </div>
                 </div>
