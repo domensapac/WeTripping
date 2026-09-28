@@ -16,18 +16,17 @@ type Trip = {
 }
 
 type User = {
+    trip_id:string,
     created_at:string,
-    img_path:string,
+    user_id:string,
+    role:string,
     profiles: {
-        created_at: string,
-        first_name: string,
-        img_path: string,
-        last_name: string
+        id: string;
+        first_name: string;
+        last_name: string;
+        created_at: string;
+        img_path: string;
     }
-    role: string,
-    total_amount: number,
-    trip_id: string,
-    user_id: string
 }
 
 type TripProps = {

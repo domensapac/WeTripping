@@ -17,6 +17,7 @@ export default async function NewExpense({
 
     const travellers = tripTravellers?.map(t => t.profiles) ?? []
 
+    console.log("TRAVELLERS FORMAT:", travellers)
     
     return(
         <NewExpensePage trip={tripData} travellers={travellers}/>
