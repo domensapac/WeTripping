@@ -26,6 +26,7 @@ type User = {
         last_name: string;
         created_at: string;
         img_path: string;
+        total_amount: number;
     }
 }
 

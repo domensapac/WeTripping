@@ -17,18 +17,18 @@ type Trip = {
 }
 
 type User = {
+    trip_id:string,
     created_at:string,
-    img_path:string,
+    user_id:string,
+    role:string,
     profiles: {
-        created_at: string,
-        first_name: string,
-        img_path: string,
-        last_name: string
+        id: string;
+        first_name: string;
+        last_name: string;
+        created_at: string;
+        img_path: string;
+        total_amount: number;
     }
-    role: string,
-    total_amount: number,
-    trip_id: string,
-    user_id: string
 }
 
 type Expense = {
@@ -55,7 +55,7 @@ type TripProps = {
 
 export default function TripPage({trip, travellers, expenses, authUserId} : TripProps){
 
-    console.log(travellers)
+    console.log("FORMAT PREJET:", travellers)
 
     const numberOfTravellers = travellers?.length
     const numberOfExpenses = expenses?.length || 0
@@ -112,7 +112,7 @@ export default function TripPage({trip, travellers, expenses, authUserId} : Trip
 
     const tmp = travellers?.find((obj) => obj.user_id === authUserId)
 
-    const [myTotal, setMyTotal] = useState<number>(tmp?.total_amount || 0)
+    const [myTotal, setMyTotal] = useState<number>(tmp?.profiles.total_amount || 0)
     const [checkBox, setCheckBox] = useState<boolean>(false)
     const [inviteLink, setInviteLink] = useState<string>('')
     const [inviteShown, setInviteShown] = useState<boolean>(false)
@@ -213,8 +213,8 @@ export default function TripPage({trip, travellers, expenses, authUserId} : Trip
                                 <div className="bg-[#A16207]/5 border-1 border-gray-200 rounded-sm shadow-xs px-2 py-2 flex flex-col" >
                                     <div className="flex items-center text-sm">
                                         <span className="mx-2">
-                                            {traveller.img_path !== '' ? 
-                                                <img className="w-10 h-10 object-cover rounded-full" alt="avatar" src={traveller.img_path}/> :
+                                            {traveller.profiles.img_path !== '' ? 
+                                                <img className="w-10 h-10 object-cover rounded-full" alt="avatar" src={traveller.profiles.img_path}/> :
                                                 <User strokeWidth={1} className="w-10 h-10 rounded-full" />}
                                         </span>
                                         <div className="flex flex-col">
@@ -293,15 +293,15 @@ export default function TripPage({trip, travellers, expenses, authUserId} : Trip
                 </div>
                 <div className="bg-[#c1e0ff]/40 mt-2 flex flex-col p-4 rounded-lg shadow-xs gap-4">
                     {travellers?.map(traveller => {
-                        const difference = traveller.total_amount / travellers.length - myTotal / travellers.length 
+                        const difference = traveller.profiles.total_amount / travellers.length - myTotal / travellers.length 
                         const isOwed = difference < 0
 
                         return (
                         <div className="flex flex-col" key={traveller.user_id}>
                             <div className="flex items-center text-sm">
                                 <span className="mx-2">
-                                    {traveller.img_path !== '' ? 
-                                        <img className="w-6 h-6 object-cover rounded-full" alt="avatar" src={traveller.img_path}/> :
+                                    {traveller.profiles.img_path !== '' ? 
+                                        <img className="w-6 h-6 object-cover rounded-full" alt="avatar" src={traveller.profiles.img_path}/> :
                                         <User strokeWidth={1} className="w-6 h-6" />}
                                 </span>
                                 <span className="text-gray-800">{traveller.profiles.first_name} {traveller.profiles.last_name}</span>

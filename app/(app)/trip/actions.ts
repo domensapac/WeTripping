@@ -241,6 +241,8 @@ export async function getTripTravellers(trip_id: string) {
     return null;
   }
 
+  console.log("FORMAT 1: ", data)
+
   const totals = expenses?.reduce((acc: Record<string, number>, e) => {
     acc[e.paid_by] = (acc[e.paid_by] || 0) + e.amount;
     return acc;
@@ -259,13 +261,15 @@ export async function getTripTravellers(trip_id: string) {
     }
   
     return {
-      profiles: {
-        ...traveller,
+      ...traveller,
+      profiles:{
+        ...traveller.profiles,
         img_path: path,
         total_amount:  totals[traveller.user_id] ?? 0
-      },
-    };
+    }}
   });
+
+  console.log("FORMAT 2: ", travellers)
 
   return travellers as
     | {
@@ -273,13 +277,14 @@ export async function getTripTravellers(trip_id: string) {
       created_at:string,
       user_id:string,
       role:string,
-        profiles: {
-          id: string;
-          first_name: string;
-          last_name: string;
-          created_at: string;
-          img_path: string;
-        };
+      profiles: {
+        id: string;
+        first_name: string;
+        last_name: string;
+        created_at: string;
+        img_path: string;
+        total_amount: number;
+      };
       }[]
     | null;
 }

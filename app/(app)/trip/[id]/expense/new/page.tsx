@@ -15,11 +15,11 @@ export default async function NewExpense({
     
     const tripTravellers = await getTripTravellers(id)
 
-    const travellers = tripTravellers?.map(t => t.profiles) ?? []
+    //const travellers = tripTravellers?.map(t => t.profiles) ?? []
 
-    console.log("TRAVELLERS FORMAT:", travellers)
+    console.log("TRAVELLERS FORMAT:", tripTravellers)
     
     return(
-        <NewExpensePage trip={tripData} travellers={travellers}/>
+        <NewExpensePage trip={tripData} travellers={tripTravellers}/>
     )
 }

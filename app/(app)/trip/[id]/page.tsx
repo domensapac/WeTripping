@@ -3,11 +3,19 @@ import { getTripData, getTripExpenses, getTripTravellers } from "../actions";
 import { getAuthenticatedUser } from "@/app/(auth)/actions";
 
 type User = {
-    id: string,
-    first_name: string,
-    last_name: string,
-    created_at: string,
-    img_path: string
+    created_at:string,
+    img_path:string,
+    profiles: {
+        created_at: string,
+        first_name: string,
+        id: string,
+        img_path: string,
+        last_name: string
+    }
+    role: string,
+    total_amount: number,
+    trip_id: string,
+    user_id: string
 }
 
 interface Expense {
@@ -42,10 +50,12 @@ export default async function Trip({
     ])
     
 
+    
+    //const travellers = tripTravellers?.map(t => t.profiles) ?? []
 
-    const travellers = tripTravellers?.map(t => t.profiles) ?? []
+    console.log("FORMAT ODDAN: ", tripTravellers)
 
     return (
-        <TripPage trip={tripData} travellers={travellers} expenses={tripExpenses} authUserId={authUser?.id || ''}/>
+        <TripPage trip={tripData} travellers={tripTravellers} expenses={tripExpenses} authUserId={authUser?.id || ''}/>
     );
 }
