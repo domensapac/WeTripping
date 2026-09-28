@@ -259,14 +259,23 @@ export async function getTripTravellers(trip_id: string) {
 
       path = urlData.publicUrl
     }
-  
+    if(totals){
+      return {
+      ...traveller,
+      profiles:{
+        ...traveller.profiles,
+        img_path: path,
+        total_amount:  totals[traveller.user_id]
+    }}}
+    
     return {
       ...traveller,
       profiles:{
         ...traveller.profiles,
         img_path: path,
-        total_amount:  totals[traveller.user_id] ?? 0
+        total_amount:  0
     }}
+    
   });
 
   console.log("FORMAT 2: ", travellers)
