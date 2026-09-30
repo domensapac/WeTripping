@@ -293,7 +293,14 @@ export default function TripPage({trip, travellers, expenses, authUserId} : Trip
                 </div>
                 <div className="bg-[#c1e0ff]/40 mt-2 flex flex-col p-4 rounded-lg shadow-xs gap-4">
                     {travellers?.map(traveller => {
-                        const difference = traveller.profiles.total_amount / travellers.length - myTotal / travellers.length 
+                        var difference
+                        if(!traveller.profiles.total_amount){
+                            difference = myTotal / travellers.length 
+                        }
+                        else{
+                            difference = traveller.profiles.total_amount / travellers.length - myTotal / travellers.length 
+                        }
+
                         const isOwed = difference < 0
 
                         return (
